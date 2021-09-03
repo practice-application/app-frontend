@@ -1,0 +1,101 @@
+{
+  "name": "application",
+  "version": "1.0.0",
+  "description": "Frontend of applicaition",
+  "private": true,
+  "dependencies": {
+    "@auth0/auth0-react": "^1.4.0",
+    "@emotion/react": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
+    "@material-ui/core": "^5.0.0-beta.2",
+    "@material-ui/icons": "^5.0.0-beta.1",
+    "@material-ui/styles": "^5.0.0-beta.2",
+    "@optimizely/react-sdk": "^2.4.0",
+    "@stripe/react-stripe-js": "^1.4.0",
+    "@stripe/stripe-js": "^1.13.2",
+    "@testing-library/jest-dom": "^5.12.0",
+    "css-mediaquery": "^0.1.2",
+    "depcheck": "^1.4.2",
+    "google-protobuf": "^3.15.8",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-ga": "^2.7.0",
+    "react-markdown": "^4.3.1",
+    "react-router-dom": "^5.1.2",
+    "react-router-hash-link": "^1.2.2",
+    "react-scripts": "^3.4.1",
+    "typescript": "^3.9.5"
+  },
+  "scripts": {
+    "start": "REACT_APP_STAGE=dev react-scripts start",
+    "build": "react-scripts build",
+    "build:stg": "REACT_APP_STAGE=stg react-scripts build",
+    "build:prd": "REACT_APP_STAGE=prd react-scripts build",
+    "test": "react-scripts test",
+    "e2e": "CYPRESS_BASE_URL=http://localhost:3000 cypress run --headless",
+    "e2e:open": "CYPRESS_BASE_URL=http://localhost:3000 cypress open"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "plugin:jsx-a11y/recommended",
+      "plugin:cypress/recommended"
+    ],
+    "plugins": [
+      "jsx-a11y",
+      "import"
+    ],
+    "rules": {
+      "import/order": [
+        "warn",
+        {
+          "groups": [
+            "builtin",
+            "external",
+            "internal"
+          ],
+          "pathGroups": [
+            {
+              "pattern": "react",
+              "group": "external",
+              "position": "before"
+            }
+          ],
+          "pathGroupsExcludedImportTypes": [
+            "react"
+          ],
+          "newlines-between": "always",
+          "alphabetize": {
+            "order": "asc",
+            "caseInsensitive": true
+          }
+        }
+      ]
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "cypress": "^6.5.0",
+    "cypress-axe": "^0.8.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-cypress": "^2.11.1",
+    "eslint-plugin-flowtype": "^4.7.0",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^4.0.4",
+    "prop-types": "^15.6.2"
+  }
+}
