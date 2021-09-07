@@ -6,6 +6,5 @@ export const config = {
         orgApi: `${url}/organisation`,
         productApi: `${url}/products`,
     }
-
 }
 

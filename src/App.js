@@ -8,7 +8,7 @@ import { Layout } from './components/Layout';
 import { WaitSkeleton } from './components/WaitSkeleton';
 import { custom } from './theme';
 
-const Home = lazy(() => import('./views/Home'));
+const Profile = lazy(() => import('./views/Profile'));
 
 
 let theme = createTheme(custom);
@@ -24,7 +24,7 @@ const App = () => {
         <Layout>
           <Suspense fallback={<WaitSkeleton visible={true} />}>
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" component={Profile} />
             </Switch>
           </Suspense>
         </Layout>
