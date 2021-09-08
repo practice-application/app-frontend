@@ -68,13 +68,6 @@ export const components = {
             }
         }
     },
-    MuiFormLabel: {
-        styleOverrides: {
-            root: {
-                fontSize: '0.875rem',
-            },
-        }
-    },
     MuiLink: {
         styleOverrides: {
             root: {
@@ -126,17 +119,6 @@ export const components = {
             gutterBottom: {
                 marginBottom: '1em',
             },
-        }
-    },
-    MuiOutlinedInput: {
-        styleOverrides: {
-            root: {
-                color: '#606D7C',
-                height: '2.35rem',
-            },
-            multiline: {
-                height: '6rem'
-            }
         }
     },
     MuiListItemText: {

@@ -29,6 +29,7 @@ export const palette = {
         line7: '#E5E7EC',
         cloud: '#F8FAFD',
     },
+
     contrastThreshold: 4,
     tonalOffset: 0.2,
 

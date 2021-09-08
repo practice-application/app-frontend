@@ -15,42 +15,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Link as RouterLink, /* useLocation */ } from 'react-router-dom';
 
-import { HomeIcon } from '../icons/HomeIcon';
 import MenuDialog from '../MenuDialog'
-
-
-// const useStyles = makeStyles(theme => ({
-//     toolbar: {
-//         margin: theme.spacing(0, 4),
-//         [theme.breakpoints.down('sm')]: {
-//             padding: theme.spacing(0, 0),
-//         },
-//     },
-//     navItem: {
-//         color: theme.palette.text.secondary,
-//         margin: theme.spacing(0, 2),
-//     },
-//     selected: {
-//         color: theme.palette.secondary.main,
-//     },
-
-//     detailMenu: {
-//         background: theme.palette.background.default,
-//     },
-//     menuItem: {
-//         color: theme.palette.primary.main,
-//         fontSize: '0.875rem',
-//         fontWeight: 600,
-//         '&:focus': {
-//             backgroundColor: theme.palette.secondary.main,
-//             color: theme.palette.background.default,
-//             '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-//                 color: theme.palette.background.default,
-//             },
-//         },
-//     },
-
-// }));
 
 const MenuItems = [
     { label: 'Demo', link: '/' },
@@ -72,7 +37,7 @@ export const Header = () => {
 
             }}>
                 <Link component={RouterLink} sx={{ display: 'flex', '& svg': { fontSize: '3rem' } }} to="/">
-                    <HomeIcon alt="" />
+                    HOME
                 </Link>
                 <Box flexGrow={1}>
                     <Hidden smDown>
