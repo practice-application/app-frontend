@@ -9,6 +9,8 @@ import { WaitSkeleton } from './components/WaitSkeleton';
 import { custom } from './theme';
 
 const Profile = lazy(() => import('./views/Profile'));
+const Create = lazy(() => import('./views/Create'));
+const CustomerList = lazy(() => import('./views/CustomerList'));
 
 
 let theme = createTheme(custom);
@@ -24,7 +26,9 @@ const App = () => {
         <Layout>
           <Suspense fallback={<WaitSkeleton visible={true} />}>
             <Switch>
-              <Route exact path="/" component={Profile} />
+              <Route exact path="/customer" component={Profile} />
+              <Route exact path="/registration" component={Create} />
+              <Route exact path="/customers" component={CustomerList} />
             </Switch>
           </Suspense>
         </Layout>

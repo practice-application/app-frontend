@@ -3,11 +3,11 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import Stack from '@material-ui/core/Stack';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
+import { TextInput } from '../../components/TextInput'
 import { config } from '../../config'
-import CreateProfile from '../Create'
+
 
 const reqInit = {
     method: "GET",
@@ -33,7 +33,7 @@ const Profile = () => {
                 setPeople(json);
             }
         };
-        fetchPeople('a65a0ad6-0783-4500-9461-171ed0ae010a');
+        fetchPeople('d3439211-17dc-4c41-b735-a1de98c05047');
     }, []);
     const change = () => {
         setView(false);
@@ -58,12 +58,11 @@ const Profile = () => {
             }
             {view === false &&
                 <Stack>
-                    <TextField label="First Name" variant="outlined" />
-                    <TextField label="Last Name" variant="outlined" />
+                    <TextInput label="First Name" />
+                    <TextInput label="Last Name" />
                     <Button variant="contained" > Submit</Button>
                 </Stack>
             }
-            <CreateProfile />
         </>
     )
 }
