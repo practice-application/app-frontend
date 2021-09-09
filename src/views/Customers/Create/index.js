@@ -102,7 +102,7 @@ const CreatePerson = () => {
                             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                             type="number"
                             id="filled-required"
-                            label="phone"
+                            label="Phone Number"
                             onChange={e => setPerson({ ...person, phone: e.target.value })}
                         />
                         <Button
