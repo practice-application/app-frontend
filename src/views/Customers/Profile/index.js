@@ -10,8 +10,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import CreateIcon from '@material-ui/icons/Create';
 import { useParams } from "react-router-dom";
 
-import { TextInput } from '../../../components/TextInput'
-import { config, getReqInit } from '../../../config'
+import { TextInput } from '../../../components/TextInput';
+import { Trail } from '../../../components/Trail';
+import { config, getReqInit } from '../../../config';
 
 const reqInit = getReqInit
 const peopleUrl = config.goService.peopleApi
@@ -34,7 +35,6 @@ const Profile = () => {
         }
         return isValid;
     }
-
 
     const handleUpdate = async () => {
         if (validEmail()) {
@@ -88,10 +88,23 @@ const Profile = () => {
 
     return (
         <>
-            <Button
-                variant={view === true ? "contained" : "outlined"}
-                endIcon={view === true ? <CreateIcon fontSize="small" /> : <CloseIcon fontSize="small" />}
-                onClick={view === true ? change : changeBack}> {view === true ? "Edit Profile" : "Cancel"}</Button>
+            <Grid
+                container
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="flex-start"
+                spacing={2}
+            >
+                <Grid item>
+                    <Trail pageName="Customers" returningPage="/customers" currentPage={person.firstName + ' ' + person.lastName} />
+                </Grid>
+                <Grid item>
+                    <Button
+                        variant={view === true ? "contained" : "outlined"}
+                        endIcon={view === true ? <CreateIcon fontSize="small" /> : <CloseIcon fontSize="small" />}
+                        onClick={view === true ? change : changeBack}> {view === true ? "Edit Profile" : "Cancel"}</Button>
+                </Grid>
+            </Grid>
             <Container maxWidth="sm">
                 {view === true &&
                     <Card>
@@ -143,6 +156,8 @@ const Profile = () => {
                             onChange={e => setPerson({ ...person, email: e.target.value })}
                         />
                         <TextInput
+                            type="number"
+                            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                             value={person.phone}
                             id="phone"
                             label="Phone"
