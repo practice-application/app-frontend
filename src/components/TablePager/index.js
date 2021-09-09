@@ -22,7 +22,7 @@ export const TablePager = props => {
                     {hasMore &&
                         <TableRow>
                             <TableCell colSpan={props.colSpan} align="center">
-                                <Button variant="contained"  onClick={props.onPage}>Load More</Button>
+                                <Button variant="contained" onClick={props.onPage}>Load More</Button>
                             </TableCell>
                         </TableRow>
                     }
@@ -34,12 +34,12 @@ export const TablePager = props => {
 
 TablePager.propTypes = {
     count: PropTypes.number.isRequired,
-    total: PropTypes.number, //.isRequired,
+    total: PropTypes.number.isRequired,
     colSpan: PropTypes.number.isRequired,
     onPage: PropTypes.func,
 };
 
-// TablePager.defaultProps = {
-//     count: 0,
-//     total: 0,
-// };
+TablePager.defaultProps = {
+    count: 0,
+    total: 0,
+};
