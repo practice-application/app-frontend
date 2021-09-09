@@ -27,7 +27,6 @@ const CreatePerson = () => {
                 isValid = false;
                 setErrorMessage('Please enter a valid email address');
             }
-
         }
         return isValid;
     }
@@ -68,7 +67,6 @@ const CreatePerson = () => {
         <>
             <Trail pageName="Customers" returningPage="/customers" currentPage="New Customer" />
             <Container maxWidth="sm">
-
                 {!submitted &&
                     <>
                         <Grid container spacing={1}>
@@ -107,7 +105,6 @@ const CreatePerson = () => {
                             label="phone"
                             onChange={e => setPerson({ ...person, phone: e.target.value })}
                         />
-
                         <Button
                             sx={{ marginTop: 2 }}
                             variant="contained"
