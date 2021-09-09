@@ -13,7 +13,7 @@ export const Footer = () => {
             height: 3
         }}>
             <Typography variant="body2" component="span">
-                Made by ©Avid AML Limited in New Zealand
+                Made by Zachary Weston with love
             </Typography>
         </Box>
     );

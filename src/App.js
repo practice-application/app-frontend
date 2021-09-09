@@ -8,16 +8,15 @@ import { Layout } from './components/Layout';
 import { WaitSkeleton } from './components/WaitSkeleton';
 import { custom } from './theme';
 
-const Profile = lazy(() => import('./views/Profile'));
-const Create = lazy(() => import('./views/Create'));
-const CustomerList = lazy(() => import('./views/CustomerList'));
-
+const Profile = lazy(() => import('./views/Customers/Profile'));
+const Create = lazy(() => import('./views/Customers/Create'));
+const CustomerList = lazy(() => import('./views/Customers/CustomerList'));
 
 let theme = createTheme(custom);
 theme = responsiveFontSizes(theme)
 
-
 const App = () => {
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -26,8 +25,8 @@ const App = () => {
         <Layout>
           <Suspense fallback={<WaitSkeleton visible={true} />}>
             <Switch>
-              <Route exact path="/customer" component={Profile} />
-              <Route exact path="/registration" component={Create} />
+              <Route exact path="/customers/:id" component={Profile} />
+              <Route exact path="/add" component={Create} />
               <Route exact path="/customers" component={CustomerList} />
             </Switch>
           </Suspense>

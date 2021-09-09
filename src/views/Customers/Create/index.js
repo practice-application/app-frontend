@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { Container, Grid } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import { TextInput } from '../../components/TextInput'
-import { config } from '../../config'
+import { TextInput } from '../../../components/TextInput'
+import { config } from '../../../config'
 
 const peopleUrl = config.goService.peopleApi
 
@@ -48,7 +49,6 @@ const CreatePerson = () => {
             };
             xhr.send(JSON.stringify(person));
         }
-
     };
 
     const formValid = () => {
@@ -105,12 +105,11 @@ const CreatePerson = () => {
 
                     <Button
                         sx={{ marginTop: 2 }}
-                        variant="contained" color="primary"
+                        variant="contained"
                         onClick={(e) => handleSubmit(e)}
                         disabled={!formValid()}
-
                     >
-                        {submitting ? <CircularProgress size={24} sx={{ color: "fff" }} /> : 'Create New Client'}
+                        {submitting ? <CircularProgress size={24} /> : 'Create New Client'}
                     </Button>
                 </>
             }
@@ -121,7 +120,7 @@ const CreatePerson = () => {
                     </Typography>
 
                     <Box sx={{ pt: '1rem', width: '50%' }}>
-                        <Button fullWidth variant="contained" data-test="return" href={'/#'}>Return</Button>
+                        <Button fullWidth variant="contained" data-test="return" href={'/customers'}>Return</Button>
                     </Box>
                 </Grid>
             }

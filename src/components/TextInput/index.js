@@ -6,6 +6,7 @@ export const TextInput = props => {
 
     return (
         <TextField
+            value={props.value}
             id={props.id}
             label={props.label}
             size="small"
