@@ -38,7 +38,7 @@ const CustomerTable = () => {
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - people.count) : 0;
 
-    const handleChangePage = (newPage) => {
+    const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 
