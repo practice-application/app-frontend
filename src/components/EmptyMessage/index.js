@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
 
 const EmptyMessage = () => {

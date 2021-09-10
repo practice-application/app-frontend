@@ -8,7 +8,7 @@ import Link from '@mui/material/Link';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link as ActionLink } from 'react-router-dom';
 
 import MenuDialog from '../MenuDialog'
