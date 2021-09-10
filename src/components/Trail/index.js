@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import { Link as ActionLink } from 'react-router-dom';

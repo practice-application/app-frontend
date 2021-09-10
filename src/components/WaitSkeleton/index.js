@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Skeleton } from '@material-ui/core';
-import Box from '@material-ui/core/Box';
+import { Skeleton } from '@mui/material';
+import Box from '@mui/material/Box';
 
 export const Outline = ({ variant, visible }) => {
 

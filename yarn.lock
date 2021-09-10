@@ -1509,9 +1509,9 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@material-ui/core@^5.0.0-beta.2":
+"@mui/material@^5.0.0-beta.2":
   version "5.0.0-beta.5"
-  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-5.0.0-beta.5.tgz#6ee717d4ec02b28d737fb4be42dbc3b345dccc7c"
+  resolved "https://registry.yarnpkg.com/@mui/material/-/core-5.0.0-beta.5.tgz#6ee717d4ec02b28d737fb4be42dbc3b345dccc7c"
   integrity sha512-ubRMdWJ+Maqvo0P13M+AThaHp5rBBIaURxoQ+Dx4/2Llrm1mepjINDL5PsABabqUbbNc6K+cmqgX4gwEFe7exw==
   dependencies:
     "@babel/runtime" "^7.14.8"

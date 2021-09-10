@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { createTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { Layout } from './components/Layout';
