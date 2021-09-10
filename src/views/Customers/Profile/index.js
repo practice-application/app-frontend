@@ -12,9 +12,9 @@ import { useParams } from "react-router-dom";
 
 import { TextInput } from '../../../components/TextInput';
 import { Trail } from '../../../components/Trail';
-import { config, getReqInit } from '../../../config';
+import { config } from '../../../config';
 
-const reqInit = getReqInit
+const reqInit = config.goService.getReqInit
 const peopleUrl = config.goService.peopleApi
 
 const Profile = () => {

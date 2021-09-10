@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -16,7 +17,6 @@ let theme = createTheme(custom);
 theme = responsiveFontSizes(theme)
 
 const App = () => {
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -36,5 +36,4 @@ const App = () => {
   );
 }
 
-export default App;
-
+export default withAuthenticationRequired(App);

@@ -15,9 +15,9 @@ import Box from '@mui/system/Box';
 
 import ActionLink from '../../../components/ActionLink';
 import { TablePager } from '../../../components/TablePager';
-import { config, getReqInit } from '../../../config';
+import { config } from '../../../config';
 
-const reqInit = getReqInit
+const reqInit = config.goService.getReqInit
 const peopleUrl = config.goService.peopleApi
 
 const CustomerTable = () => {
