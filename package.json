@@ -10,6 +10,7 @@
     "@material-ui/icons": "^5.0.0-beta.1",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@material-ui/styles": "^5.0.0-beta.2",
+    "@mui/icons-material": "^5.0.0-rc.0",
     "@mui/material": "^5.0.0-rc.0",
     "@optimizely/react-sdk": "^2.4.0",
     "@reach/router": "^1.3.4",

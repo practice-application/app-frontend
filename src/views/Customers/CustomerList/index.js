@@ -1,21 +1,21 @@
 import React from 'react';
 
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import Box from '@material-ui/system/Box';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
+import TableFooter from '@mui/material/TableFooter';
 import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import Box from '@mui/system/Box';
 
 import ActionLink from '../../../components/ActionLink';
-import EmptyMessage from '../../../components/EmptyMessage';
 import { TablePager } from '../../../components/TablePager';
-import { Outline } from '../../../components/WaitSkeleton';
-import { config, getReqInit } from '../../../config'
+import { config, getReqInit } from '../../../config';
 
 const reqInit = getReqInit
 const peopleUrl = config.goService.peopleApi
@@ -32,6 +32,20 @@ const CustomerTable = () => {
         };
         fetchPeople();
     }, []);
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+    const emptyRows =
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - people.count) : 0;
+
+    const handleChangePage = (newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
 
     return (
         <>
@@ -57,7 +71,10 @@ const CustomerTable = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {people.map((item) => (
+                        {(rowsPerPage > 0
+                            ? people.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            : people
+                        ).map((item) => (
                             <TableRow key={item.id} hover sx={{ cursor: 'pointer' }}>
                                 <TableCell scope="row" align="right">
                                     <IconButton size="small" component={ActionLink} to={`/customers/${item.id}`}>
@@ -69,18 +86,32 @@ const CustomerTable = () => {
                                 <TableCell align="left">{item.phone}</TableCell>
                             </TableRow>
                         ))}
-                        {people.length === 0 &&
-                            <TableRow sx={{ minHeight: 53 * 2 }}>
-                                <TableCell colSpan="5" align="center">
-                                    {people.pending && <Outline variant='list' visible={people.pending} />}
-                                    {!people.pending &&
-                                        <EmptyMessage />
-                                    }
-                                </TableCell>
+                        {emptyRows > 0 && (
+                            <TableRow sx={{ height: "53rem" * emptyRows }}>
+                                <TableCell colSpan={6} />
                             </TableRow>
-                        }
+                        )}
                     </TableBody>
-                    <TablePager count={people.length} total={people.count} colSpan={4} />
+                    <TableFooter>
+                        <TableRow>
+                            <TablePagination
+                                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                                colSpan={4}
+                                count={people.length}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                SelectProps={{
+                                    inputProps: {
+                                        'aria-label': 'rows per page',
+                                    },
+                                    native: true,
+                                }}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                ActionsComponent={TablePager}
+                            />
+                        </TableRow>
+                    </TableFooter>
                 </Table>
             </TableContainer>
         </>
