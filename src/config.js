@@ -9,7 +9,7 @@ export const config = {
     auth0: {
         domain: "dev-k6bx05vf.us.auth0.com",
         clientId: "SWXFgDlcVJRto1h2mrdqVRvePcokucgQ",
-        audience: "https://shared-app.netlify.app"
+        audience: "shared-app.com"
     },
     getReqInit: {
         method: "GET",

@@ -16,7 +16,7 @@ const CustomerList = lazy(() => import('./views/Customers/CustomerList'));
 let theme = createTheme(custom);
 theme = responsiveFontSizes(theme)
 
-const App = () => {
+const App = withAuthenticationRequired(() => {
 
   return (
     <ThemeProvider theme={theme}>
@@ -34,6 +34,6 @@ const App = () => {
       </Router>
     </ThemeProvider>
   );
-}
+})
 
-export default withAuthenticationRequired(App);
+export default App;
