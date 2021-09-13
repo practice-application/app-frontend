@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
+// import { useAuth0 } from "@auth0/auth0-react";
 import CloseIcon from '@mui/icons-material/Close';
 import CreateIcon from '@mui/icons-material/Create';
 import Button from '@mui/material/Button';
@@ -12,17 +13,16 @@ import { useParams } from "react-router-dom";
 
 import { TextInput } from '../../../components/TextInput';
 import { Trail } from '../../../components/Trail';
-import { config } from '../../../config';
-
-const reqInit = config.goService.getReqInit
-const peopleUrl = config.goService.peopleApi
+import { useApi } from '../fetch';
 
 const Profile = () => {
     const [view, setView] = React.useState(true);
-    const [person, setPerson] = React.useState([]);
+    const [{ person }, { fetchPerson }] = useApi();
     const { id } = useParams();
     const [errorMessage, setErrorMessage] = React.useState(false);
     const [submitting, setSubmitting] = React.useState();
+
+
 
     const validEmail = () => {
         let isValid = true;
@@ -41,7 +41,7 @@ const Profile = () => {
             setErrorMessage('');
             setSubmitting(true)
             var xhr = new XMLHttpRequest();
-            xhr.open("PUT", `${peopleUrl}/${id}`);
+            xhr.open("PUT", `'http://localhost:8080'/people/${id}`);
             xhr.onreadystatechange = () => {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     var status = xhr.status;
@@ -69,16 +69,9 @@ const Profile = () => {
         return true;
     };
 
-    React.useEffect(() => {
-        const fetchPeople = async (id) => {
-            const resp = await fetch(`${peopleUrl}/${id}`, reqInit);
-            if (resp.ok) {
-                const json = await resp.json();
-                setPerson(json);
-            }
-        };
-        fetchPeople(id);
-    }, [id]);
+    useEffect(() => {
+        fetchPerson();
+    }, [fetchPerson]);;
     const change = () => {
         setView(false);
     };
@@ -128,7 +121,7 @@ const Profile = () => {
                                     value={person.firstName}
                                     id="firstName"
                                     label="First Name"
-                                    onChange={e => setPerson({ ...person, firstName: e.target.value })}
+                                    onChange={e => fetchPerson({ ...person, firstName: e.target.value })}
                                 />
                             </Grid>
                             <Grid item xs={6} >
@@ -136,7 +129,7 @@ const Profile = () => {
                                     value={person.lastName}
                                     id="lastName"
                                     label="Last Name"
-                                    onChange={e => setPerson({ ...person, lastName: e.target.value })}
+                                    onChange={e => fetchPerson({ ...person, lastName: e.target.value })}
                                 />
                             </Grid>
                         </Grid>
@@ -145,7 +138,7 @@ const Profile = () => {
                             type="number"
                             id="age"
                             label="Age"
-                            onChange={e => setPerson({ ...person, age: e.target.value })}
+                            onChange={e => fetchPerson({ ...person, age: e.target.value })}
                         />
                         <TextInput
                             value={person.email}
@@ -153,7 +146,7 @@ const Profile = () => {
                             label="Email"
                             error={errorMessage ? true : false}
                             errorMessage={errorMessage}
-                            onChange={e => setPerson({ ...person, email: e.target.value })}
+                            onChange={e => fetchPerson({ ...person, email: e.target.value })}
                         />
                         <TextInput
                             type="number"
@@ -163,7 +156,7 @@ const Profile = () => {
                             label="Phone"
                             error={errorMessage ? true : false}
                             errorMessage={errorMessage}
-                            onChange={e => setPerson({ ...person, phone: e.target.value })}
+                            onChange={e => fetchPerson({ ...person, phone: e.target.value })}
                         />
 
                         <Button

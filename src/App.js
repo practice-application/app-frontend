@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 
-import { withAuthenticationRequired } from "@auth0/auth0-react";
+import { withAuthenticationRequired, useAuth0 } from "@auth0/auth0-react";
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -17,7 +17,8 @@ let theme = createTheme(custom);
 theme = responsiveFontSizes(theme)
 
 const App = withAuthenticationRequired(() => {
-
+  const { user /* getAccessTokenSilently */ } = useAuth0();
+  console.log(user)
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

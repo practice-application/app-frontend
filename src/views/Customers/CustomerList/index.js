@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
@@ -15,25 +15,16 @@ import Box from '@mui/system/Box';
 
 import ActionLink from '../../../components/ActionLink';
 import { TablePager } from '../../../components/TablePager';
-import { config } from '../../../config';
-
-const reqInit = config.goService.getReqInit
-const peopleUrl = config.goService.peopleApi
+import { useApi } from '../fetch';
 
 const CustomerTable = () => {
-    const [people, setPeople] = React.useState([]);
-    React.useEffect(() => {
-        const fetchPeople = async () => {
-            const resp = await fetch(peopleUrl, reqInit);
-            if (resp.ok) {
-                const json = await resp.json();
-                setPeople(json);
-            }
-        };
+    const [{ people }, { fetchPeople }] = useApi();
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+
+    useEffect(() => {
         fetchPeople();
-    }, []);
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    }, [fetchPeople]);
 
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - people.count) : 0;
