@@ -72,11 +72,9 @@ export const Header = () => {
                         )}
 
                     </Hidden>
-                    {user &&
-                        <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
-                            <ListItemText primary="Logout" />
-                        </MenuItem>
-                    }
+                    <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
+                        <ListItemText primary="Logout" />
+                    </MenuItem>
                 </MenuDialog>
             </Toolbar>
         </AppBar>
