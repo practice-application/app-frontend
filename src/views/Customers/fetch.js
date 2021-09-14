@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
 import { useParams } from "react-router-dom";
@@ -28,6 +28,8 @@ export const useApi = () => {
             const json = await resp.json();
             // return json;
             setState({ ...state, people: json });
+        } else {
+            console.log(resp)
         }
         return
     }, [getAccessTokenSilently, state]);
@@ -51,8 +53,9 @@ export const useApi = () => {
         return
     }, [getAccessTokenSilently, state, id]);
 
-    const actions = {
-        fetchPeople, fetchPerson
-    }
+    const actions = useMemo(() => {
+        return { fetchPeople, fetchPerson }
+    }, [fetchPeople, fetchPerson]);
+
     return [state, actions];
 }
