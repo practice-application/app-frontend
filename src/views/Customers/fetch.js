@@ -32,9 +32,9 @@ export const useApi = () => {
             console.log(resp)
         }
         return
-    }, [getAccessTokenSilently, state]);
+    }, [getAccessTokenSilently]);
 
-    const fetchPerson = useCallback(async () => {
+    const fetchPerson = useCallback(async (id) => {
         const reqInit = {
             method: "GET",
             mode: 'cors',
@@ -51,9 +51,10 @@ export const useApi = () => {
             setState({ ...state, person: json });
         }
         return
-    }, [getAccessTokenSilently, state, id]);
+    }, [getAccessTokenSilently]);
 
     const actions = useMemo(() => {
+        console.log("useMemo")
         return { fetchPeople, fetchPerson }
     }, [fetchPeople, fetchPerson]);
 
