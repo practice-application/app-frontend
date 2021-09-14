@@ -3,6 +3,7 @@ import React from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AppBar from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Hidden from '@mui/material/Hidden';
@@ -27,6 +28,7 @@ export const Header = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const handleClick = (event) => { setAnchorEl(event.currentTarget); };
     const handleClose = () => { setAnchorEl(null); };
+    const { picture, nickname } = user;
 
     return (
         <AppBar elevation={1} position="static" sx={{ padding: 1 }} color="transparent" data-cy="header">
@@ -46,8 +48,12 @@ export const Header = () => {
 
                     </Hidden>
                 </Box>
-                <Button color={anchorEl ? "secondary" : "primary"} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                    <AccountCircleIcon />
+                <Button startIcon={picture ? <Avatar
+                    sx={{ width: 24, height: 24 }}
+                    src={picture}
+                    alt="Profile"
+                /> : <AccountCircleIcon />} color={anchorEl ? "secondary" : "primary"} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                    {nickname}
                 </Button>
                 <MenuDialog
                     anchorEl={anchorEl}
