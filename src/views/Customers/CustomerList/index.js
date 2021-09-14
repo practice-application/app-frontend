@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -55,10 +54,11 @@ const CustomerTable = () => {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow >
-                            <TableCell />
+
                             <TableCell align="left">Name</TableCell>
                             <TableCell align="left">Email</TableCell>
                             <TableCell align="left">Phone</TableCell>
+                            <TableCell />
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -67,14 +67,14 @@ const CustomerTable = () => {
                             : people
                         ).map((item) => (
                             <TableRow key={item.id} hover sx={{ cursor: 'pointer' }}>
-                                <TableCell scope="row" align="right">
-                                    <IconButton size="small" component={ActionLink} to={`/customers/${item.id}`}>
-                                        <AccountCircleIcon color="primary" fontSize="small" />
-                                    </IconButton>
+                                <TableCell scope="row" align="left">
+                                    <Button startIcon={<AccountCircleIcon color="primary" fontSize="small" />} component={ActionLink} to={`/customers/${item.id}`}>
+                                        {item.firstName} {item.lastName}
+                                    </Button>
                                 </TableCell>
-                                <TableCell scope="row" align="left">{item.firstName} {item.lastName} </TableCell>
                                 <TableCell align="left">{item.email}</TableCell>
                                 <TableCell align="left">{item.phone}</TableCell>
+                                <TableCell />
                             </TableRow>
                         ))}
                         {emptyRows > 0 && (
