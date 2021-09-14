@@ -12,6 +12,7 @@ import { custom } from './theme';
 const Profile = lazy(() => import('./views/Customers/Profile'));
 const Create = lazy(() => import('./views/Customers/Create'));
 const CustomerList = lazy(() => import('./views/Customers/CustomerList'));
+const UserProfile = lazy(() => import('./views/User'));
 
 let theme = createTheme(custom);
 theme = responsiveFontSizes(theme)
@@ -29,6 +30,7 @@ const App = withAuthenticationRequired(() => {
               <Route exact path="/customers/:id" component={Profile} />
               <Route exact path="/add" component={Create} />
               <Route exact path="/customers" component={CustomerList} />
+              <Route exact path="/profile" component={UserProfile} />
             </Switch>
           </Suspense>
         </Layout>
