@@ -11,7 +11,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Box from '@mui/system/Box';
-import dateFormat from 'dateformat';
+import { parseISO, formatDistanceToNow } from "date-fns";
 
 import ActionLink from '../../../components/ActionLink';
 import { TablePager } from '../../../components/TablePager';
@@ -74,7 +74,7 @@ const CustomerTable = () => {
                                     </Button>
                                 </TableCell>
                                 <TableCell align="left">{item.email}</TableCell>
-                                <TableCell align="left">{dateFormat((item.date), "dd/MM/yyyy")}</TableCell>
+                                <TableCell align="left">    {`${formatDistanceToNow(parseISO(item.date))} ago`}</TableCell>
                                 <TableCell />
                             </TableRow>
                         ))}
