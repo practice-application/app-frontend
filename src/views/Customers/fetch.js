@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
-import { useParams } from "react-router-dom";
+
 
 import { config } from '../../config';
 
@@ -10,26 +10,30 @@ export const useApi = () => {
         people: [],
         person: {}
     });
-    const { id } = useParams();
+
     const { getAccessTokenSilently } = useAuth0();
+
 
     const fetchPeople = useCallback(async () => {
         const reqInit = {
             method: "GET",
-            mode: 'cors',
             headers: {
                 Accept: 'application/ json',
                 'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + await getAccessTokenSilently()
+
             },
         }
+        console.log(await getAccessTokenSilently())
         const resp = await fetch(`${config.url}/people`, reqInit);
         if (resp.ok) {
             const json = await resp.json();
             // return json;
-            setState({ ...state, people: json });
+            setState(prev => {
+                return { ...prev, people: json }
+            });
         } else {
-            console.log(resp)
+            console.error(resp)
         }
         return
     }, [getAccessTokenSilently]);
@@ -37,7 +41,6 @@ export const useApi = () => {
     const fetchPerson = useCallback(async (id) => {
         const reqInit = {
             method: "GET",
-            mode: 'cors',
             headers: {
                 Accept: 'application/ json',
                 'Content-Type': 'application/json',
@@ -48,13 +51,17 @@ export const useApi = () => {
         if (resp.ok) {
             const json = await resp.json();
             // return json;
-            setState({ ...state, person: json });
+            setState(prev => {
+                return { ...prev, person: json }
+            });
+        } else {
+            console.error(resp)
         }
+
         return
     }, [getAccessTokenSilently]);
 
     const actions = useMemo(() => {
-        console.log("useMemo")
         return { fetchPeople, fetchPerson }
     }, [fetchPeople, fetchPerson]);
 

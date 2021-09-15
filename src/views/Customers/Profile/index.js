@@ -9,7 +9,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { TextInput } from '../../../components/TextInput';
 import { Trail } from '../../../components/Trail';
@@ -19,7 +19,7 @@ import { useApi } from '../fetch';
 const Profile = () => {
     const [view, setView] = React.useState(true);
     const [{ person }, { fetchPerson }] = useApi();
-    // const { id } = useParams();
+    const { id } = useParams();
     const [errorMessage, setErrorMessage] = React.useState(false);
     const [submitting, setSubmitting] = React.useState();
 
@@ -40,7 +40,7 @@ const Profile = () => {
             setErrorMessage('');
             setSubmitting(true)
             var xhr = new XMLHttpRequest();
-            xhr.open("PUT", `${config.url}/people/${person.id}`);
+            xhr.open("PUT", `${config.url}/people/${id}`);
             xhr.onreadystatechange = () => {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     var status = xhr.status;
@@ -69,14 +69,15 @@ const Profile = () => {
     };
 
     useEffect(() => {
-        fetchPerson();
-    }, [fetchPerson]);;
+        fetchPerson(id);
+    }, [fetchPerson, id]);;
     const change = () => {
         setView(false);
     };
     const changeBack = () => {
         setView(true);
     };
+    // console.log(person.id)
 
     return (
         <>

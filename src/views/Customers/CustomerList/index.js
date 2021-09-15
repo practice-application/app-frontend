@@ -11,6 +11,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Box from '@mui/system/Box';
+import dateFormat from 'dateformat';
 
 import ActionLink from '../../../components/ActionLink';
 import { TablePager } from '../../../components/TablePager';
@@ -57,7 +58,7 @@ const CustomerTable = () => {
 
                             <TableCell align="left">Name</TableCell>
                             <TableCell align="left">Email</TableCell>
-                            <TableCell align="left">Phone</TableCell>
+                            <TableCell align="left">Created at</TableCell>
                             <TableCell />
                         </TableRow>
                     </TableHead>
@@ -73,7 +74,7 @@ const CustomerTable = () => {
                                     </Button>
                                 </TableCell>
                                 <TableCell align="left">{item.email}</TableCell>
-                                <TableCell align="left">{item.phone}</TableCell>
+                                <TableCell align="left">{dateFormat((item.date), "dd/MM/yyyy")}</TableCell>
                                 <TableCell />
                             </TableRow>
                         ))}

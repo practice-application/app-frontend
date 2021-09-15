@@ -12,10 +12,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
+import dateFormat from 'dateformat';
 
 const UserProfile = () => {
     const { user } = useAuth0();
-    const { name, picture, email, nickname, email_verified } = user;
+    const { name, picture, email, nickname, email_verified, created_at } = user;
 
 
     var emailVerified;
@@ -52,7 +53,11 @@ const UserProfile = () => {
                         </ListItem>
                         <Divider />
                         <ListItem>
-                            <ListItemText>Verified Email  </ListItemText>{emailVerified}
+                            <ListItemText>Created at</ListItemText>{dateFormat((created_at), "dd/mm/yyyy")}
+                        </ListItem>
+                        <Divider />
+                        <ListItem>
+                            <ListItemText>Verified Email</ListItemText>{emailVerified}
                         </ListItem>
                     </List>
                 </CardContent>
