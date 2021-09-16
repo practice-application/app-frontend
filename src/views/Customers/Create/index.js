@@ -11,7 +11,6 @@ import { TextInput } from '../../../components/TextInput';
 import { Trail } from '../../../components/Trail';
 import { config } from '../../../config';
 
-const peopleUrl = config.goService.peopleApi
 
 const CreatePerson = () => {
     const [errorMessage, setErrorMessage] = React.useState(false);
@@ -36,7 +35,7 @@ const CreatePerson = () => {
             setErrorMessage('');
             setSubmitting(true)
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", peopleUrl);
+            xhr.open("POST", `${config.url}/people`);
             xhr.onreadystatechange = () => {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     var status = xhr.status;

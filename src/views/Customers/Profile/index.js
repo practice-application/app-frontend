@@ -15,6 +15,15 @@ import { TextInput } from '../../../components/TextInput';
 import { Trail } from '../../../components/Trail';
 import { config } from '../../../config';
 import { useApi } from '../context';
+import { CustomerProvider } from '../context';
+
+const Customer = () => {
+    return (
+        <CustomerProvider>
+            <Profile />
+        </CustomerProvider>
+    );
+}
 
 const Profile = () => {
     const [view, setView] = React.useState(true);
@@ -173,4 +182,4 @@ const Profile = () => {
         </>
     )
 }
-export default Profile;
+export default Customer;

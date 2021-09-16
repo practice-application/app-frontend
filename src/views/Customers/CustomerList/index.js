@@ -18,7 +18,7 @@ import { TablePager } from '../../../components/TablePager';
 import { useApi } from '../context';
 import { CustomerProvider } from '../context';
 
-const pageSize = 1;
+const pageSize = 10;
 
 const CustomerListExt = () => {
     return (
@@ -36,18 +36,6 @@ const CustomerList = () => {
     useEffect(() => {
         actions.fetchPeople(page);
     }, [actions, page]);
-
-    // const emptyRows =
-    //     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - people.count) : 0;
-
-    // const handleChangePage = (event, newPage) => {
-    //     setPage(newPage);
-    // };
-
-    // const handleChangeRowsPerPage = (event) => {
-    //     setRowsPerPage(parseInt(event.target.value, 10));
-    //     setPage(0);
-    // };
 
     const handlePage = () => {
 
@@ -78,9 +66,6 @@ const CustomerList = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {/* {(rowsPerPage > 0
-                            ? people.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) */}
-
                         {people.data.map((item) =>
                             <TableRow key={item.id} hover sx={{ cursor: 'pointer' }}>
                                 <TableCell scope="row" align="left">
