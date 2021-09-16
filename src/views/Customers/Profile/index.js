@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom";
 import { TextInput } from '../../../components/TextInput';
 import { Trail } from '../../../components/Trail';
 import { config } from '../../../config';
-import { useApi } from '../fetch';
+import { useApi } from '../context';
 
 const Profile = () => {
     const [view, setView] = React.useState(true);

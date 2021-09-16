@@ -15,11 +15,20 @@ import { parseISO, formatDistanceToNow } from "date-fns";
 
 import ActionLink from '../../../components/ActionLink';
 import { TablePager } from '../../../components/TablePager';
-import { useApi } from '../fetch';
+import { useApi } from '../context';
+import { CustomerProvider } from '../context';
 
 const pageSize = 1;
 
-const CustomerTable = () => {
+const CustomerListExt = () => {
+    return (
+        <CustomerProvider>
+            <CustomerList />
+        </CustomerProvider>
+    );
+}
+
+const CustomerList = () => {
     const [{ people }, actions] = useApi();
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
     // const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -41,9 +50,9 @@ const CustomerTable = () => {
     // };
 
     const handlePage = () => {
+
         setPage(prev => ({ ...prev, offset: prev.offset + pageSize }))
     };
-    // console.log(people)
 
     return (
         <>
@@ -111,11 +120,11 @@ const CustomerTable = () => {
                         </TableRow>
                     </TableFooter> */}
                     <TablePager count={people.data.length} total={people.matches}
-                        colSpan={3} onPage={handlePage}
+                        colSpan={3} onPage={() => handlePage()}
                     />
                 </Table>
             </TableContainer>
         </>
     );
 }
-export default CustomerTable;
+export default CustomerListExt;
