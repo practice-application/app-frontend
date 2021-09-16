@@ -7,14 +7,20 @@ import { config } from '../../config';
 
 export const useApi = () => {
     const [state, setState] = useState({
-        people: [],
+        people: {
+            data: [],
+            matches: 0
+        },
         person: {}
     });
 
     const { getAccessTokenSilently } = useAuth0();
 
 
-    const fetchPeople = useCallback(async () => {
+    const fetchPeople = useCallback(async (page = { limit: 10 }, callback) => {
+        // if (!callback) {
+        //     setState({ type: 'init' });
+        // }
         const reqInit = {
             method: "GET",
             headers: {
@@ -24,13 +30,23 @@ export const useApi = () => {
 
             },
         }
-        console.log(await getAccessTokenSilently())
-        const resp = await fetch(`${config.url}/people`, reqInit);
+        // console.log(await getAccessTokenSilently())
+        const resp = await fetch(`${config.url}/people?lmt=${page.limit}&off=${page.offset}`, reqInit);
+        // resp.setLimit(page.limit)
         if (resp.ok) {
             const json = await resp.json();
             // return json;
             setState(prev => {
-                return { ...prev, people: json }
+                console.log(json.data)
+                let p = {};
+                if (page.offset > 0) {
+                    p.data = [...prev.data, ...json.data];
+                    p.matches = json.matches;
+                } else {
+                    p = json;
+                }
+
+                return { ...prev, people: p }
             });
         } else {
             console.error(resp)
