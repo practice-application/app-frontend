@@ -4,5 +4,5 @@ export const config = {
         clientId: "SWXFgDlcVJRto1h2mrdqVRvePcokucgQ",
         audience: "shared-app.com"
     },
-    url: 'http://localhost:8080'
+    url: 'https://jumpingbeans.herokuapp.com'
 };
