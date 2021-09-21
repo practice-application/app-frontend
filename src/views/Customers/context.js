@@ -26,6 +26,17 @@ const reducer = (state, action) => {
             newState.pending = false;
             newState.person = action.payload;
             return newState;
+        case 'post':
+            newState.pending = false;
+            newState.person = action.payload;
+            newState.person.push(action.payload)
+            return newState;
+        case 'put':
+            newState.pending = false;
+            newState.person = action.payload;
+            const index = newState.person.findIndex(e => e.getId() === action.payload);
+            newState.person.splice(index, 1, action.payload);
+            return newState;
         case 'error':
             console.error(action.error);
             newState.pending = false;
@@ -70,7 +81,7 @@ export const useApi = () => {
 
             },
         }
-        // console.log(await getAccessTokenSilently())
+        console.log(await getAccessTokenSilently())
         const resp = await fetch(`${config.url}/people?lmt=${page.limit}&off=${page.offset}`, reqInit);
         if (resp.ok) {
             dispatch({ type: 'query', payload: { json: await resp.json(), page: page } });
@@ -99,9 +110,47 @@ export const useApi = () => {
         return
     }, [getAccessTokenSilently, dispatch]);
 
+    const editPerson = useCallback(async (id) => {
+        const reqInit = {
+            method: "PUT",
+            headers: {
+                Accept: 'application/ json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + await getAccessTokenSilently()
+            },
+        }
+        const resp = await fetch(`${config.url}/people/${id}`, reqInit);
+        if (resp.ok) {
+            dispatch({ type: 'put', payload: await resp.json() });
+        } else {
+            dispatch({ type: 'error', error: resp.Error, meta: { method: 'put' } });
+        }
+
+        return
+    }, [getAccessTokenSilently, dispatch]);
+
+    const createPerson = useCallback(async () => {
+        const reqInit = {
+            method: "POST",
+            headers: {
+                Accept: 'application/ json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + await getAccessTokenSilently()
+            },
+        }
+        const resp = await fetch(`${config.url}/people`, reqInit);
+        if (resp.ok) {
+            dispatch({ type: 'post', payload: await resp.json() });
+        } else {
+            dispatch({ type: 'error', error: resp.Error, meta: { method: 'post' } });
+        }
+
+        return
+    }, [getAccessTokenSilently, dispatch]);
+
     const actions = useMemo(() => {
-        return { fetchPeople, fetchPerson }
-    }, [fetchPeople, fetchPerson]);
+        return { fetchPeople, fetchPerson, editPerson, createPerson }
+    }, [fetchPeople, fetchPerson, editPerson, createPerson]);
 
     return [state, actions];
 }

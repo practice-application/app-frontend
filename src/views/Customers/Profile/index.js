@@ -12,10 +12,10 @@ import Typography from '@mui/material/Typography';
 import { useParams } from "react-router-dom";
 
 import { TextInput } from '../../../components/TextInput';
+import { useForm } from '../../../components/TextInput/useForm';
 import { Trail } from '../../../components/Trail';
 import { config } from '../../../config';
-import { useApi } from '../context';
-import { CustomerProvider } from '../context';
+import { CustomerProvider, useApi } from '../context';
 
 const Customer = () => {
     return (
@@ -27,17 +27,22 @@ const Customer = () => {
 
 const Profile = () => {
     const [view, setView] = React.useState(true);
-    const [{ person }, { fetchPerson }] = useApi();
+    const [{ person }, { fetchPerson, editPerson }] = useApi();
     const { id } = useParams();
     const [errorMessage, setErrorMessage] = React.useState(false);
     const [submitting, setSubmitting] = React.useState();
+    const [form, setForm, isValid] = useForm({
+        firstName: { label: "First Name", value: person.firstName },
+        lastName: { label: "Last Name", value: person.lastName },
+        age: { label: "Age", value: person.age },
+        phone: { label: "Phone Number", value: person.phone },
+        email: { label: "Email address", value: person.email }
+    });
 
     const validEmail = () => {
-        let isValid = true;
         const emailRegex = /\S+@\S+/
         if (typeof person.email !== 'undefined') {
             if (!emailRegex.test(person.email)) {
-                isValid = false;
                 setErrorMessage('Please enter a valid email address');
             }
         }
@@ -66,7 +71,7 @@ const Profile = () => {
     };
 
     const formValid = () => {
-        if (!person.email) {
+        if (!form.email) {
             return false;
         }
         for (var err in person.errors) {
@@ -80,13 +85,13 @@ const Profile = () => {
     useEffect(() => {
         fetchPerson(id);
     }, [fetchPerson, id]);;
+
     const change = () => {
         setView(false);
     };
     const changeBack = () => {
         setView(true);
     };
-    // console.log(person.id)
 
     return (
         <>
@@ -127,47 +132,41 @@ const Profile = () => {
                         <Grid container spacing={1}>
                             <Grid item xs={6}>
                                 <TextInput
-                                    value={person.firstName}
-                                    id="firstName"
+                                    field={form.firstName}
+
                                     label="First Name"
-                                    onChange={e => fetchPerson({ ...person, firstName: e.target.value })}
+                                    onChange={setForm}
                                 />
                             </Grid>
                             <Grid item xs={6} >
                                 <TextInput
-                                    value={person.lastName}
-                                    id="lastName"
+                                    field={form.lastName}
                                     label="Last Name"
-                                    onChange={e => fetchPerson({ ...person, lastName: e.target.value })}
+                                    onChange={setForm}
                                 />
                             </Grid>
                         </Grid>
                         <TextInput
-                            value={person.age}
+                            field={form.age}
                             type="number"
-                            id="age"
                             label="Age"
-                            onChange={e => fetchPerson({ ...person, age: e.target.value })}
+                            onChange={setForm}
                         />
                         <TextInput
-                            value={person.email}
-                            id="email"
-                            label="Email"
+                            field={form.email}
                             error={errorMessage ? true : false}
                             errorMessage={errorMessage}
-                            onChange={e => fetchPerson({ ...person, email: e.target.value })}
+                            onChange={setForm}
                         />
                         <TextInput
                             type="number"
                             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                            value={person.phone}
+                            field={form.phone}
                             id="phone"
-                            label="Phone"
                             error={errorMessage ? true : false}
                             errorMessage={errorMessage}
-                            onChange={e => fetchPerson({ ...person, phone: e.target.value })}
+                            onChange={setForm}
                         />
-
                         <Button
                             sx={{ marginTop: 2 }}
                             variant="contained"
