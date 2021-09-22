@@ -141,12 +141,12 @@ const Profile = () => {
                                     <Grid item xs={6}>
                                         <TextField id="firstName" label="First Name"
                                             size="small" variant="outlined" fullWidth
-                                            value={person.firstName}
+                                            value={person && person.firstName}
                                             onChange={handleChange}
                                         />
                                     </Grid>
                                     <Grid item xs={6} >
-                                        <TextInput id="lastName" label="Last Name"
+                                        <TextField id="lastName" label="Last Name"
                                             size="small" variant="outlined" fullWidth
                                             value={person && person.lastName}
                                             onChange={handleChange}
@@ -156,12 +156,12 @@ const Profile = () => {
                                 </Grid>
                                 <TextInput id="age" label="Age"
                                     size="small" variant="outlined" fullWidth
-                                    value={person && person.age}
+                                    value={person && person && person.age}
                                     onChange={handleChange}
                                 />
                                 <TextInput id="email" label="Email Address"
                                     size="small" variant="outlined" fullWidth
-                                    value={person.email}
+                                    value={person && person.email}
                                     onChange={handleChange}
                                     error={Boolean(errorMsg)}
                                     helperText={errorMsg}
