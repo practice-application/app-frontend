@@ -27,17 +27,17 @@ const Customer = () => {
 
 const Profile = () => {
     const [view, setView] = useState(true);
-    const [{ person }, { fetchPerson, editPerson }] = useApi();
+    const [{ person }, { fetchPerson, update }] = useApi();
     const { id } = useParams();
     const [errorMessage, setErrorMessage] = useState(false);
     const [submitting, setSubmitting] = useState();
-    const [p = person, setPerson] = useState([])
+    // const [p = person, setPerson] = useState([])
 
     const validEmail = () => {
         let isValid = true;
         const emailRegex = /\S+@\S+/
-        if (typeof p.email !== 'undefined') {
-            if (!emailRegex.test(p.email)) {
+        if (typeof person.email !== 'undefined') {
+            if (!emailRegex.test(person.email)) {
                 isValid = false;
                 setErrorMessage('Please enter a valid email address');
             }
@@ -45,23 +45,24 @@ const Profile = () => {
         }
     }
 
-    const handleUpdate = async () => {
+    const handleUpdate = () => {
         if (validEmail()) {
             setErrorMessage('');
             setSubmitting(true);
-            if (editPerson(p, person)) {
+            if (update(person)) {
                 setView(true);
                 setSubmitting(false);
             }
         }
     };
 
+
     const formValid = () => {
-        if (!p.email) {
+        if (!person.email) {
             return false;
         }
-        for (var err in p.errors) {
-            if (p.errors[err]) {
+        for (var err in person.errors) {
+            if (person.errors[err]) {
                 return false;
             }
         }
@@ -69,8 +70,8 @@ const Profile = () => {
     };
 
     useEffect(() => {
-        fetchPerson(id, person);
-    }, [fetchPerson, id, person]);;
+        fetchPerson(id);
+    }, [fetchPerson, id]);;
 
     const change = () => {
         setView(false);
@@ -79,7 +80,8 @@ const Profile = () => {
         setView(true);
     };
 
-
+    person.firstName = "bob"
+    console.log(person)
     return (
         <>
             <Grid
@@ -122,44 +124,44 @@ const Profile = () => {
                         <Grid container spacing={1}>
                             <Grid item xs={6}>
                                 <TextInput
-                                    value={p.firstName || person.firstName}
+                                    value={person.firstName ? person.firstName : ""}
                                     label="First Name"
                                     id="firstName"
-                                    onChange={e => setPerson({ ...person, ...p, firstName: e.target.value })}
+                                    onChange={e => (person.firstName = e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={6} >
                                 <TextInput
-                                    value={p.lastName || person.lastName}
+                                    value={person.lastName}
                                     label="Last Name"
                                     id="lastName"
-                                    onChange={e => setPerson({ ...p, ...person, lastName: e.target.value })}
+                                    onChange={e => person.lastName = e.target.value}
                                 />
 
                             </Grid>
                         </Grid>
                         <TextInput
-                            value={p.age || person.age}
+                            value={person.age}
                             label="Age"
                             id="age"
-                            onChange={e => setPerson({ ...p, ...person, age: e.target.value })}
+                            onChange={e => person.age = e.target.value}
                         />
                         <TextInput
                             label="Email Address"
-                            value={p.email || person.email}
+                            value={person.email}
                             id="email"
-                            onChange={e => setPerson({ ...p, ...person, email: e.target.value })}
+                            onChange={e => person.email = e.target.value}
                             error={errorMessage ? true : false}
                             errorMessage={errorMessage}
 
                         />
                         <TextInput
-                            value={p.phone || person.phone}
+                            value={person.phone}
                             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                             label="Phone Number"
                             type="number"
                             id="phone"
-                            onChange={e => setPerson({ ...p, ...person, phone: e.target.value })}
+                            onChange={e => person.phone = e.target.value}
                         />
                         <Button
                             sx={{ marginTop: 2 }}

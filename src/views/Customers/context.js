@@ -34,8 +34,8 @@ const reducer = (state, action) => {
         case 'put':
             newState.pending = false;
             newState.person = action.payload;
-            const index = newState.person.findIndex(e => e.getId() === action.payload);
-            newState.person.splice(index, 1, action.payload);
+            const index = newState.people.findIndex(e => e.id === action.payload);
+            newState.people.splice(index, 1, action.payload);
             return newState;
         case 'error':
             console.error(action.error);
@@ -131,7 +131,7 @@ export const useApi = () => {
         return
     }, [getAccessTokenSilently, dispatch]);
 
-    const editPerson = useCallback(async (p, person) => {
+    const update = useCallback(async (person) => {
 
         const reqInit = {
             method: "PUT",
@@ -140,10 +140,9 @@ export const useApi = () => {
                 'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + await getAccessTokenSilently()
             },
-            body: JSON.stringify(p || person)
+            body: JSON.stringify(person)
         }
         const resp = await fetch(`${config.url}/people/${person.id}`, reqInit);
-        console.log(p)
         if (resp.ok) {
             dispatch({ type: 'put', payload: await resp.json() });
         } else {
@@ -175,8 +174,8 @@ export const useApi = () => {
 
 
     const actions = useMemo(() => {
-        return { fetchPeople, fetchPerson, editPerson, createPerson, deletePerson }
-    }, [fetchPeople, fetchPerson, editPerson, createPerson, deletePerson]);
+        return { fetchPeople, fetchPerson, update, createPerson, deletePerson }
+    }, [fetchPeople, fetchPerson, update, createPerson, deletePerson]);
 
     return [state, actions];
 }
