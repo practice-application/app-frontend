@@ -8,31 +8,30 @@ import Card from '@mui/material/Card';
 import CircularProgress from "@mui/material/CircularProgress";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import { styled } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useParams } from "react-router-dom";
 
-import { TextInput } from '../../../components/TextInput';
 import { Trail } from '../../../components/Trail';
 import { CustomerProvider, useApi } from '../context';
 
 
 const Customer = () => {
     return (
-        <>
-            <CustomerProvider>
-                <Profile />
-            </CustomerProvider>
-        </>
+        <CustomerProvider>
+            <Profile />
+        </CustomerProvider>
     );
 }
 
 const Profile = () => {
     const [view, setView] = useState(true);
-    const [{ person }, { fetchPerson, update, create }] = useApi();
+    const [state, { fetchPerson, update, create }] = useApi();
+    const [person, setPerson] = useState();
     const { id } = useParams();
-    const [errorMessage, setErrorMessage] = useState(false);
+    const [errorMsg, setErrorMsg] = useState(false);
     const [submitting, setSubmitting] = useState();
-    // const [p = person, setPerson] = useState([])
 
     const validEmail = () => {
         let isValid = true;
@@ -40,7 +39,7 @@ const Profile = () => {
         if (typeof person.email !== 'undefined') {
             if (!emailRegex.test(person.email)) {
                 isValid = false;
-                setErrorMessage('Please enter a valid email address');
+                setErrorMsg('Please enter a valid email address');
             }
             return isValid;
         }
@@ -48,7 +47,7 @@ const Profile = () => {
 
     const handleSave = () => {
         if (validEmail()) {
-            setErrorMessage('');
+            setErrorMsg(null);
             setSubmitting(true);
 
             if (person.id) {
@@ -76,7 +75,11 @@ const Profile = () => {
 
     useEffect(() => {
         fetchPerson(id);
-    }, [fetchPerson, id]);;
+    }, [fetchPerson, id]);
+
+    useEffect(() => {
+        setPerson(state.person);
+    }, [state.person]);
 
     const change = () => {
         setView(false);
@@ -85,101 +88,110 @@ const Profile = () => {
         setView(true);
     };
 
-    person.firstName = "bob"
-    console.log(person)
+    const handleChange = (e) => {
+        const key = e.target.id;
+        const val = e.target.value;
+
+        setPerson(prev => {
+            prev[key] = val;
+            return { ...prev };
+        });
+    }
+
     return (
         <>
-            <Grid
-                container
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                spacing={2}
-            >
-                <Grid item>
-                    <Trail pageName="Customers" returningPage="/customers" currentPage={person.firstName + ' ' + person.lastName} />
-                </Grid>
-                <Grid item>
-                    <Button
-                        variant={view === true ? "contained" : "outlined"}
-                        endIcon={view === true ? <CreateIcon fontSize="small" /> : <CloseIcon fontSize="small" />}
-                        onClick={view === true ? change : changeBack}> {view === true ? "Edit Profile" : "Cancel"}</Button>
-                </Grid>
-            </Grid>
-            <Container maxWidth="sm">
-                {view === true &&
-                    <Card>
-                        <Typography variant="h1">
-                            {person.firstName} {person.lastName}
-                        </Typography>
-                        <Typography >
-                            {person.age}
-                        </Typography>
-                        <Typography >
-                            {person.email}
-                        </Typography>
-                        <Typography >
-                            {person.phone}
-                        </Typography>
-
-                    </Card>
-                }
-                {view === false &&
-                    <>
-                        <Grid container spacing={1}>
-                            <Grid item xs={6}>
-                                <TextInput
-                                    value={person.firstName ? person.firstName : ""}
-                                    label="First Name"
-                                    id="firstName"
-                                    onChange={e => (person.firstName = e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={6} >
-                                <TextInput
-                                    value={person.lastName}
-                                    label="Last Name"
-                                    id="lastName"
-                                    onChange={e => person.lastName = e.target.value}
-                                />
-
-                            </Grid>
+            {person &&
+                <>
+                    <Grid container
+                        direction="column"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                        spacing={2}
+                    >
+                        <Grid item>
+                            <Trail pageName="Customers" returningPage="/customers"
+                                currentPage={person.firstName + ' ' + person.lastName} />
                         </Grid>
-                        <TextInput
-                            value={person.age}
-                            label="Age"
-                            id="age"
-                            onChange={e => person.age = e.target.value}
-                        />
-                        <TextInput
-                            label="Email Address"
-                            value={person.email}
-                            id="email"
-                            onChange={e => person.email = e.target.value}
-                            error={errorMessage ? true : false}
-                            errorMessage={errorMessage}
+                        <Grid item>
+                            <Button
+                                variant={view === true ? "contained" : "outlined"}
+                                endIcon={view === true ? <CreateIcon fontSize="small" /> : <CloseIcon fontSize="small" />}
+                                onClick={view === true ? change : changeBack}> {view === true ? "Edit Profile" : "Cancel"}</Button>
+                        </Grid>
+                    </Grid>
+                    <Container maxWidth="sm">
+                        {view ? (
+                            <Card>
+                                <Typography variant="h1">
+                                    {person.firstName} {person.lastName}
+                                </Typography>
+                                <Typography >
+                                    {person.age}
+                                </Typography>
+                                <Typography >
+                                    {person.email}
+                                </Typography>
+                                <Typography >
+                                    {person.phone}
+                                </Typography>
+                            </Card>
+                        ) : (
+                            <>
+                                <Grid container spacing={1}>
+                                    <Grid item xs={6}>
+                                        <TextField id="firstName" label="First Name"
+                                            size="small" variant="outlined" fullWidth
+                                            value={person.firstName}
+                                            onChange={handleChange}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={6} >
+                                        <TextInput id="lastName" label="Last Name"
+                                            size="small" variant="outlined" fullWidth
+                                            value={person && person.lastName}
+                                            onChange={handleChange}
+                                        />
 
-                        />
-                        <TextInput
-                            value={person.phone}
-                            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                            label="Phone Number"
-                            type="number"
-                            id="phone"
-                            onChange={e => person.phone = e.target.value}
-                        />
-                        <Button
-                            sx={{ marginTop: 2 }}
-                            variant="contained"
-                            onClick={(e) => handleSave(e)}
-                            disabled={!formValid()}
-                        >
-                            {submitting ? <CircularProgress size={24} /> : 'Update person'}
-                        </Button>
-                    </>
-                }
-            </Container>
+                                    </Grid>
+                                </Grid>
+                                <TextInput id="age" label="Age"
+                                    size="small" variant="outlined" fullWidth
+                                    value={person && person.age}
+                                    onChange={handleChange}
+                                />
+                                <TextInput id="email" label="Email Address"
+                                    size="small" variant="outlined" fullWidth
+                                    value={person.email}
+                                    onChange={handleChange}
+                                    error={Boolean(errorMsg)}
+                                    helperText={errorMsg}
+
+                                />
+                                <TextInput id="phone" label="Phone Number"
+                                    size="small" variant="outlined" fullWidth type="number"
+                                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                                    value={person && person.phone}
+                                    onChange={handleChange}
+                                />
+                                <Button
+                                    sx={{ marginTop: 2 }}
+                                    variant="contained"
+                                    onClick={handleSave}
+                                    disabled={!formValid()}
+                                >
+                                    {submitting ? <CircularProgress size={24} /> : 'Update person'}
+                                </Button>
+                            </>
+                        )}
+                    </Container>
+                </>
+            }
         </>
     )
 }
+
+const TextInput = styled(TextField)(({ theme }) => ({
+    marginTop: theme.spacing(2),
+}));
+
 export default Customer;

@@ -54,7 +54,11 @@ const initialState = {
         matches: 0
     },
     person: {
-        firstName: ''
+        firstName: '',
+        lastName: '',
+        age: '',
+        email: '',
+        phone: ''
     },
     error: null,
 };
@@ -90,7 +94,6 @@ export const useApi = () => {
         } else {
             dispatch({ type: 'error', error: resp.Error, meta: { method: 'query' } });
         }
-        return
     }, [getAccessTokenSilently, dispatch]);
 
     const fetchPerson = useCallback(async (id) => {
@@ -109,11 +112,9 @@ export const useApi = () => {
             dispatch({ type: 'error', error: resp.Error, meta: { method: 'get' } });
         }
 
-        return
     }, [getAccessTokenSilently, dispatch]);
 
     const create = useCallback(async (person) => {
-
         const reqInit = {
             method: "POST",
             headers: {
@@ -130,11 +131,9 @@ export const useApi = () => {
             dispatch({ type: 'error', error: resp.Error, meta: { method: 'post' } });
         }
 
-        return
     }, [getAccessTokenSilently, dispatch]);
 
     const update = useCallback(async (person) => {
-
         const reqInit = {
             method: "PUT",
             headers: {
@@ -151,7 +150,6 @@ export const useApi = () => {
             dispatch({ type: 'error', error: resp.Error, meta: { method: 'put' } });
         }
 
-        return
     }, [getAccessTokenSilently, dispatch]);
 
     const deletePerson = useCallback(async (person) => {
@@ -171,7 +169,6 @@ export const useApi = () => {
             dispatch({ type: 'error', error: resp.Error, meta: { method: 'delete' } });
         }
 
-        return
     }, [getAccessTokenSilently, dispatch]);
 
 
