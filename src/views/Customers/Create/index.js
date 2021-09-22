@@ -40,17 +40,17 @@ const CreatePerson = () => {
 
     };
 
-    const formValid = () => {
-        if (!person.email) {
-            return false;
-        }
-        for (var err in setPerson.errors) {
-            if (setPerson.errors[err]) {
-                return false;
-            }
-        }
-        return true;
-    };
+    // const formValid = () => {
+    //     if (!setPerson.email) {
+    //         return false;
+    //     }
+    //     for (var err in setPerson.errors) {
+    //         if (setPerson.errors[err]) {
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // };
 
     return (
         <>
@@ -61,6 +61,7 @@ const CreatePerson = () => {
                         <Grid container spacing={1}>
                             <Grid item xs={6}>
                                 <TextInput
+
                                     label="First Name"
                                     id="firstName"
                                     onChange={e => setPerson(prev => ({ ...prev, firstName: e.target.value }))}
@@ -98,7 +99,7 @@ const CreatePerson = () => {
                             sx={{ marginTop: 2 }}
                             variant="contained"
                             onClick={(e) => handleSubmit(e)}
-                            disabled={!formValid()}
+                        // disabled={!formValid()}
                         >
                             {submitting ? <CircularProgress size={24} /> : 'Create New Client'}
                         </Button>
