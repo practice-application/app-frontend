@@ -15,6 +15,7 @@ import { TextInput } from '../../../components/TextInput';
 import { Trail } from '../../../components/Trail';
 import { CustomerProvider, useApi } from '../context';
 
+
 const Customer = () => {
     return (
         <>
@@ -27,7 +28,7 @@ const Customer = () => {
 
 const Profile = () => {
     const [view, setView] = useState(true);
-    const [{ person }, { fetchPerson, update }] = useApi();
+    const [{ person }, { fetchPerson, update, create }] = useApi();
     const { id } = useParams();
     const [errorMessage, setErrorMessage] = useState(false);
     const [submitting, setSubmitting] = useState();
@@ -45,14 +46,18 @@ const Profile = () => {
         }
     }
 
-    const handleUpdate = () => {
+    const handleSave = () => {
         if (validEmail()) {
             setErrorMessage('');
             setSubmitting(true);
-            if (update(person)) {
-                setView(true);
-                setSubmitting(false);
+
+            if (person.id) {
+                update(person)
+            } else {
+                create(person)
             }
+            setView(true);
+            setSubmitting(false);
         }
     };
 
@@ -166,7 +171,7 @@ const Profile = () => {
                         <Button
                             sx={{ marginTop: 2 }}
                             variant="contained"
-                            onClick={(e) => handleUpdate(e)}
+                            onClick={(e) => handleSave(e)}
                             disabled={!formValid()}
                         >
                             {submitting ? <CircularProgress size={24} /> : 'Update person'}

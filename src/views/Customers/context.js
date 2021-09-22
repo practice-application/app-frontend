@@ -53,7 +53,9 @@ const initialState = {
         data: [],
         matches: 0
     },
-    person: {},
+    person: {
+        firstName: ''
+    },
     error: null,
 };
 
@@ -110,7 +112,7 @@ export const useApi = () => {
         return
     }, [getAccessTokenSilently, dispatch]);
 
-    const createPerson = useCallback(async (person) => {
+    const create = useCallback(async (person) => {
 
         const reqInit = {
             method: "POST",
@@ -174,8 +176,8 @@ export const useApi = () => {
 
 
     const actions = useMemo(() => {
-        return { fetchPeople, fetchPerson, update, createPerson, deletePerson }
-    }, [fetchPeople, fetchPerson, update, createPerson, deletePerson]);
+        return { fetchPeople, fetchPerson, update, create, deletePerson }
+    }, [fetchPeople, fetchPerson, update, create, deletePerson]);
 
     return [state, actions];
 }
