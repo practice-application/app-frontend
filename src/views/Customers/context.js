@@ -110,26 +110,8 @@ export const useApi = () => {
         return
     }, [getAccessTokenSilently, dispatch]);
 
-    const editPerson = useCallback(async (id) => {
-        const reqInit = {
-            method: "PUT",
-            headers: {
-                Accept: 'application/ json',
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + await getAccessTokenSilently()
-            },
-        }
-        const resp = await fetch(`${config.url}/people/${id}`, reqInit);
-        if (resp.ok) {
-            dispatch({ type: 'put', payload: await resp.json() });
-        } else {
-            dispatch({ type: 'error', error: resp.Error, meta: { method: 'put' } });
-        }
+    const createPerson = useCallback(async (person) => {
 
-        return
-    }, [getAccessTokenSilently, dispatch]);
-
-    const createPerson = useCallback(async () => {
         const reqInit = {
             method: "POST",
             headers: {
@@ -137,6 +119,7 @@ export const useApi = () => {
                 'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + await getAccessTokenSilently()
             },
+            body: JSON.stringify(person)
         }
         const resp = await fetch(`${config.url}/people`, reqInit);
         if (resp.ok) {
@@ -148,9 +131,52 @@ export const useApi = () => {
         return
     }, [getAccessTokenSilently, dispatch]);
 
+    const editPerson = useCallback(async (p, person) => {
+
+        const reqInit = {
+            method: "PUT",
+            headers: {
+                Accept: 'application/ json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + await getAccessTokenSilently()
+            },
+            body: JSON.stringify(p || person)
+        }
+        const resp = await fetch(`${config.url}/people/${person.id}`, reqInit);
+        console.log(p)
+        if (resp.ok) {
+            dispatch({ type: 'put', payload: await resp.json() });
+        } else {
+            dispatch({ type: 'error', error: resp.Error, meta: { method: 'put' } });
+        }
+
+        return
+    }, [getAccessTokenSilently, dispatch]);
+
+    const deletePerson = useCallback(async (person) => {
+        const reqInit = {
+            method: "DELETE",
+            headers: {
+                Accept: 'application/ json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + await getAccessTokenSilently()
+            },
+            body: JSON.stringify(person)
+        }
+        const resp = await fetch(`${config.url}/people/${person.id}`, reqInit);
+        if (resp.ok) {
+            dispatch({ type: 'delete', payload: await resp.json() });
+        } else {
+            dispatch({ type: 'error', error: resp.Error, meta: { method: 'delete' } });
+        }
+
+        return
+    }, [getAccessTokenSilently, dispatch]);
+
+
     const actions = useMemo(() => {
-        return { fetchPeople, fetchPerson, editPerson, createPerson }
-    }, [fetchPeople, fetchPerson, editPerson, createPerson]);
+        return { fetchPeople, fetchPerson, editPerson, createPerson, deletePerson }
+    }, [fetchPeople, fetchPerson, editPerson, createPerson, deletePerson]);
 
     return [state, actions];
 }

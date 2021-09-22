@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // import { useAuth0 } from "@auth0/auth0-react";
 import CloseIcon from '@mui/icons-material/Close';
@@ -12,70 +12,56 @@ import Typography from '@mui/material/Typography';
 import { useParams } from "react-router-dom";
 
 import { TextInput } from '../../../components/TextInput';
-import { useForm } from '../../../components/TextInput/useForm';
 import { Trail } from '../../../components/Trail';
-import { config } from '../../../config';
 import { CustomerProvider, useApi } from '../context';
 
 const Customer = () => {
     return (
-        <CustomerProvider>
-            <Profile />
-        </CustomerProvider>
+        <>
+            <CustomerProvider>
+                <Profile />
+            </CustomerProvider>
+        </>
     );
 }
 
 const Profile = () => {
-    const [view, setView] = React.useState(true);
+    const [view, setView] = useState(true);
     const [{ person }, { fetchPerson, editPerson }] = useApi();
     const { id } = useParams();
-    const [errorMessage, setErrorMessage] = React.useState(false);
-    const [submitting, setSubmitting] = React.useState();
-    const [form, setForm, isValid] = useForm({
-        firstName: { label: "First Name", value: person.firstName },
-        lastName: { label: "Last Name", value: person.lastName },
-        age: { label: "Age", value: person.age },
-        phone: { label: "Phone Number", value: person.phone },
-        email: { label: "Email address", value: person.email }
-    });
+    const [errorMessage, setErrorMessage] = useState(false);
+    const [submitting, setSubmitting] = useState();
+    const [p = person, setPerson] = useState([])
 
     const validEmail = () => {
+        let isValid = true;
         const emailRegex = /\S+@\S+/
-        if (typeof person.email !== 'undefined') {
-            if (!emailRegex.test(person.email)) {
+        if (typeof p.email !== 'undefined') {
+            if (!emailRegex.test(p.email)) {
+                isValid = false;
                 setErrorMessage('Please enter a valid email address');
             }
+            return isValid;
         }
-        return isValid;
     }
 
     const handleUpdate = async () => {
         if (validEmail()) {
             setErrorMessage('');
-            setSubmitting(true)
-            var xhr = new XMLHttpRequest();
-            xhr.open("PUT", `${config.url}/people/${id}`);
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    var status = xhr.status;
-                    if (status === 0 || (status >= 200 && status < 400)) {
-                        setView(true);
-                        setSubmitting(false)
-                    } else {
-                        console.error(xhr.responseText);
-                    }
-                }
-            };
-            xhr.send(JSON.stringify(person));
+            setSubmitting(true);
+            if (editPerson(p, person)) {
+                setView(true);
+                setSubmitting(false);
+            }
         }
     };
 
     const formValid = () => {
-        if (!form.email) {
+        if (!p.email) {
             return false;
         }
-        for (var err in person.errors) {
-            if (person.errors[err]) {
+        for (var err in p.errors) {
+            if (p.errors[err]) {
                 return false;
             }
         }
@@ -83,8 +69,8 @@ const Profile = () => {
     };
 
     useEffect(() => {
-        fetchPerson(id);
-    }, [fetchPerson, id]);;
+        fetchPerson(id, person);
+    }, [fetchPerson, id, person]);;
 
     const change = () => {
         setView(false);
@@ -92,6 +78,7 @@ const Profile = () => {
     const changeBack = () => {
         setView(true);
     };
+
 
     return (
         <>
@@ -119,6 +106,9 @@ const Profile = () => {
                             {person.firstName} {person.lastName}
                         </Typography>
                         <Typography >
+                            {person.age}
+                        </Typography>
+                        <Typography >
                             {person.email}
                         </Typography>
                         <Typography >
@@ -132,40 +122,44 @@ const Profile = () => {
                         <Grid container spacing={1}>
                             <Grid item xs={6}>
                                 <TextInput
-                                    field={form.firstName}
-
+                                    value={p.firstName || person.firstName}
                                     label="First Name"
-                                    onChange={setForm}
+                                    id="firstName"
+                                    onChange={e => setPerson({ ...person, ...p, firstName: e.target.value })}
                                 />
                             </Grid>
                             <Grid item xs={6} >
                                 <TextInput
-                                    field={form.lastName}
+                                    value={p.lastName || person.lastName}
                                     label="Last Name"
-                                    onChange={setForm}
+                                    id="lastName"
+                                    onChange={e => setPerson({ ...p, ...person, lastName: e.target.value })}
                                 />
+
                             </Grid>
                         </Grid>
                         <TextInput
-                            field={form.age}
-                            type="number"
+                            value={p.age || person.age}
                             label="Age"
-                            onChange={setForm}
+                            id="age"
+                            onChange={e => setPerson({ ...p, ...person, age: e.target.value })}
                         />
                         <TextInput
-                            field={form.email}
+                            label="Email Address"
+                            value={p.email || person.email}
+                            id="email"
+                            onChange={e => setPerson({ ...p, ...person, email: e.target.value })}
                             error={errorMessage ? true : false}
                             errorMessage={errorMessage}
-                            onChange={setForm}
+
                         />
                         <TextInput
-                            type="number"
+                            value={p.phone || person.phone}
                             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                            field={form.phone}
+                            label="Phone Number"
+                            type="number"
                             id="phone"
-                            error={errorMessage ? true : false}
-                            errorMessage={errorMessage}
-                            onChange={setForm}
+                            onChange={e => setPerson({ ...p, ...person, phone: e.target.value })}
                         />
                         <Button
                             sx={{ marginTop: 2 }}
@@ -173,7 +167,7 @@ const Profile = () => {
                             onClick={(e) => handleUpdate(e)}
                             disabled={!formValid()}
                         >
-                            {submitting ? <CircularProgress size={24} /> : 'Update'}
+                            {submitting ? <CircularProgress size={24} /> : 'Update person'}
                         </Button>
                     </>
                 }

@@ -12,7 +12,7 @@ export const TextInput = props => {
     return (
         <>
             <TextField
-                value={value}
+                value={value || ''}
                 id={id}
                 label={label}
                 size="small"
