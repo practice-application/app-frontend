@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import Grid from '@mui/material/Grid';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
@@ -12,12 +12,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Box from '@mui/system/Box';
 import { parseISO, formatDistanceToNow } from "date-fns";
-
+import IconButton from '@mui/material/IconButton';
 import ActionLink from '../../../components/ActionLink';
 import { TablePager } from '../../../components/TablePager';
 import { useApi } from '../context';
 import { CustomerProvider } from '../context';
-
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import CloseIcon from '@mui/icons-material/Close';
+import CreateIcon from '@mui/icons-material/Create';
+import { Person } from '@mui/icons-material';
 const pageSize = 10;
 
 const CustomerListExt = () => {
@@ -29,25 +32,47 @@ const CustomerListExt = () => {
 }
 
 const CustomerList = () => {
-    const [{ people }, actions] = useApi();
+    const [view, setView] = useState('true');
+    // const [state, actions] = useApi();
+    const [{ people }, { deletePerson, fetchPeople }] = useApi();
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
     // const [rowsPerPage, setRowsPerPage] = useState(10);
 
     useEffect(() => {
-        actions.fetchPeople(page);
-    }, [actions, page]);
+        fetchPeople(page);
+    }, [fetchPeople, page]);
+
+    const handleDelete = (id) => {
+        deletePerson(id);
+    };
 
 
     const handlePage = () => {
 
         setPage(prev => ({ ...prev, offset: prev.offset + pageSize }))
     };
+    const change = () => {
+        setView(false);
+    };
+    const changeBack = () => {
+        setView(true);
+    };
 
     return (
         <>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', my: 1 }}>
+            <Grid direction='row' sx={{display: 'flex', justifyContent: 'flex-end'}}>
+            <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
+                
+                {/* <Button onClick={view === true ? change : changeBack}>{view === true ? "Cancel" : "Edit"}</Button> */}
+                <Button
+                startIcon={view === true ? <CloseIcon fontSize="small" /> : <CreateIcon fontSize="small" />}
+                onClick={view === true ? change : changeBack}> {view === true ? "Cancel" : "Edit"}</Button>
+                
+            </Box>
+            <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
                 <Button variant='contained' component={ActionLink} to="/add">Add User</Button>
             </Box>
+            </Grid>
             <TableContainer sx={{
                 '& [class*="MuiTableCell-head"]': {
                     backgroundColor: 'background.paper',
@@ -75,8 +100,11 @@ const CustomerList = () => {
                                     </Button>
                                 </TableCell>
                                 <TableCell align="left">{item.email}</TableCell>
-                                <TableCell align="left">{`${formatDistanceToNow(parseISO(item.date))} ago`}</TableCell>
-                                <TableCell />
+                                <TableCell align="left">{`${formatDistanceToNow(parseISO(item.date))} ago`}</TableCell>                             
+                                <TableCell align="left">{view === true ? <IconButton onClick={() => handleDelete(item.id)}>
+                                    <DeleteForeverIcon />
+                                    </IconButton> : ''}
+                                    </TableCell>
                             </TableRow>
                         )}
                         {/* {emptyRows > 0 && (
