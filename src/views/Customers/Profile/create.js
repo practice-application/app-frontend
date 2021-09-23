@@ -7,33 +7,26 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import { Trail } from '../../../components/Trail';
-import { CustomerProvider } from '../context';
 import Form from './create'
 
+
+
 const CreatePerson = () => {
-    return (
-        <CustomerProvider>
-            <Create />
-        </CustomerProvider>
-    );
-}
+    const [submitted, setSubmitted] = useState(false);
 
-const Create = () => {
-    const [submitted, setSubmitted] = useState();
 
-    const handleSubmit = async () => {
+    const handleSubmit = () => {
         setSubmitted(true);
 
     };
 
     return (
-        <CustomerProvider>
+        <>
             <Trail pageName="Customers" returningPage="/customers" currentPage="New Customer" />
             <Container maxWidth="sm">
-                {!submitted &&
+                {!submitted ?
                     <Form onAction={handleSubmit} />
-                }
-                {submitted &&
+                    :
                     <Grid container direction="column" justifyContent="center" alignItems="center" >
                         <Typography variant="h3">
                             Member uploaded successfully
@@ -44,7 +37,7 @@ const Create = () => {
                     </Grid>
                 }
             </Container>
-        </CustomerProvider>
+        </>
     );
 }
 export default CreatePerson;

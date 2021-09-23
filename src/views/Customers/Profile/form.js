@@ -9,6 +9,9 @@ import * as PropTypes from 'prop-types';
 
 import { useApi } from '../context';
 
+
+
+
 const Form = ({ onAction }) => {
     const [state, { update, create }] = useApi();
     const [person, setPerson] = useState();
@@ -70,7 +73,6 @@ const Form = ({ onAction }) => {
 
     return (
         <>
-
             {person &&
                 <>
                     <Grid container spacing={1}>
@@ -101,7 +103,6 @@ const Form = ({ onAction }) => {
                         onChange={handleChange}
                         error={Boolean(errorMsg)}
                         helperText={errorMsg}
-
                     />
                     <TextInput id="phone" label="Phone Number"
                         size="small" variant="outlined" fullWidth type="number"

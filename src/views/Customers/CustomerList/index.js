@@ -37,6 +37,7 @@ const CustomerList = () => {
         actions.fetchPeople(page);
     }, [actions, page]);
 
+
     const handlePage = () => {
 
         setPage(prev => ({ ...prev, offset: prev.offset + pageSize }))
