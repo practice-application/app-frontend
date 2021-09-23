@@ -59,7 +59,7 @@ const CustomerList = () => {
 
     return (
         <>
-            <Grid direction='row' sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Grid container direction='row' sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
                     <Button
                         startIcon={view === true ? <CloseIcon fontSize="small" /> : <CreateIcon fontSize="small" />}

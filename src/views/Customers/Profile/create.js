@@ -7,22 +7,22 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import { Trail } from '../../../components/Trail';
-import Form from './create'
+import { CustomerProvider } from '../context';
+import { Form } from './Form';
 
 const CreatePerson = () => {
     const [submitted, setSubmitted] = useState(false);
-
-
     const handleSubmit = () => {
         setSubmitted(true);
-
     };
 
+
     return (
-        <>
+        <CustomerProvider>
             <Trail pageName="Customers" returningPage="/customers" currentPage="New Customer" />
             <Container maxWidth="sm">
-                {!submitted ?
+                {!submitted
+                    ?
                     <Form onAction={handleSubmit} />
                     :
                     <Grid container direction="column" justifyContent="center" alignItems="center" >
@@ -35,7 +35,7 @@ const CreatePerson = () => {
                     </Grid>
                 }
             </Container>
-        </>
+        </CustomerProvider>
     );
 }
 export default CreatePerson;

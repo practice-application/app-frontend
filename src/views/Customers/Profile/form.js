@@ -9,7 +9,7 @@ import * as PropTypes from 'prop-types';
 
 import { useApi } from '../context';
 
-const Form = ({ onAction }) => {
+export const Form = ({ onAction }) => {
     const [state, { update, create }] = useApi();
     const [person, setPerson] = useState();
     const [errorMsg, setErrorMsg] = useState(false);
@@ -124,8 +124,6 @@ const Form = ({ onAction }) => {
 const TextInput = styled(TextField)(({ theme }) => ({
     marginTop: theme.spacing(2),
 }));
-
-export default Form;
 
 Form.propTypes = {
     onAction: PropTypes.func,

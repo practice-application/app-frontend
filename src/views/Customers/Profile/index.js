@@ -11,17 +11,17 @@ import { useParams } from "react-router-dom";
 
 import { Trail } from '../../../components/Trail';
 import { CustomerProvider, useApi } from '../context';
-import Form from './form'
+import { Form } from './Form'
 
-const Customer = () => {
+const Profile = () => {
     return (
         <CustomerProvider>
-            <Profile />
+            <Customer />
         </CustomerProvider>
     );
 }
 
-const Profile = () => {
+const Customer = () => {
     const [view, setView] = useState(true);
     const [state, { fetchPerson }] = useApi();
     const [person, setPerson] = useState();
@@ -89,4 +89,4 @@ const Profile = () => {
     )
 }
 
-export default Customer;
+export default Profile;

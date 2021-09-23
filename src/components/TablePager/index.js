@@ -38,8 +38,3 @@ TablePager.propTypes = {
     colSpan: PropTypes.number.isRequired,
     onPage: PropTypes.func,
 };
-
-// TablePager.defaultProps = {
-//     count: 0,
-//     total: 0,
-// };

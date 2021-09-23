@@ -10,7 +10,7 @@ import { WaitSkeleton } from './components/WaitSkeleton';
 import { custom } from './theme';
 
 const Profile = lazy(() => import('./views/Customers/Profile'));
-const Create = lazy(() => import('./views/Customers/Profile/create'));
+const CreatePerson = lazy(() => import('./views/Customers/Profile/Create'));
 const CustomerList = lazy(() => import('./views/Customers/CustomerList'));
 const UserProfile = lazy(() => import('./views/User'));
 
@@ -26,7 +26,7 @@ const App = withAuthenticationRequired(() => {
           <Suspense fallback={<WaitSkeleton visible={true} />}>
             <Switch>
               <Route exact path="/customers/:id" component={Profile} />
-              <Route exact path="/add" component={Create} />
+              <Route exact path="/add" component={CreatePerson} />
               <Route exact path="/customers" component={CustomerList} />
               <Route exact path="/profile" component={UserProfile} />
             </Switch>
