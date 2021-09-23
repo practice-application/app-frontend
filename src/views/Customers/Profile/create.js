@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
+import ActionLink from '../../../components/ActionLink';
 import { Trail } from '../../../components/Trail';
 import { CustomerProvider } from '../context';
 import { Form } from './Form';
@@ -20,7 +21,7 @@ const CreatePerson = () => {
     return (
         <CustomerProvider>
             <Trail pageName="Customers" returningPage="/customers" currentPage="New Customer" />
-            <Container maxWidth="sm">
+            <Container maxWidth="sm" sx={{ mt: 4 }}>
                 {!submitted
                     ?
                     <Form onAction={handleSubmit} />
@@ -30,7 +31,7 @@ const CreatePerson = () => {
                             Member uploaded successfully
                         </Typography>
                         <Box sx={{ pt: '1rem', width: '50%' }}>
-                            <Button fullWidth variant="contained" data-test="return" href={'/customers'}>Return</Button>
+                            <Button fullWidth variant="contained" data-test="return" component={ActionLink} to="/customers">Return</Button>
                         </Box>
                     </Grid>
                 }

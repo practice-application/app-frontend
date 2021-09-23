@@ -113,7 +113,7 @@ export const Form = ({ onAction }) => {
                         onClick={handleSave}
                         disabled={!formValid()}
                     >
-                        {submitting ? <CircularProgress size={24} /> : 'Update person'}
+                        {submitting ? <CircularProgress size={24} /> : person.id ? 'Update Person' : 'Create Person'}
                     </Button>
                 </>
             }
