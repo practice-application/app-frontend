@@ -30,6 +30,7 @@ const reducer = (state, action) => {
             newState.pending = false;
             newState.person = action.payload;
             newState.person.push(action.payload)
+            newState.people.matches++;
             return newState;
         case 'put':
             newState.pending = false;
@@ -37,6 +38,13 @@ const reducer = (state, action) => {
             const index = newState.people.findIndex(e => e.id === action.payload);
             newState.people.splice(index, 1, action.payload);
             return newState;
+        case 'delete': {
+            newState.pending = false;
+            const index = newState.people.data.findIndex(p => p.id === action.payload);
+            newState.people.data.splice(index.splice, 1);
+            newState.people.matches--;
+            return newState;
+        }
         case 'error':
             console.error(action.error);
             newState.pending = false;
@@ -152,19 +160,17 @@ export const useApi = () => {
 
     }, [getAccessTokenSilently, dispatch]);
 
-    const deletePerson = useCallback(async (person) => {
+    const deletePerson = useCallback(async (id) => {
         const reqInit = {
             method: "DELETE",
             headers: {
-                Accept: 'application/ json',
-                'Content-Type': 'application/json',
+                Accept: 'application/json',
                 Authorization: 'Bearer ' + await getAccessTokenSilently()
             },
-            body: JSON.stringify(person)
         }
-        const resp = await fetch(`${config.url}/people/${person.id}`, reqInit);
+        const resp = await fetch(`${config.url}/people/${id}`, reqInit);
         if (resp.ok) {
-            dispatch({ type: 'delete', payload: await resp.json() });
+            dispatch({ type: 'delete', payload: id });
         } else {
             dispatch({ type: 'error', error: resp.Error, meta: { method: 'delete' } });
         }
