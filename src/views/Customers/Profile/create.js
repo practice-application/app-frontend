@@ -9,8 +9,6 @@ import Typography from '@mui/material/Typography';
 import { Trail } from '../../../components/Trail';
 import Form from './create'
 
-
-
 const CreatePerson = () => {
     const [submitted, setSubmitted] = useState(false);
 

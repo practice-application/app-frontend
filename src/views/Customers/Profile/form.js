@@ -9,9 +9,6 @@ import * as PropTypes from 'prop-types';
 
 import { useApi } from '../context';
 
-
-
-
 const Form = ({ onAction }) => {
     const [state, { update, create }] = useApi();
     const [person, setPerson] = useState();
