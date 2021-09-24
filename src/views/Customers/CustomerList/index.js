@@ -21,8 +21,6 @@ import { TablePager } from '../../../components/TablePager';
 import { useApi } from '../context';
 import { CustomerProvider } from '../context';
 
-
-
 const pageSize = 10;
 
 const CustomerListExt = () => {
@@ -62,7 +60,8 @@ const CustomerList = () => {
             <Grid container direction='row' sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
                     <Button
-                        startIcon={view === true ? <CloseIcon fontSize="small" /> : <CreateIcon fontSize="small" />}
+                        variant="outlined"
+                        endIcon={view === true ? <CloseIcon fontSize="small" /> : <CreateIcon fontSize="small" />}
                         onClick={view === true ? change : changeBack}> {view === true ? "Cancel" : "Edit"}</Button>
 
                 </Box>

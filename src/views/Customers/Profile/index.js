@@ -8,6 +8,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useParams } from "react-router-dom";
+import { format, parseISO } from 'date-fns';
 
 import { Trail } from '../../../components/Trail';
 import { CustomerProvider, useApi } from '../context';
@@ -70,7 +71,7 @@ const Customer = () => {
                                     {person.firstName} {person.lastName}
                                 </Typography>
                                 <Typography >
-                                    {person.age}
+                                    {person.age !== '' && format(parseISO(person.age), 'dd MMMM yyyy')}
                                 </Typography>
                                 <Typography >
                                     {person.email}
