@@ -14,7 +14,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import dateFormat from 'dateformat';
 
-const UserProfile = () => {
+export const User = () => {
     const { user } = useAuth0();
     const { name, picture, email, nickname, email_verified, created_at } = user;
 
@@ -68,4 +68,4 @@ const UserProfile = () => {
 
 };
 
-export default UserProfile;
+export default User;

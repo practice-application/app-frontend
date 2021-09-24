@@ -11,7 +11,7 @@ import { Trail } from '../../../components/Trail';
 import { CustomerProvider } from '../context';
 import { Form } from './Form';
 
-const CreatePerson = () => {
+export const Create = () => {
     const [submitted, setSubmitted] = useState(false);
     const handleSubmit = () => {
         setSubmitted(true);
@@ -39,4 +39,4 @@ const CreatePerson = () => {
         </CustomerProvider>
     );
 }
-export default CreatePerson;
+export default Create;

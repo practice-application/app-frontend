@@ -7,14 +7,14 @@ import Card from '@mui/material/Card';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { useParams } from "react-router-dom";
 import { format, parseISO } from 'date-fns';
+import { useParams } from "react-router-dom";
 
 import { Trail } from '../../../components/Trail';
 import { CustomerProvider, useApi } from '../context';
 import { Form } from './Form'
 
-const Profile = () => {
+export const Profile = () => {
     return (
         <CustomerProvider>
             <Customer />

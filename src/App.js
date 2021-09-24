@@ -10,9 +10,9 @@ import { WaitSkeleton } from './components/WaitSkeleton';
 import { custom } from './theme';
 
 const Profile = lazy(() => import('./views/Customers/Profile'));
-const CreatePerson = lazy(() => import('./views/Customers/Profile/Create'));
+const Create = lazy(() => import('./views/Customers/Profile/Create'));
 const CustomerList = lazy(() => import('./views/Customers/CustomerList'));
-const UserProfile = lazy(() => import('./views/User'));
+const User = lazy(() => import('./views/User'));
 
 let theme = createTheme(custom);
 theme = responsiveFontSizes(theme)
@@ -26,9 +26,9 @@ const App = withAuthenticationRequired(() => {
           <Suspense fallback={<WaitSkeleton visible={true} />}>
             <Switch>
               <Route exact path="/customers/:id" component={Profile} />
-              <Route exact path="/add" component={CreatePerson} />
+              <Route exact path="/add" component={Create} />
               <Route exact path="/customers" component={CustomerList} />
-              <Route exact path="/profile" component={UserProfile} />
+              <Route exact path="/profile" component={User} />
             </Switch>
           </Suspense>
         </Layout>
