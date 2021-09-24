@@ -41,7 +41,7 @@ const reducer = (state, action) => {
         case 'delete': {
             newState.pending = false;
             const index = newState.people.data.findIndex(p => p.id === action.payload);
-            newState.people.data.splice(index.splice, 1);
+            newState.people.data.splice(index, 1);
             newState.people.matches--;
             return newState;
         }
