@@ -119,9 +119,9 @@ export const Form = ({ onAction }) => {
                         value={person && person.phone}
                         onChange={handleChange}
                     />
-                    <TextInput id="streetName" label="Street Name"
+                    <TextInput id="addressLine1" label="Address Line 1"
                         size="small" variant="outlined" fullWidth
-                        value={person && person.address.streetName}
+                        value={person && person.address.addressLine1}
                         onChange={handleChange}
                     />
                     <Button
