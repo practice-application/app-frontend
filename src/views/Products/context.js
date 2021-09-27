@@ -17,32 +17,32 @@ const reducer = (state, action) => {
             let json = action.payload.json;
             const page = action.payload.page;
             if (page.offset > 0) {
-                json.data = state.people.data.concat(json.data);
+                json.data = state.products.data.concat(json.data);
             }
-            newState.people = json;
+            newState.products = json;
             newState.matches = json.matches;
             return newState;
         case 'get':
             newState.pending = false;
-            newState.person = action.payload;
+            newState.product = action.payload;
             return newState;
         case 'post':
             newState.pending = false;
-            newState.person = action.payload;
-            newState.person.push(action.payload)
-            newState.people.matches++;
+            newState.product = action.payload;
+            newState.product.push(action.payload)
+            newState.products.matches++;
             return newState;
         case 'put':
             newState.pending = false;
-            newState.person = action.payload;
-            const index = newState.people.findIndex(e => e.id === action.payload);
-            newState.people.splice(index, 1, action.payload);
+            newState.product = action.payload;
+            const index = newState.products.findIndex(e => e.id === action.payload);
+            newState.products.splice(index, 1, action.payload);
             return newState;
         case 'delete': {
             newState.pending = false;
-            const index = newState.people.data.findIndex(p => p.id === action.payload);
-            newState.people.data.splice(index, 1);
-            newState.people.matches--;
+            const index = newState.products.data.findIndex(p => p.id === action.payload);
+            newState.products.data.splice(index, 1);
+            newState.products.matches--;
             return newState;
         }
         case 'error':
@@ -57,16 +57,15 @@ const reducer = (state, action) => {
 
 const initialState = {
     pending: false,
-    people: {
+    products: {
         data: [],
         matches: 0
     },
-    person: {
-        firstName: '',
-        lastName: '',
-        age: '',
-        email: '',
-        phone: ''
+    product: {
+        name: '',
+        price: '',
+        description: '',
+        date: ''
     },
     error: null,
 };
@@ -85,7 +84,7 @@ export const useApi = () => {
     const { getAccessTokenSilently } = useAuth0();
     const { state, dispatch } = useContext(ProductContext);
 
-    const fetchPeople = useCallback(async (page = { limit: 10 }) => {
+    const fetchProducts = useCallback(async (page = { limit: 10 }) => {
         const reqInit = {
             method: "GET",
             headers: {
@@ -96,7 +95,7 @@ export const useApi = () => {
             },
         }
         console.log(await getAccessTokenSilently())
-        const resp = await fetch(`${config.url}/people?lmt=${page.limit}&off=${page.offset}`, reqInit);
+        const resp = await fetch(`${config.url}/products?lmt=${page.limit}&off=${page.offset}`, reqInit);
         if (resp.ok) {
             dispatch({ type: 'query', payload: { json: await resp.json(), page: page } });
         } else {
@@ -104,7 +103,7 @@ export const useApi = () => {
         }
     }, [getAccessTokenSilently, dispatch]);
 
-    const fetchPerson = useCallback(async (id) => {
+    const fetchProduct = useCallback(async (id) => {
         const reqInit = {
             method: "GET",
             headers: {
@@ -113,7 +112,7 @@ export const useApi = () => {
                 Authorization: 'Bearer ' + await getAccessTokenSilently()
             },
         }
-        const resp = await fetch(`${config.url}/people/${id}`, reqInit);
+        const resp = await fetch(`${config.url}/products/${id}`, reqInit);
         if (resp.ok) {
             dispatch({ type: 'get', payload: await resp.json() });
         } else {
@@ -122,7 +121,7 @@ export const useApi = () => {
 
     }, [getAccessTokenSilently, dispatch]);
 
-    const create = useCallback(async (person) => {
+    const create = useCallback(async (product) => {
         const reqInit = {
             method: "POST",
             headers: {
@@ -130,9 +129,9 @@ export const useApi = () => {
                 'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + await getAccessTokenSilently()
             },
-            body: JSON.stringify(person)
+            body: JSON.stringify(product)
         }
-        const resp = await fetch(`${config.url}/people`, reqInit);
+        const resp = await fetch(`${config.url}/products`, reqInit);
         if (resp.ok) {
             dispatch({ type: 'post', payload: await resp.json() });
         } else {
@@ -141,7 +140,7 @@ export const useApi = () => {
 
     }, [getAccessTokenSilently, dispatch]);
 
-    const update = useCallback(async (person) => {
+    const update = useCallback(async (product) => {
         const reqInit = {
             method: "PUT",
             headers: {
@@ -149,9 +148,9 @@ export const useApi = () => {
                 'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + await getAccessTokenSilently()
             },
-            body: JSON.stringify(person)
+            body: JSON.stringify(product)
         }
-        const resp = await fetch(`${config.url}/people/${person.id}`, reqInit);
+        const resp = await fetch(`${config.url}/products/${product.id}`, reqInit);
         if (resp.ok) {
             dispatch({ type: 'put', payload: await resp.json() });
         } else {
@@ -160,7 +159,7 @@ export const useApi = () => {
 
     }, [getAccessTokenSilently, dispatch]);
 
-    const deletePerson = useCallback(async (id) => {
+    const deleteProduct = useCallback(async (id) => {
         const reqInit = {
             method: "DELETE",
             headers: {
@@ -168,7 +167,7 @@ export const useApi = () => {
                 Authorization: 'Bearer ' + await getAccessTokenSilently()
             },
         }
-        const resp = await fetch(`${config.url}/people/${id}`, reqInit);
+        const resp = await fetch(`${config.url}/products/${id}`, reqInit);
         if (resp.ok) {
             dispatch({ type: 'delete', payload: id });
         } else {
@@ -179,8 +178,8 @@ export const useApi = () => {
 
 
     const actions = useMemo(() => {
-        return { fetchPeople, fetchPerson, update, create, deletePerson }
-    }, [fetchPeople, fetchPerson, update, create, deletePerson]);
+        return { fetchProducts, fetchProduct, update, create, deleteProduct }
+    }, [fetchProducts, fetchProduct, update, create, deleteProduct]);
 
     return [state, actions];
 }

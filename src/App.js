@@ -15,7 +15,7 @@ const CustomerList = lazy(() => import('./views/Customers/CustomerList'));
 const User = lazy(() => import('./views/User'));
 
 const ProductPage = lazy(() => import('./views/Products/ProductPage'));
-
+const CreateProduct = lazy(() => import('./views/Products/Listing/CreateProduct'));
 
 let theme = createTheme(custom);
 theme = responsiveFontSizes(theme)
@@ -28,6 +28,7 @@ const App = withAuthenticationRequired(() => {
         <Layout>
           <Suspense fallback={<WaitSkeleton visible={true} />}>
             <Switch>
+              <Route exact path="/products/create" component={CreateProduct} />
               <Route exact path="/products" component={ProductPage} />
               <Route exact path="/customers/:id" component={Profile} />
               <Route exact path="/add" component={Create} />
