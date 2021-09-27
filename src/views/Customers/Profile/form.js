@@ -119,6 +119,11 @@ export const Form = ({ onAction }) => {
                         value={person && person.phone}
                         onChange={handleChange}
                     />
+                    <TextInput id="streetName" label="Street Name"
+                        size="small" variant="outlined" fullWidth
+                        value={person && person.address.streetName}
+                        onChange={handleChange}
+                    />
                     <Button
                         sx={{ marginTop: 2 }}
                         variant="contained"

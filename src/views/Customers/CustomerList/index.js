@@ -62,7 +62,7 @@ const CustomerList = () => {
                     <Button
                         variant="outlined"
                         endIcon={view === true ? <CloseIcon fontSize="small" /> : <CreateIcon fontSize="small" />}
-                        onClick={view === true ? change : changeBack}> {view === true ? "Cancel" : "Edit"}</Button>
+                        onClick={view === true ? change : changeBack}> {view === true ? "Close" : "Edit"}</Button>
 
                 </Box>
                 <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
@@ -97,8 +97,8 @@ const CustomerList = () => {
                                 </TableCell>
                                 <TableCell align="left">{item.email}</TableCell>
                                 <TableCell align="left">{`${formatDistanceToNow(parseISO(item.date))} ago`}</TableCell>
-                                <TableCell align="left">{view === true ? <IconButton onClick={() => handleDelete(item.id)}>
-                                    <DeleteForeverIcon />
+                                <TableCell align="left">{view === true ? <IconButton size="small" onClick={() => handleDelete(item.id)}>
+                                    <DeleteForeverIcon fontSize="small" />
                                 </IconButton> : ''}
                                 </TableCell>
                             </TableRow>

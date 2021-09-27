@@ -66,7 +66,14 @@ const initialState = {
         lastName: '',
         age: '',
         email: '',
-        phone: ''
+        phone: '',
+        address: {
+            addressLine1: '',
+            addressLine2: '',
+            suburb: '',
+            city: '',
+            country: ''
+        }
     },
     error: null,
 };
