@@ -64,7 +64,7 @@ const initialState = {
     person: {
         firstName: '',
         lastName: '',
-        age: '',
+        birthDate: '',
         email: '',
         phone: '',
         address: {

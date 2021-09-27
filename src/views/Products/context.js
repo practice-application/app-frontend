@@ -66,6 +66,7 @@ const initialState = {
         price: '',
         description: '',
         date: ''
+        
     },
     error: null,
 };

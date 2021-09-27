@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { format, parseISO } from 'date-fns';
 import { useParams } from "react-router-dom";
@@ -66,24 +67,49 @@ const Customer = () => {
                     </Grid>
                     <Container maxWidth="sm">
                         {view ? (
-                            <Card>
-                                <Typography variant="h1">
-                                    {person.firstName} {person.lastName}
-                                </Typography>
-                                <Typography >
-                                    {person.age !== '' && format(parseISO(person.age), 'dd MMMM yyyy')}
-                                </Typography>
-                                <Typography >
-                                    {person.email}
-                                </Typography>
-                                <Typography >
-                                    {person.phone}
-                                </Typography>
-                            </Card>
+                            <Stack
+                                direction="column"
+                                spacing={2}
+                            >
+                                <Card sx={{ p: 1 }}>
+                                    <Typography variant="h2">
+                                        {person.firstName} {person.lastName}
+                                    </Typography>
+                                    <Typography >
+                                        {person.birthDate !== '' && format(parseISO(person.birthDate), 'dd MMMM yyyy')}
+                                    </Typography>
+                                    <Typography >
+                                        {person.email}
+                                    </Typography>
+                                    <Typography >
+                                        {person.phone}
+                                    </Typography>
+                                </Card>
+
+                                <Card sx={{ p: 1 }}>
+                                    <Typography >
+                                        {person.address.addressLine1}
+                                    </Typography>
+                                    {/* <Typography >
+                                        {person.address.addressLine2}
+                                    </Typography>
+                                    <Typography >
+                                        {person.address.suburb}
+                                    </Typography>
+                                    <Typography >
+                                        {person.address.city}
+                                    </Typography>
+                                    <Typography >
+                                        {person.address.country}
+                                    </Typography> */}
+                                </Card>
+                            </Stack>
                         ) : (
                             <Form onAction={changeBack} />
                         )}
+
                     </Container>
+
                 </>
             }
         </>

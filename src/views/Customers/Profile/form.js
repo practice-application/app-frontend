@@ -97,12 +97,12 @@ export const Form = ({ onAction }) => {
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         {/* 2006-01-02 */}
                         <DatePicker
-                            id="age"
+                            id="birthDate"
                             label="Date of Birth"
-                            onChange={e => handleChange({ target: { id: "age", value: format(e, 'yyyy-MM-dd') } })}
-                            value={person && parseISO(person.age)}
+                            onChange={e => handleChange({ target: { id: "birthDate", value: format(e, 'yyyy-MM-dd') } })}
+                            value={person && parseISO(person.birthDate)}
                             renderInput={(params) =>
-                                <TextInput id="age" size="small" variant="outlined" fullWidth {...params} />
+                                <TextInput id="birthDate" size="small" variant="outlined" fullWidth {...params} />
                             }
                         />
                     </LocalizationProvider>
@@ -119,11 +119,14 @@ export const Form = ({ onAction }) => {
                         value={person && person.phone}
                         onChange={handleChange}
                     />
-                    <TextInput id="streetName" label="Street Name"
+
+                    <TextInput id="addressLine2" label="Address"
                         size="small" variant="outlined" fullWidth
-                        value={person && person.address.streetName}
+                        value={person && person.address.addressLine2}
                         onChange={handleChange}
                     />
+
+
                     <Button
                         sx={{ marginTop: 2 }}
                         variant="contained"
