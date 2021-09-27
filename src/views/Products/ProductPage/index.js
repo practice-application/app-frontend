@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+
 import { Grid, Typography } from '@mui/material';
-import ProductCard from '../ProductCard/index';
 
-
-
-import ActionLink from '../../../components/ActionLink';
 import { TablePager } from '../../../components/TablePager';
-import { useApi } from '../context';
 import { ProductProvider } from '../context';
+import { ProductCard } from '../ProductCard/index';
 
 const pageSize = 10;
 
@@ -44,32 +41,12 @@ const ProductPage = () => {
     };
 
     return (
-        <Grid container spacing={2} direction='row' justifyContent="space-around" alignItems="center">
+        <Grid container spacing={2} direction='row' justifyContent="flex-start" alignItems="center">
+            {/* {wrap the product context arounf here */}
             <Grid item>
                 <ProductCard />
             </Grid>
-            <Grid item>
-                <ProductCard />
-            </Grid>
-            <Grid item>
-                <ProductCard />
-            </Grid>
-            <Grid item>
-                <ProductCard />
-            </Grid>
-            <Grid item>
-                <ProductCard />
-            </Grid>
-            <Grid item>
-                <ProductCard />
-            </Grid>
-            <Grid item>
-                <ProductCard />
-            </Grid>
-            <Grid item>
-                <ProductCard />
-            </Grid>
-
+            {/* } */}
         </Grid>
 
     );
