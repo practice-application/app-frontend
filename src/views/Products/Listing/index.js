@@ -12,8 +12,8 @@ import { useParams } from "react-router-dom";
 
 import { Trail } from '../../../components/Trail';
 import { ProductProvider, useApi } from '../context';
-import { Form } from './Form'
 import { ProductCard } from '../ProductCard';
+import { Form } from './Form'
 
 export const Listing = () => {
     return (
