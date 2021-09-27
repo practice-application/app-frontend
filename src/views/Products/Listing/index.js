@@ -90,4 +90,3 @@ const Customer = () => {
     )
 }
 
-export default Listing;

@@ -90,7 +90,7 @@ const Customer = () => {
                                     <Typography >
                                         {person.address.addressLine1}
                                     </Typography>
-                                    {/* <Typography >
+                                    <Typography >
                                         {person.address.addressLine2}
                                     </Typography>
                                     <Typography >
@@ -100,8 +100,8 @@ const Customer = () => {
                                         {person.address.city}
                                     </Typography>
                                     <Typography >
-                                        {person.address.country}
-                                    </Typography> */}
+                                        {person.address.country.name}
+                                    </Typography>
                                 </Card>
                             </Stack>
                         ) : (

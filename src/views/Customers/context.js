@@ -72,7 +72,9 @@ const initialState = {
             addressLine2: '',
             suburb: '',
             city: '',
-            country: ''
+            country: {
+                name: ''
+            }
         }
     },
     error: null,
