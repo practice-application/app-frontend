@@ -21,11 +21,11 @@ export const Form = ({ onAction }) => {
 
     const validPrice = () => {
         let isValid = true;
-        const emailRegex = /\S+@\S+/
-        if (typeof product.email !== 'undefined') {
-            if (!emailRegex.test(product.email)) {
+        const priceRegex = /\S+$\S+/
+        if (typeof product.price !== 'undefined') {
+            if (!priceRegex.test(product.price)) {
                 isValid = false;
-                setErrorMsg('Please enter a valid email address');
+                setErrorMsg('Please enter a valid price');
             }
             return isValid;
         }
@@ -90,6 +90,8 @@ export const Form = ({ onAction }) => {
                                 size="small" variant="outlined" fullWidth
                                 value={product && product.price}
                                 onChange={handleChange}
+                                error={Boolean(errorMsg)}
+                                helperText={errorMsg}
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -97,8 +99,7 @@ export const Form = ({ onAction }) => {
                         size="small" variant="outlined" multiline='true' minRows='8' fullWidth
                         value={product && product.description}
                         onChange={handleChange}
-                        error={Boolean(errorMsg)}
-                        helperText={errorMsg}
+                        
                     />
                         </Grid>
                     </Grid>
