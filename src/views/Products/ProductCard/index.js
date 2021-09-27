@@ -11,6 +11,8 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
+import ActionLink from '../../../components/ActionLink';
 
 export const ProductCard = props => {
 
@@ -33,7 +35,7 @@ export const ProductCard = props => {
       <CardMedia
         component="img"
         height="194"
-        image={props.image}
+        image='https://mui.com/static/images/cards/paella.jpg'  //   {props.image}
         alt={props.imageAlt}
       />
       <CardContent>
@@ -43,10 +45,10 @@ export const ProductCard = props => {
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+          {/* <FavoriteIcon /> */}
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
+        <IconButton aria-label="share" component={ActionLink} to="/products/listing">
+          <UnfoldMoreIcon />
         </IconButton>
       </CardActions>
     </Card>

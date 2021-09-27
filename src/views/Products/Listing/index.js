@@ -11,30 +11,31 @@ import { format, parseISO } from 'date-fns';
 import { useParams } from "react-router-dom";
 
 import { Trail } from '../../../components/Trail';
-import { CustomerProvider, useApi } from '../context';
+import { ProductProvider, useApi } from '../context';
 import { Form } from './Form'
+import { ProductCard } from '../ProductCard';
 
-export const Profile = () => {
+export const Listing = () => {
     return (
-        <CustomerProvider>
-            <Customer />
-        </CustomerProvider>
+        <ProductProvider>
+            <ProductCard />
+        </ProductProvider>
     );
 }
 
 const Customer = () => {
     const [view, setView] = useState(true);
-    const [state, { fetchPerson }] = useApi();
-    const [person, setPerson] = useState();
+    const [state, { fetchProduct }] = useApi();
+    const [product, setProduct] = useState();
     const { id } = useParams();
 
     useEffect(() => {
-        fetchPerson(id);
-    }, [fetchPerson, id]);
+        fetchProduct(id);
+    }, [fetchProduct, id]);
 
     useEffect(() => {
-        setPerson(state.person);
-    }, [state.person]);
+        setProduct(state.product);
+    }, [state.product]);
 
     const change = () => {
         setView(false);
@@ -45,7 +46,7 @@ const Customer = () => {
 
     return (
         <>
-            {person &&
+            {product &&
                 <>
                     <Grid container
                         direction="column"
@@ -54,8 +55,8 @@ const Customer = () => {
                         spacing={2}
                     >
                         <Grid item>
-                            <Trail pageName="Customers" returningPage="/customers"
-                                currentPage={person.firstName + ' ' + person.lastName} />
+                            <Trail pageName="Products" returningPage="/products"
+                                currentPage={product.name} />
                         </Grid>
                         <Grid item>
                             <Button
@@ -68,16 +69,13 @@ const Customer = () => {
                         {view ? (
                             <Card>
                                 <Typography variant="h1">
-                                    {person.firstName} {person.lastName}
+                                    {product.name}
                                 </Typography>
                                 <Typography >
-                                    {person.age !== '' && format(parseISO(person.age), 'dd MMMM yyyy')}
+                                    {product.price}
                                 </Typography>
                                 <Typography >
-                                    {person.email}
-                                </Typography>
-                                <Typography >
-                                    {person.phone}
+                                    {product.description}
                                 </Typography>
                             </Card>
                         ) : (
