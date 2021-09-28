@@ -42,7 +42,11 @@ const Customer = () => {
     };
     const changeBack = () => {
         setView(true);
+
     };
+    const submit = () => {
+        window.location.reload(false);
+    }
 
     return (
         <>
@@ -88,24 +92,21 @@ const Customer = () => {
 
                                 <Card sx={{ p: 1 }}>
                                     <Typography >
-                                        {person.address.addressLine1}
+                                        {person.addressLine1}
                                     </Typography>
                                     <Typography >
-                                        {person.address.addressLine2}
+                                        {person.addressLine2}
                                     </Typography>
                                     <Typography >
-                                        {person.address.suburb}
+                                        {person.suburb}, {person.city}
                                     </Typography>
                                     <Typography >
-                                        {person.address.city}
-                                    </Typography>
-                                    <Typography >
-                                        {person.address.country.name}
+                                        {person.region} ,  {person.country}
                                     </Typography>
                                 </Card>
                             </Stack>
                         ) : (
-                            <Form onAction={changeBack} />
+                            <Form onAction={submit} />
                         )}
 
                     </Container>

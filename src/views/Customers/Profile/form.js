@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DatePicker from '@mui/lab/DatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from '@mui/material/Grid';
+import Chip from '@mui/material/Chip';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { format, parseISO } from 'date-fns';
 import * as PropTypes from 'prop-types';
+import countryList from 'react-select-country-list';
 
 import { useApi } from '../context';
 
@@ -46,6 +49,7 @@ export const Form = ({ onAction }) => {
         }
     };
 
+
     const formValid = () => {
         if (!person.email) {
             return false;
@@ -62,7 +66,7 @@ export const Form = ({ onAction }) => {
         setPerson(state.person);
     }, [state.person]);
 
-
+    const options = useMemo(() => countryList().getData(), []);
     const handleChange = (e) => {
         const key = e.target.id;
         const val = e.target.value;
@@ -71,7 +75,10 @@ export const Form = ({ onAction }) => {
             prev[key] = val;
             return { ...prev };
         });
+
     }
+
+
 
     return (
         <>
@@ -95,7 +102,17 @@ export const Form = ({ onAction }) => {
                         </Grid>
                     </Grid>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        {/* 2006-01-02 */}
+                        {/* <DatePicker
+                            // views={person ? '' : ['day', 'month', 'year']}
+                            id="birthDate"
+                            label="Date of Birth"
+                            onChange={e => handleChange({ target: { id: "birthDate", value: person ? format(e, 'yyyy-MM-dd') : e } })}
+                            value={person ? parseISO(person.birthDate) : person.birthDate}
+
+                            renderInput={(params) =>
+                                <TextInput id="birthDate" size="small" variant="outlined" fullWidth {...params} />
+                            }
+                        /> */}
                         <DatePicker
                             id="birthDate"
                             label="Date of Birth"
@@ -119,14 +136,51 @@ export const Form = ({ onAction }) => {
                         value={person && person.phone}
                         onChange={handleChange}
                     />
-
-                    <TextInput id="addressLine2" label="Address"
+                    <TextInput id="addressLine1" label="Address"
                         size="small" variant="outlined" fullWidth
-                        value={person && person.address.addressLine2}
+                        value={person && person.addressLine1}
                         onChange={handleChange}
                     />
+                    <TextInput id="addressLine2" label="Secondary Address"
+                        size="small" variant="outlined" fullWidth
+                        value={person && person.addressLine2}
+                        onChange={handleChange}
+                    />
+                    <Grid container spacing={1}>
+                        <Grid item xs={6}>
+                            <TextInput id="suburb" label="Suburb"
+                                fullWidth
+                                size="small" variant="outlined"
+                                value={person && person.suburb}
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={6} >
+                            <TextInput id="city" label="City"
+                                size="small" variant="outlined" fullWidth
+                                value={person && person.city}
+                                onChange={handleChange}
+                            />
 
-
+                        </Grid>
+                    </Grid>
+                    <Autocomplete
+                        id="country"
+                        label="Country"
+                        onChange={e => handleChange({ target: { id: "country", value: e } })}
+                        getOptionLabel={options.label}
+                        // value={person ? person.country : options.label}
+                        filterOptions={(x) => x}
+                        options={options.map((option) => option.label)}
+                        defaultValue={person && person.country}
+                        // renderTags={(value, getTagProps) =>
+                        //     value.map((option, index) => (
+                        //         <Chip variant="outlined" label={option} {...getTagProps({ index })} />
+                        //     ))
+                        // }
+                        isOptionEqualToValue={(option, e) => option.code === e}
+                        renderInput={(params) => <TextInput size="small" id="country" variant="outlined" fullWidth {...params} label="Country" />}
+                    />
                     <Button
                         sx={{ marginTop: 2 }}
                         variant="contained"
@@ -135,6 +189,7 @@ export const Form = ({ onAction }) => {
                     >
                         {submitting ? <CircularProgress size={24} /> : person.id ? 'Update Person' : 'Create Person'}
                     </Button>
+
                 </>
             }
         </>
@@ -148,3 +203,43 @@ const TextInput = styled(TextField)(({ theme }) => ({
 Form.propTypes = {
     onAction: PropTypes.func,
 };
+
+
+const App = () => {
+    const civilities = ["Mr", "Ms", "Other"];
+    const [values, setValues] = useState({
+        civility: "Ms"
+    });
+
+    const handleBlur = (e) => {
+        console.log("Blur:", e.target.value);
+    };
+
+    const setFieldValue = (type, value) => {
+        setValues((oldValues) => ({ ...oldValues, [type]: value }));
+    };
+
+    return (
+        <>
+            {({ errors, touched }) => (
+
+                <Autocomplete
+                    error={Boolean(touched.civility && errors.civility)}
+                    helperText={touched.civility && errors.civility}
+                    label="Civility"
+                    margin="normal"
+                    name="civility"
+                    onBlur={handleBlur}
+                    onChange={(e, value) => setFieldValue("civility", value)}
+                    options={civilities}
+                    value={values.civility}
+                    isOptionEqualToValue={(option, value) => option.code === value}
+                    renderInput={(params) => (
+                        <TextField {...params} variant="outlined" label="Civility" />
+                    )}
+                />
+
+            )}
+        </>
+    );
+}
