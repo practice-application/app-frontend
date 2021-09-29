@@ -13,6 +13,7 @@ import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import { format, parseISO } from 'date-fns';
 import * as PropTypes from 'prop-types';
 import countryList from 'react-select-country-list';
@@ -216,6 +217,7 @@ export const Form = ({ onAction }) => {
                                         isOptionEqualToValue={(option, e) => option.code === e}
                                         renderInput={(params) => <TextInput size="small" id="country" variant="outlined" label="Country" fullWidth {...params} />}
                                     />
+                                    {errorMsg && <Typography variant="body2">{errorMsg}</Typography>}
                                 </>
                             }
                             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
