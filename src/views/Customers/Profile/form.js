@@ -13,7 +13,6 @@ import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import { format, parseISO } from 'date-fns';
 import * as PropTypes from 'prop-types';
 import countryList from 'react-select-country-list';
@@ -48,7 +47,6 @@ export const Form = ({ onAction }) => {
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
-
 
     const validEmail = () => {
         let isValid = true;
@@ -105,8 +103,6 @@ export const Form = ({ onAction }) => {
         });
 
     }
-
-
 
     return (
         <>
