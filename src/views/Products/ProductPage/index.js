@@ -7,10 +7,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 // import { TablePager } from '../../../components/TablePager';
 import { ProductProvider } from '../context';
-// import { ProductCard } from '../ProductCard/index';
 import { useApi } from '../context';
-
-// import FavoriteIcon from '@mui/icons-material/Favorite';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
@@ -38,7 +35,7 @@ const ProductPage = () => {
     const [view, setView] = useState('true');
     const [{ products }, { deleteProduct, fetchProducts }] = useApi();
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
-
+    
     useEffect(() => {
         fetchProducts(page);
     }, [fetchProducts, page]);
@@ -113,8 +110,7 @@ const ProductPage = () => {
                             
                             </CardActions>
                         </Card>
-                        )}
-                        
+                    )} 
                 </>
                 :
                 <Grid sx={{ py: 4 }} container direction="column" justify="center" alignItems="center" >
