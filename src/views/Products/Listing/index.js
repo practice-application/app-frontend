@@ -7,23 +7,23 @@ import Card from '@mui/material/Card';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { format, parseISO } from 'date-fns';
+// import { format, parseISO } from 'date-fns';
 import { useParams } from "react-router-dom";
 
 import { Trail } from '../../../components/Trail';
 import { ProductProvider, useApi } from '../context';
-import { ProductCard } from '../ProductCard';
 import { Form } from './Form'
+// import ProductPage from '../ProductPage';
 
 export const Listing = () => {
     return (
         <ProductProvider>
-            <ProductCard />
+            <Product />
         </ProductProvider>
     );
 }
 
-const Customer = () => {
+const Product = () => {
     const [view, setView] = useState(true);
     const [state, { fetchProduct }] = useApi();
     const [product, setProduct] = useState();

@@ -64,8 +64,7 @@ const initialState = {
     product: {
         name: '',
         price: '',
-        description: '',
-        date: ''
+        description: ''
         
     },
     error: null,

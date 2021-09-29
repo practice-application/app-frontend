@@ -12,7 +12,7 @@ const reducer = (state, action) => {
             newState.pending = true;
             newState.error = null;
             return newState;
-        case 'query':
+        case 'query': 
             newState.pending = false;
             let json = action.payload.json;
             const page = action.payload.page;

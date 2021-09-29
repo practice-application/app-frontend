@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import DatePicker from '@mui/lab/DatePicker';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
+// import AdapterDateFns from '@mui/lab/AdapterDateFns';
+// import DatePicker from '@mui/lab/DatePicker';
+// import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
-import { format, parseISO } from 'date-fns';
+// import { format, parseISO } from 'date-fns';
 import * as PropTypes from 'prop-types';
 
 import { useApi } from '../context';
@@ -18,10 +17,11 @@ export const Form = ({ onAction }) => {
     const [product, setProduct] = useState();
     const [errorMsg, setErrorMsg] = useState(false);
     const [submitting, setSubmitting] = useState();
+    
 
     const validPrice = () => {
         let isValid = true;
-        const priceRegex = /\S+$\S+/
+        const priceRegex = /^(\$|)([1-9]\d{0,2}(\d{3})*|([1-9]\d*))(\.\d{2})?$/;
         if (typeof product.price !== 'undefined') {
             if (!priceRegex.test(product.price)) {
                 isValid = false;
