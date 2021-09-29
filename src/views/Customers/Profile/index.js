@@ -69,7 +69,7 @@ const Customer = () => {
                                 onClick={view === true ? change : changeBack}> {view === true ? "Edit Profile" : "Cancel"}</Button>
                         </Grid>
                     </Grid>
-                    <Container maxWidth="sm">
+                    <Container maxWidth={view ? "sm" : "md"}>
                         {view ? (
                             <Stack
                                 direction="column"

@@ -29,8 +29,8 @@ export const Form = ({ onAction }) => {
     const [person, setPerson] = useState();
     const [errorMsg, setErrorMsg] = useState(false);
     const [submitting, setSubmitting] = useState();
-    const [activeStep, setActiveStep] = React.useState(0);
-    const [skipped, setSkipped] = React.useState(new Set());
+    const [activeStep, setActiveStep] = useState(0);
+    const [skipped, setSkipped] = useState(new Set());
 
     const isStepSkipped = (step) => {
         return skipped.has(step);
@@ -117,7 +117,7 @@ export const Form = ({ onAction }) => {
                     justifyContent="center"
                     alignItems="flex-start"
                 >
-                    <Grid item xs={3}>
+                    <Grid item xs={2}>
                         <Stepper orientation="vertical" activeStep={activeStep}>
                             {steps.map((label, index) => {
                                 const stepProps = {};
@@ -133,7 +133,7 @@ export const Form = ({ onAction }) => {
                             })}
                         </Stepper>
                     </Grid>
-                    <Grid item xs={9} >
+                    <Grid item xs={6} >
                         {activeStep === 0 &&
                             <>
                                 <Grid container spacing={1}>
