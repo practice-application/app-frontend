@@ -7,7 +7,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from '@mui/material/Grid';
-import Chip from '@mui/material/Chip';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { format, parseISO } from 'date-fns';
@@ -166,20 +165,14 @@ export const Form = ({ onAction }) => {
                     </Grid>
                     <Autocomplete
                         id="country"
-                        label="Country"
                         onChange={e => handleChange({ target: { id: "country", value: e } })}
                         getOptionLabel={options.label}
                         // value={person ? person.country : options.label}
-                        filterOptions={(x) => x}
+
                         options={options.map((option) => option.label)}
-                        defaultValue={person && person.country}
-                        // renderTags={(value, getTagProps) =>
-                        //     value.map((option, index) => (
-                        //         <Chip variant="outlined" label={option} {...getTagProps({ index })} />
-                        //     ))
-                        // }
+                        // defaultValue={person && person.country}
                         isOptionEqualToValue={(option, e) => option.code === e}
-                        renderInput={(params) => <TextInput size="small" id="country" variant="outlined" fullWidth {...params} label="Country" />}
+                        renderInput={(params) => <TextInput size="small" id="country" variant="outlined" label="Country" fullWidth {...params} />}
                     />
                     <Button
                         sx={{ marginTop: 2 }}
@@ -204,42 +197,3 @@ Form.propTypes = {
     onAction: PropTypes.func,
 };
 
-
-const App = () => {
-    const civilities = ["Mr", "Ms", "Other"];
-    const [values, setValues] = useState({
-        civility: "Ms"
-    });
-
-    const handleBlur = (e) => {
-        console.log("Blur:", e.target.value);
-    };
-
-    const setFieldValue = (type, value) => {
-        setValues((oldValues) => ({ ...oldValues, [type]: value }));
-    };
-
-    return (
-        <>
-            {({ errors, touched }) => (
-
-                <Autocomplete
-                    error={Boolean(touched.civility && errors.civility)}
-                    helperText={touched.civility && errors.civility}
-                    label="Civility"
-                    margin="normal"
-                    name="civility"
-                    onBlur={handleBlur}
-                    onChange={(e, value) => setFieldValue("civility", value)}
-                    options={civilities}
-                    value={values.civility}
-                    isOptionEqualToValue={(option, value) => option.code === value}
-                    renderInput={(params) => (
-                        <TextField {...params} variant="outlined" label="Civility" />
-                    )}
-                />
-
-            )}
-        </>
-    );
-}
