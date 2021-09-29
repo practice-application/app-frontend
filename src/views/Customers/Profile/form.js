@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 
+import CheckIcon from '@mui/icons-material/Check';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DatePicker from '@mui/lab/DatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -8,6 +9,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from '@mui/material/Grid';
+import MenuItem from '@mui/material/MenuItem';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
@@ -97,6 +99,7 @@ export const Form = ({ onAction }) => {
     const handleChange = (e) => {
         const key = e.target.id;
         const val = e.target.value;
+        console.log(val)
 
         setPerson(prev => {
             prev[key] = val;
@@ -207,15 +210,25 @@ export const Form = ({ onAction }) => {
                                             />
                                         </Grid>
                                     </Grid>
+                                    <TextInput id="region" label="Region"
+                                        size="small" variant="outlined" fullWidth
+                                        value={person && person.region}
+                                        onChange={handleChange}
+                                    />
                                     <Autocomplete
                                         id="country"
-                                        onChange={e => handleChange({ target: { id: "country", value: e } })}
+                                        onChange={(e, val) => handleChange({ target: { id: "country", value: val } })}
                                         getOptionLabel={options.label}
-                                        // value={person ? person.country : options.label}
+                                        value={person && person.country}
                                         options={options.map((option) => option.label)}
-                                        // defaultValue={person && person.country}
-                                        isOptionEqualToValue={(option, e) => option.code === e}
+                                        isOptionEqualToValue={(option, val) => option === val}
                                         renderInput={(params) => <TextInput size="small" id="country" variant="outlined" label="Country" fullWidth {...params} />}
+                                        renderOption={(props, option, { selected }) => (
+                                            <MenuItem key={option} {...props}>
+                                                {option}{selected && <CheckIcon sx={{ color: 'success.main', pl: 1 }} />}
+                                            </MenuItem>
+                                        )
+                                        }
                                     />
                                     {errorMsg && <Typography variant="body2">{errorMsg}</Typography>}
                                 </>
