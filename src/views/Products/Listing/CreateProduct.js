@@ -31,7 +31,7 @@ export const CreateProduct = () => {
                             Product uploaded successfully
                         </Typography>
                         <Box sx={{ pt: '1rem', width: '50%' }}>
-                            <Button fullWidth variant="contained" data-test="return" component={ActionLink} to="/customers">Return</Button>
+                            <Button fullWidth variant="contained" data-test="return" component={ActionLink} to="/products">Return</Button>
                         </Box>
                     </Grid>
                 }
