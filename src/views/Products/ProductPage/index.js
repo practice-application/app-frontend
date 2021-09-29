@@ -69,11 +69,12 @@ const ProductPage = () => {
 
                         </Box>
                         <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
-                            <Button variant='contained' component={ActionLink} to="/add">Add User</Button>
+                            <Button variant='contained' component={ActionLink} to="/products/create">Create Product</Button>
                         </Box>
                     </Grid>
+                    <Grid container direction='row' sx={{ paddingTop: 10 }} rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         {products.data.map((item) =>
-                            <Card sx={{ maxWidth: 345, boxShadow: '-1px 4px 20px -6px rgba(0, 0, 0, 1.75)' }}>       
+                            <Card sx={{ maxWidth: 345, boxShadow: '-1px 4px 20px -6px rgba(0, 0, 0, 1.75)'}}>       
                             <CardHeader
                                 avatar={
                                 <Avatar sx={{ bgcolor: 'primary.main' }} aria-label="recipe">
@@ -90,7 +91,7 @@ const ProductPage = () => {
                             />
                             <CardMedia
                                 component="img"
-                                height="194"
+                                height="180"
                                 image='https://mui.com/static/images/cards/paella.jpg'  //   {props.image}
                                 alt={'image'}
                             />
@@ -110,7 +111,9 @@ const ProductPage = () => {
                             
                             </CardActions>
                         </Card>
+                    
                     )} 
+                    </Grid>
                 </>
                 :
                 <Grid sx={{ py: 4 }} container direction="column" justify="center" alignItems="center" >
@@ -126,4 +129,4 @@ const ProductPage = () => {
     );
 }
 
-export default ProductPage;
+export default ProductPageExt;
