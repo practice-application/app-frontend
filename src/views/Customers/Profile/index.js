@@ -99,25 +99,22 @@ const Customer = () => {
                                         <ListItemText>Account Created</ListItemText><Moment fromNow interval={30000} date={person.date} />
                                     </ListItem>
                                 </Card>
-
-                                {person.address &&
-                                    <Card sx={{ p: 1 }}>
-                                        <CardHeader title="Address" />
-                                        <ListItem>
-                                            <Typography >
-                                                {person.addressLine1}
-                                                <br />
-                                                {person.addressLine2}
-                                                <br />
-                                                {person.suburb && ""} {person.city}
-                                                <br />
-                                                {person.region}
-                                                <br />
-                                                {person.country}
-                                            </Typography>
-                                        </ListItem>
-                                    </Card>
-                                }
+                                <Card sx={{ p: 1 }}>
+                                    <CardHeader title="Address" />
+                                    <ListItem>
+                                        <Typography >
+                                            {person.addressLine1}
+                                            <br />
+                                            {person.addressLine2}
+                                            <br />
+                                            {person.suburb && ""} {person.city}
+                                            <br />
+                                            {person.region}
+                                            <br />
+                                            {person.country}
+                                        </Typography>
+                                    </ListItem>
+                                </Card>
                             </Stack>
                         ) : (
                             <Form onAction={submit} />
