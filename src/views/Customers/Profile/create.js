@@ -21,7 +21,7 @@ export const Create = () => {
     return (
         <CustomerProvider>
             <Trail pageName="Customers" returningPage="/customers" currentPage="New Customer" />
-            <Container maxWidth="sm" sx={{ mt: 4 }}>
+            <Container maxWidth="md" sx={{ mt: 4 }}>
                 {!submitted
                     ?
                     <Form onAction={handleSubmit} />
