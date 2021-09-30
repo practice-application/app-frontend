@@ -18,12 +18,12 @@ import { Form } from './Form'
 export const Listing = () => {
     return (
         <ProductProvider>
-            <Product />
+            <ProductListing/>
         </ProductProvider>
     );
 }
 
-const Product = () => {
+const ProductListing = () => {
     const [view, setView] = useState(true);
     const [state, { fetchProduct }] = useApi();
     const [product, setProduct] = useState();
@@ -87,4 +87,6 @@ const Product = () => {
         </>
     )
 }
+
+export default Listing;
 

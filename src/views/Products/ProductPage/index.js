@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import CreateIcon from '@mui/icons-material/Create';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-// import { TablePager } from '../../../components/TablePager';
+import { TablePager } from '../../../components/TablePager';
 import { ProductProvider } from '../context';
 import { useApi } from '../context';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -58,67 +55,73 @@ const ProductPage = () => {
     console.log(products)
 
     return (
-        <>
-            <Grid container sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
-                    <Button
-                        variant="outlined"
-                        endIcon={view === true ? <CloseIcon fontSize="small" /> : <CreateIcon fontSize="small" />}
-                        onClick={view === true ? change : changeBack}> {view === true ? "Close" : "Edit"}
-                    </Button>
-                </Box>
-                <Box container sx={{ display: 'flex', my: 1, padding: 0.5 }}>
-                    <Button variant='contained' component={ActionLink} to="/products/create">
-                        Create Product
-                    </Button>
-                </Box>
-            </Grid>
+        <Container maxWidth='xl'>
+        <Grid container sx={{ display: 'flex', justifyContent: 'flex-end'}}>
+            <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
+                <Button
+                    variant="outlined"
+                    endIcon={view === true ? <CloseIcon fontSize="small" /> : <CreateIcon fontSize="small" />}
+                    onClick={view === true ? change : changeBack}> {view === true ? "Close" : "Edit"}
+                </Button>
+            </Box>
+            <Box container sx={{ display: 'flex', my: 1, padding: 0.5 }}>
+                <Button variant='contained' component={ActionLink} to="/products/create">
+                    Create Product
+                </Button>
+            </Box>
+        </Grid>
             {products.data ?
                 <>
-                    <Grid container direction='row' sx={{ justifyContent: 'space-between', paddingTop: 10 }}>
-                        {products.data.map((item) =>
-                            <Card key={item.id} spacing={4} sx={{ padding: 1, maxWidth: 345, boxShadow: '-1px 4px 20px -6px rgba(0, 0, 0, 1.75)' }}>
-                                <Grid sx={{ height: 50, padding: 0.5 }}>
-                                    <Typography variant='h2'>
-                                        {item.name}
-                                    </Typography>
+                    <Grid container spacing={2} direction='row' justifyContent='space-evenly' sx={{ paddingTop: 10}}>
+                        <Grid item container >
+
+                        
+                            {products.data.map((item) =>
+                                <Card spacing={4} key={item.id} sx={{padding: 1, maxWidth: 345, boxShadow: '-1px 4px 20px -6px rgba(0, 0, 0, 1.75)'}}>       
+                                    <Grid sx={{ height: 50, padding: 0.5 }}>
+                                        <Typography variant='h2'>
+                                            {item.name}
+                                        </Typography>
 
                                     <Grid container direction="row" justifyContent="flex-end" sx={{ paddingBottom: 10 }}>
                                         {view === true ?
-                                            <IconButton size="small" onClick={() => handleDelete(item.id)}>
-                                                <DeleteForeverIcon />
-                                            </IconButton> : ''}
-
+                                        <IconButton size="small"   onClick={() => handleDelete(item.id)}>
+                                            <DeleteForeverIcon />
+                                        </IconButton>  : '' }
                                     </Grid>
-                                </Grid>
-                                <Grid >
-                                    <Typography variant='h3'>
-                                        {item.price}
-                                    </Typography>
-                                </Grid>
-                                <CardMedia
-                                    component="img"
-                                    height="180"
-                                    image='https://mui.com/static/images/cards/paella.jpg'  //   {props.image}
-                                    alt={'image'}
-                                />
-                                <CardContent>
-                                    <Typography variant="body2" color="text.secondary">
+                                    
+                                    </Grid>
+                                    <Grid sx={{ paddingBottom: 4 }}>
+                                        <Typography variant='h3'>
+                                            ${item.price}
+                                        </Typography>  
+                                    </Grid>
+                                    <CardMedia
+                                        component="img"
+                                        height="190"
+                                        image='https://mui.com/static/images/cards/paella.jpg'  //   {props.image}
+                                        alt={'image'}
+                                    />
+                                    <CardContent>
+                                        <Typography variant="body2" color="text.secondary">
                                         {item.description}
                                     </Typography>
                                 </CardContent>
                                 <CardActions disableSpacing>
                                     <IconButton aria-label="add to favorites">
                                         {/* <FavoriteIcon /> */}
-                                    </IconButton>
-                                    <IconButton aria-label="share" component={ActionLink} to="/products/listing">
+                                        </IconButton>
+                                        <IconButton aria-label="share" component={ActionLink} to={`/products/${item.id}`}>
                                         <UnfoldMoreIcon />
-                                    </IconButton>
-                                </CardActions>
-                            </Card>
-                        )}
-
+                                        </IconButton>
+                                    </CardActions>
+                                </Card>
+                            )} 
+                        </Grid>
                     </Grid>
+                    <TablePager count={products.data.length} total={products.matches}
+                        colSpan={3} onPage={() => handlePage()}
+                    />             
                 </>
                 :
                 <Grid sx={{ py: 4 }} container direction="column" justify="center" alignItems="center" >
@@ -128,18 +131,10 @@ const ProductPage = () => {
                         <Button variant='contained' sx={{ mr: 0.5 }} component={ActionLink} to="/add">Add Product</Button>
                         <Button variant='outlined' sx={{ ml: 0.5 }} component={ActionLink} to="/products/create">Return</Button>
                     </Box>
-                </Grid>
-            }
-        </>
+                </Grid>      
+            } 
+        </Container>
     );
 }
 
 export default ProductPageExt;
-
-
-
-{/* <TableCell align="left"> {view === true ?
-    <IconButton size="small" onClick={() => handleDelete(item.id)}>
-        <DeleteForeverIcon fontSize="small" />
-    </IconButton> : ''}
-</TableCell> */}
