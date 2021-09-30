@@ -101,7 +101,7 @@ const ProductPage = () => {
                                     <CardMedia
                                         component="img"
                                         height="190"
-                                        image='https://mui.com/static/images/cards/paella.jpg'  //   {props.image}
+                                        image={item.image}
                                         alt={'image'}
                                     />
                                     <CardContent>
