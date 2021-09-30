@@ -17,7 +17,7 @@ export const Form = ({ onAction }) => {
     const [product, setProduct] = useState();
     const [errorMsg, setErrorMsg] = useState(false);
     const [submitting, setSubmitting] = useState();
-    
+
 
     const validPrice = () => {
         let isValid = true;
@@ -96,11 +96,11 @@ export const Form = ({ onAction }) => {
                         </Grid>
                         <Grid item xs={6}>
                             <TextInput id="description" label="Description"
-                        size="small" variant="outlined" multiline='true' minRows='8' fullWidth
-                        value={product && product.description}
-                        onChange={handleChange}
-                        
-                    />
+                                size="small" variant="outlined" multiline minRows='8' fullWidth
+                                value={product && product.description}
+                                onChange={handleChange}
+
+                            />
                         </Grid>
                     </Grid>
                     <Button
