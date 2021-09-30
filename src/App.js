@@ -10,7 +10,7 @@ import { WaitSkeleton } from './components/WaitSkeleton';
 import { custom } from './theme';
 
 const Profile = lazy(() => import('./views/Customers/Profile'));
-const Create = lazy(() => import('./views/Customers/Profile/Create'));
+const Create = lazy(() => import('./views/Customers/Profile/create'));
 const CustomerList = lazy(() => import('./views/Customers/CustomerList'));
 const User = lazy(() => import('./views/User'));
 
