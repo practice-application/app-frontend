@@ -84,7 +84,7 @@ const Customer = () => {
                                 <Card sx={{ mt: 1, p: 1 }}>
                                     <CardHeader title={`${person.firstName} ${person.lastName}`} />
                                     <ListItem>
-                                        <ListItemText>Birth Date</ListItemText>{person.birthDate !== '' && format(parseISO(person.birthDate), 'dd MMMM yyyy')}
+                                        <ListItemText>Birth Date</ListItemText>{person.birthDate !== '' && format(parseISO(person.birthDate), 'MMMM d yyyy')}
                                     </ListItem>
                                     <Divider />
                                     <ListItem>
