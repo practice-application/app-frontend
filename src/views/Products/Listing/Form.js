@@ -126,7 +126,7 @@ export const Form = ({ onAction }) => {
                         <Grid item xs={12}>
                             <ImageUploading
                                 multiple
-                                value={product}
+                                value={image}
                                 onChange={onChange}
                                 maxNumber={maxNumber}
                                 dataURLKey="data_url"
