@@ -64,8 +64,17 @@ const initialState = {
     product: {
         name: '',
         price: '',
-        description: ''
-        
+        description: '',
+        image: {
+            data_url: '',
+            // file: {
+            lastModified: '',
+            lastModifiedDate: '',
+            name: '',
+            size: '',
+            type: ''
+            // }
+        }
     },
     error: null,
 };

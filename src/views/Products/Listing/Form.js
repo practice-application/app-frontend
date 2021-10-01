@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from 'react';
 
+import CloseIcon from '@mui/icons-material/Close';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
+import ImageUploading from 'react-images-uploading';
 
 import { useApi } from '../context';
 
@@ -14,7 +24,8 @@ export const Form = ({ onAction }) => {
     const [product, setProduct] = useState();
     const [errorMsg, setErrorMsg] = useState(false);
     const [submitting, setSubmitting] = useState();
-
+    const [image, setImages] = useState([]);
+    const maxNumber = 5;
 
     const validPrice = () => {
         let isValid = true;
@@ -27,6 +38,14 @@ export const Form = ({ onAction }) => {
             return isValid;
         }
     }
+    console.log(image)
+
+
+
+    const onChange = (imageList, addUpdateIndex) => {
+        console.log(imageList, addUpdateIndex);
+        setImages(imageList);
+    };
 
     const handleSave = () => {
         console.log(product)
@@ -60,7 +79,10 @@ export const Form = ({ onAction }) => {
     }, [state.product]);
 
 
-    const handleChange = (e) => {
+
+    const handleChange = (e, imageList, addUpdateIndex) => {
+        console.log(imageList, addUpdateIndex);
+
         const key = e.target.id;
         const val = e.target.value;
 
@@ -91,13 +113,66 @@ export const Form = ({ onAction }) => {
                                 helperText={errorMsg}
                             />
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                             <TextInput id="description" label="Description"
                                 size="small" variant="outlined" multiline minRows='8' fullWidth
                                 value={product && product.description}
                                 onChange={handleChange}
 
                             />
+                        </Grid>
+
+
+                        <Grid item xs={12}>
+                            <ImageUploading
+                                multiple
+                                value={product}
+                                onChange={onChange}
+                                maxNumber={maxNumber}
+                                dataURLKey="data_url"
+                            >
+                                {({
+                                    imageList,
+                                    onImageUpload,
+                                    onImageRemoveAll,
+                                    onImageUpdate,
+                                    onImageRemove,
+                                    isDragging,
+                                    dragProps,
+                                }) => (
+
+                                    <>
+                                        <Button
+                                            startIcon={<CloudUploadIcon />}
+                                            variant="outlined"
+                                            color={isDragging ? 'success' : undefined}
+                                            onClick={onImageUpload}
+                                            {...dragProps}
+                                        >
+                                            Add an Image
+                                        </Button>
+
+                                        <Button color="error" variant="outlined" startIcon={<DeleteForeverIcon />} onClick={onImageRemoveAll}>Remove all images</Button>
+                                        {imageList.map((image, index) => (
+                                            <Card key={index} >
+                                                <CardMedia
+                                                    component="img"
+                                                    height="190"
+                                                    image={image.data_url}
+                                                    alt={image.file.name}
+                                                />
+                                                <CardContent>
+                                                    <Typography variant="body2">{image.file.name}</Typography>
+                                                </CardContent>
+                                                <CardActions>
+                                                    <Button onClick={() => onImageUpdate(index)}>Update</Button>
+                                                    <IconButton onClick={() => onImageRemove(index)}><CloseIcon /></IconButton>
+                                                </CardActions>
+                                            </Card>
+                                        ))}
+                                    </>
+                                )}
+                            </ImageUploading>
                         </Grid>
                     </Grid>
                     <Button
