@@ -106,6 +106,10 @@ export const Form = ({ onAction }) => {
                         </Grid>
                         <Grid item xs={6} >
                             <TextInput id="price" label="Price"
+                                type="number"
+                                InputProps={{
+                                    startAdornment: "$", inputMode: 'numeric', pattern: '[0-9]*'
+                                }}
                                 size="small" variant="outlined" fullWidth
                                 value={product && product.price}
                                 onChange={handleChange}
