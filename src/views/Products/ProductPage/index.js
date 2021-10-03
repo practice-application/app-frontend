@@ -4,7 +4,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -68,8 +67,8 @@ const ProductPage = () => {
                     </Button>
                 </Box>
                 <Box container sx={{ display: 'flex', my: 1, padding: 0.5 }}>
-                    <Button variant='contained' component={ActionLink} to="/products/create">
-                        Create Product
+                    <Button variant='contained' component={ActionLink} to="/add-product">
+                        Add new Product
                     </Button>
                 </Box>
             </Grid>
