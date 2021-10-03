@@ -22,21 +22,30 @@ export const CreateProduct = () => {
         <ProductProvider>
             <Trail pageName="Products" returningPage="/products" currentPage="New Product" />
             <Container maxWidth="sm" sx={{ mt: 4 }}>
-                {!submitted
-                    ?
-                    <Form onAction={handleSubmit} />
-                    :
-                    <Grid container direction="column" justifyContent="center" alignItems="center" >
-                        <Typography variant="h3">
-                            Product uploaded successfully
-                        </Typography>
-                        <Box sx={{ pt: '1rem', width: '50%' }}>
-                            <Button fullWidth variant="contained" data-test="return" component={ActionLink} to="/products">Return</Button>
-                        </Box>
-                    </Grid>
-                }
+                <ProductProvider>
+                    <Trail pageName="Products" returningPage="/products" currentPage="New Product" />
+                    <Container maxWidth="sm" sx={{ mt: 4 }}>
+                        {!submitted
+                            ?
+                            <Grid container direction="column" justifyContent="center" alignItems="center" >
+                                <Typography variant="h3">
+                                    Product uploaded successfully
+                                </Typography>
+                                <Box sx={{ pt: '1rem', width: '50%' }}>
+                                    <Button fullWidth variant="contained" data-test="return" component={ActionLink} to="/products">Return</Button>
+                                </Box>
+                            </Grid>
+                            :
+                            <Form onAction={handleSubmit} />
+                        }
+            </Container>
+                </ProductProvider>
             </Container>
         </ProductProvider>
     );
 }
-export default CreateProduct;
+
+
+
+
+

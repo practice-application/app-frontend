@@ -5,7 +5,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
-import { Container, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -14,6 +14,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import CardHeader from '@mui/material/CardHeader';
 
 import ActionLink from '../../../components/ActionLink';
 import { TablePager } from '../../../components/TablePager';
@@ -30,6 +31,9 @@ const ProductPageExt = () => {
         </ProductProvider>
     );
 }
+
+
+
 
 const ProductPage = () => {
     const [view, setView] = useState('true');
@@ -57,7 +61,7 @@ const ProductPage = () => {
     console.log(products)
 
     return (
-        <Container maxWidth='xl'>
+        <>
             <Grid container sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
                     <Button
@@ -72,32 +76,19 @@ const ProductPage = () => {
                     </Button>
                 </Box>
             </Grid>
-            {products.data ?
-                <>
+                {products.data ?
                     <Grid container spacing={2} direction='row' justifyContent='space-evenly' sx={{ paddingTop: 10 }}>
                         <Grid item container >
-
-
                             {products.data.map((item) =>
-                                <Card spacing={4} key={item.id} sx={{ padding: 1, maxWidth: 345, boxShadow: '-1px 4px 20px -6px rgba(0, 0, 0, 1.75)' }}>
-                                    <Grid sx={{ height: 50, padding: 0.5 }}>
-                                        <Typography variant='h2'>
-                                            {item.name}
-                                        </Typography>
-
-                                        <Grid container direction="row" justifyContent="flex-end" sx={{ paddingBottom: 10 }}>
-                                            {view === true ?
+                                <Card key={item.id} sx={{ m:1, padding: 1, boxShadow: '-1px 4px 20px -6px rgba(0, 0, 0, 1.75)' }}>
+                                        <CardHeader
+                                        title={item.name}
+                                        subheader={`$${item.price}`}
+                                        action={view === true ?
                                                 <IconButton size="small" onClick={() => handleDelete(item.id)}>
                                                     <DeleteForeverIcon />
                                                 </IconButton> : ''}
-                                        </Grid>
-
-                                    </Grid>
-                                    <Grid sx={{ paddingBottom: 4 }}>
-                                        <Typography variant='h3'>
-                                            ${item.price}
-                                        </Typography>
-                                    </Grid>
+                                        />
                                     <CardMedia
                                         component="img"
                                         height="190"
@@ -118,24 +109,26 @@ const ProductPage = () => {
                                         </IconButton>
                                     </CardActions>
                                 </Card>
-                            )}
-                        </Grid>
+                            )}       
+                         </Grid>
+                    <Grid container justifyContent="center" sx={{ padding: 20 }}>
+                        <TablePager count={products.data.length} total={products.matches}
+                                    colSpan={3} onPage={() => handlePage()}
+                                />
                     </Grid>
-                    <TablePager count={products.data.length} total={products.matches}
-                        colSpan={3} onPage={() => handlePage()}
-                    />
-                </>
-                :
-                <Grid sx={{ py: 4 }} container direction="column" justify="center" alignItems="center" >
-                    <ErrorOutlineIcon />
-                    <Typography sx={{ pt: 2 }}>No customer data to display at the moment</Typography>
-                    <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
-                        <Button variant='contained' sx={{ mr: 0.5 }} component={ActionLink} to="/add">Add Product</Button>
-                        <Button variant='outlined' sx={{ ml: 0.5 }} component={ActionLink} to="/products/create">Return</Button>
-                    </Box>
-                </Grid>
-            }
-        </Container>
+                    </Grid>
+                    :
+                    <Grid sx={{ py: 4 }} container direction="column" justify="center" alignItems="center" >
+                        <ErrorOutlineIcon />
+                        <Typography sx={{ pt: 2 }}>No customer data to display at the moment</Typography>
+                        <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
+                            <Button variant='contained' sx={{ mr: 0.5 }} component={ActionLink} to="/add">Add Product</Button>
+                            <Button variant='outlined' sx={{ ml: 0.5 }} component={ActionLink} to="/products/create">Return</Button>
+                        </Box>
+                        
+                    </Grid>
+                }   
+        </>
     );
 }
 

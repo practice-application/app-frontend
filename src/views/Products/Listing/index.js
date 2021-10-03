@@ -13,7 +13,6 @@ import { useParams } from "react-router-dom";
 import { Trail } from '../../../components/Trail';
 import { ProductProvider, useApi } from '../context';
 import { Form } from './Form'
-// import ProductPage from '../ProductPage';
 
 export const Listing = () => {
     return (
@@ -62,24 +61,27 @@ const ProductListing = () => {
                             <Button
                                 variant={view === true ? "contained" : "outlined"}
                                 endIcon={view === true ? <CreateIcon fontSize="small" /> : <CloseIcon fontSize="small" />}
-                                onClick={view === true ? change : changeBack}> {view === true ? "Edit Profile" : "Cancel"}</Button>
+                                onClick={view === true ? change : changeBack}> {view === true ? "Edit Product" : "Cancel"}</Button>
                         </Grid>
                     </Grid>
-                    <Container maxWidth="sm">
+                    <Container maxWidth="sm" sx={{ paddingTop: 10 }}>
+                        
                         {view ? (
-                            <Card>
-                                <Typography variant="h1">
-                                    {product.name}
-                                </Typography>
-                                <Typography >
-                                    {product.price}
-                                </Typography>
-                                <Typography >
-                                    {product.description}
-                                </Typography>
-                            </Card>
+                            <Card >
+                            <Typography variant="h1">
+                                {product.name}
+                            </Typography>
+                            <Typography >
+                                {product.price}
+                            </Typography>
+                            <Typography >
+                                {product.description}
+                            </Typography>
+                        </Card>
                         ) : (
                             <Form onAction={changeBack} />
+                        
+                            
                         )}
                     </Container>
                 </>
