@@ -11,18 +11,18 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import CardHeader from '@mui/material/CardHeader';
 
 import ActionLink from '../../../components/ActionLink';
-import { TablePager } from '../../../components/TablePager';
+import { Pager } from '../../../components/TablePager';
 import { ProductProvider } from '../context';
 import { useApi } from '../context';
 
 
-const pageSize = 10;
+const pageSize = 9;
 
 const ProductPageExt = () => {
     return (
@@ -31,9 +31,6 @@ const ProductPageExt = () => {
         </ProductProvider>
     );
 }
-
-
-
 
 const ProductPage = () => {
     const [view, setView] = useState('true');
@@ -76,23 +73,24 @@ const ProductPage = () => {
                     </Button>
                 </Box>
             </Grid>
-                {products.data ?
-                    <Grid container spacing={2} direction='row' justifyContent='space-evenly' sx={{ paddingTop: 10 }}>
-                        <Grid item container >
-                            {products.data.map((item) =>
-                                <Card key={item.id} sx={{ m:1, padding: 1, boxShadow: '-1px 4px 20px -6px rgba(0, 0, 0, 1.75)' }}>
-                                        <CardHeader
+            {products.data ?
+                <>
+                    <Grid container spacing={2} direction="row" justifyContent="flex-start" >
+                        {products.data.map((item) =>
+                            <Grid key={item.id} item xs={4}>
+                                <Card sx={{ m: 1, padding: 1, boxShadow: '-1px 4px 20px -6px rgba(0, 0, 0, 1.75)' }}>
+                                    <CardHeader
                                         title={item.name}
                                         subheader={`$${item.price}`}
                                         action={view === true ?
-                                                <IconButton size="small" onClick={() => handleDelete(item.id)}>
-                                                    <DeleteForeverIcon />
-                                                </IconButton> : ''}
-                                        />
+                                            <IconButton size="small" onClick={() => handleDelete(item.id)}>
+                                                <DeleteForeverIcon />
+                                            </IconButton> : ''}
+                                    />
                                     <CardMedia
                                         component="img"
                                         height="190"
-                                        image='https://mui.com/static/images/cards/paella.jpg'  //   {props.image}
+                                        image='https://mui.com/static/images/cards/paella.jpg'
                                         alt={'image'}
                                     />
                                     <CardContent>
@@ -101,33 +99,29 @@ const ProductPage = () => {
                                         </Typography>
                                     </CardContent>
                                     <CardActions disableSpacing>
-                                        <IconButton aria-label="add to favorites">
-                                            {/* <FavoriteIcon /> */}
-                                        </IconButton>
-                                        <IconButton aria-label="share" component={ActionLink} to={`/products/${item.id}`}>
-                                            <UnfoldMoreIcon />
-                                        </IconButton>
+                                        <Button component={ActionLink} to={`/products/${item.id}`}>
+                                            View Product
+                                        </Button>
                                     </CardActions>
                                 </Card>
-                            )}       
-                         </Grid>
-                    <Grid container justifyContent="center" sx={{ padding: 20 }}>
-                        <TablePager count={products.data.length} total={products.matches}
-                                    colSpan={3} onPage={() => handlePage()}
-                                />
+                            </Grid>
+                        )}
                     </Grid>
-                    </Grid>
-                    :
-                    <Grid sx={{ py: 4 }} container direction="column" justify="center" alignItems="center" >
-                        <ErrorOutlineIcon />
-                        <Typography sx={{ pt: 2 }}>No customer data to display at the moment</Typography>
-                        <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
-                            <Button variant='contained' sx={{ mr: 0.5 }} component={ActionLink} to="/add">Add Product</Button>
-                            <Button variant='outlined' sx={{ ml: 0.5 }} component={ActionLink} to="/products/create">Return</Button>
-                        </Box>
-                        
-                    </Grid>
-                }   
+                    <Pager count={products.data.length} total={products.matches}
+                        onPage={() => handlePage()}
+                    />
+                </>
+                :
+                <Grid sx={{ py: 4 }} container direction="column" justify="center" alignItems="center" >
+                    <ErrorOutlineIcon />
+                    <Typography sx={{ pt: 2 }}>No customer data to display at the moment</Typography>
+                    <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
+                        <Button variant='contained' sx={{ mr: 0.5 }} component={ActionLink} to="/add">Add Product</Button>
+                        <Button variant='outlined' sx={{ ml: 0.5 }} component={ActionLink} to="/products/create">Return</Button>
+                    </Box>
+
+                </Grid>
+            }
         </>
     );
 }
