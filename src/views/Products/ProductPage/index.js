@@ -77,7 +77,7 @@ const ProductPage = () => {
                     <Grid container spacing={2} direction="row" justifyContent="flex-start" >
                         {products.data.map((item) =>
                             <Grid key={item.id} item xs={4}>
-                                <Card sx={{ m: 1, padding: 1, boxShadow: '-1px 4px 20px -6px rgba(0, 0, 0, 1.75)' }}>
+                                <Card sx={{ m: 1, padding: 1 }}>
                                     <CardHeader
                                         title={item.name}
                                         subheader={`$${item.price}`}

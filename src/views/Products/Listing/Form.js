@@ -79,9 +79,7 @@ export const Form = ({ onAction }) => {
     }, [state.product]);
 
 
-
-    const handleChange = (e, imageList, addUpdateIndex) => {
-        console.log(imageList, addUpdateIndex);
+    const handleChange = (e) => {
 
         const key = e.target.id;
         const val = e.target.value;
@@ -133,28 +131,29 @@ export const Form = ({ onAction }) => {
                                 maxNumber={maxNumber}
                                 dataURLKey="data_url"
                             >
-                                {({
-                                    imageList,
-                                    onImageUpload,
-                                    onImageRemoveAll,
-                                    onImageUpdate,
-                                    onImageRemove,
-                                    isDragging,
-                                    dragProps,
-                                }) => (
+                                {({ imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove, isDragging, dragProps, errors }) => (
 
                                     <>
+                                        {console.log(imageList)}
                                         <Button
                                             startIcon={<CloudUploadIcon />}
+                                            sx={{ mr: 1 }}
                                             variant="outlined"
                                             color={isDragging ? 'success' : undefined}
                                             onClick={onImageUpload}
                                             {...dragProps}
                                         >
-                                            Add an Image
+                                            {isDragging ? "Drop here please" : "Upload new File"}
                                         </Button>
-
                                         <Button color="error" variant="outlined" startIcon={<DeleteForeverIcon />} onClick={onImageRemoveAll}>Remove all images</Button>
+                                        {errors &&
+                                            <>
+                                                {errors.maxNumber && <Typography variant="body2" color="error">Number of selected images exceed {maxNumber}</Typography>}
+                                                {errors.acceptType && <Typography variant="body2" color="error">Your selected file type is not allow</Typography>}
+                                                {errors.maxFileSize && <Typography variant="body2" color="error">Selected file size exceed maxFileSize</Typography>}
+                                                {errors.resolution && <Typography variant="body2" color="error">Selected file is not match your desired resolution</Typography>}
+                                            </>
+                                        }
                                         {imageList.map((image, index) => (
                                             <Card key={index} >
                                                 <CardMedia
@@ -167,13 +166,14 @@ export const Form = ({ onAction }) => {
                                                     <Typography variant="body2">{image.file.name}</Typography>
                                                 </CardContent>
                                                 <CardActions>
-                                                    <Button onClick={() => onImageUpdate(index)}>Update</Button>
+                                                    <Button onClick={() => onImageUpdate(index)}>Change</Button>
                                                     <IconButton onClick={() => onImageRemove(index)}><CloseIcon /></IconButton>
                                                 </CardActions>
                                             </Card>
                                         ))}
                                     </>
                                 )}
+
                             </ImageUploading>
                         </Grid>
                     </Grid>
