@@ -22,5 +22,3 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 export const storage = firebase.storage();
-
-// const app = firebase.initializeApp(firebaseConfig);
