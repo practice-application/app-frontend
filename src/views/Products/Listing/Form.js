@@ -44,21 +44,22 @@ export const Form = ({ onAction }) => {
     const onChange = (imageList) => {
         console.log(imageList.map((image) => image.data_url));
         setImages(imageList);
-        imgStorage.ref(`/images/${image.name}`).put(image)
+
 
     };
 
-    const handleSave = () => {
+    const handleSave = (imageList) => {
         console.log(product)
         if (validPrice()) {
             setErrorMsg(null);
             setSubmitting(true);
             if (product.id) {
                 update(product)
+                imgStorage.ref(`/images/${image}`).put(image)
 
             } else {
                 create(product)
-                imgStorage.ref(`/images/${image.name}`).put(image)
+                imgStorage.ref(`/images/${image}`).put(image)
             }
             onAction()
             setSubmitting(false);

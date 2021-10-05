@@ -7,13 +7,13 @@ export const config = {
         audience: "shared-app.com"
     },
     storage: {
-        apiKey: "AIzaSyCkjhlIhlWnqcK1_Qd9kUghek3xP7JB1Co",
-        authDomain: "practice-app-92bba.firebaseapp.com",
-        databaseURL: "https://practice-app-92bba-default-rtdb.firebaseio.com",
-        projectId: "practice-app-92bba",
-        storageBucket: "practice-app-92bba.appspot.com",
-        messagingSenderId: "40981754515",
-        appId: "1:40981754515:web:3154a18bab93747a2fd366"
+        apiKey: "AIzaSyDgUq9Yu72T4N4P4Po7qkuzuHIId5H9ks8",
+        authDomain: "practice-app-f69b1.firebaseapp.com",
+        projectId: "practice-app-f69b1",
+        storageBucket: "practice-app-f69b1.appspot.com",
+        messagingSenderId: "144166072950",
+        appId: "1:144166072950:web:786bfa87c6f67518162557",
+        measurementId: "G-VJZKP0WB26"
     },
     url: 'https://jumpingbeans.herokuapp.com'
 };
