@@ -78,9 +78,9 @@ const ProductPage = () => {
                     <Grid container spacing={2} direction="row" justifyContent="flex-start" >
                         {products.data.map((item) =>
                             <Grid key={item.id} item xs={4}>
-                                <CardActionArea component={ActionLink} to={`/products/${item.id}`}>
+                                {/* <CardActionArea component={ActionLink} to={`/products/${item.id}`}> */}
                                 <Card sx={{ m: 1, padding: 1, }}>
-                                
+
                                     <CardHeader
                                         title={item.name}
                                         subheader={`$${item.price}`}
@@ -101,12 +101,12 @@ const ProductPage = () => {
                                         </Typography>
                                     </CardContent>
                                     <CardActions disableSpacing>
-                                        {/* <Button component={ActionLink} to={`/products/${item.id}`}>
+                                        <Button component={ActionLink} to={`/products/${item.id}`}>
                                             View Product
-                                        </Button> */}
+                                        </Button>
                                     </CardActions>
                                 </Card>
-                                </CardActionArea>
+                                {/* </CardActionArea> */}
                             </Grid>
                         )}
                     </Grid>

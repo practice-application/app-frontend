@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import CloseIcon from '@mui/icons-material/Close';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -17,6 +18,7 @@ import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
 import ImageUploading from 'react-images-uploading';
 
+import { storage } from '../../../config';
 import { useApi } from '../context';
 
 export const Form = ({ onAction }) => {
@@ -38,12 +40,9 @@ export const Form = ({ onAction }) => {
             return isValid;
         }
     }
-    console.log(image)
 
-
-
-    const onChange = (imageList, addUpdateIndex) => {
-        console.log(imageList, addUpdateIndex);
+    const onChange = (imageList) => {
+        console.log(imageList.map((image) => image.data_url));
         setImages(imageList);
     };
 
@@ -54,8 +53,11 @@ export const Form = ({ onAction }) => {
             setSubmitting(true);
             if (product.id) {
                 update(product)
+                storage.ref(`/images/${image.name}`).put(image)
+
             } else {
                 create(product)
+                storage.ref(`/images/${image.name}`).put(image)
             }
             onAction()
             setSubmitting(false);
@@ -136,7 +138,7 @@ export const Form = ({ onAction }) => {
                                     <>
                                         {console.log(imageList)}
                                         <Button
-                                            startIcon={<CloudUploadIcon />}
+                                            startIcon={isDragging ? <ArrowDownwardIcon /> : <CloudUploadIcon />}
                                             sx={{ mr: 1 }}
                                             variant="outlined"
                                             color={isDragging ? 'success' : undefined}
