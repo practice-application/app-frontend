@@ -6,7 +6,7 @@ export const config = {
         clientId: "SWXFgDlcVJRto1h2mrdqVRvePcokucgQ",
         audience: "shared-app.com"
     },
-    firebase: {
+    storage: {
         apiKey: "AIzaSyCkjhlIhlWnqcK1_Qd9kUghek3xP7JB1Co",
         authDomain: "practice-app-92bba.firebaseapp.com",
         databaseURL: "https://practice-app-92bba-default-rtdb.firebaseio.com",
@@ -18,5 +18,5 @@ export const config = {
     url: 'https://jumpingbeans.herokuapp.com'
 };
 
-firebase.initializeApp(config.firebase);
-export const storage = firebase.storage();
+firebase.initializeApp(config.storage);
+export const imgStorage = firebase.storage();

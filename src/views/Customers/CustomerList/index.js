@@ -25,7 +25,7 @@ import { CustomerProvider } from '../context';
 
 const pageSize = 10;
 
-const CustomerListExt = () => {
+export const CustomerListExt = () => {
     return (
         <CustomerProvider>
             <CustomerList />
@@ -56,9 +56,6 @@ const CustomerList = () => {
     const changeBack = () => {
         setView(true);
     };
-
-
-
 
     return (
         <>

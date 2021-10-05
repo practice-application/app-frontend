@@ -18,7 +18,7 @@ import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
 import ImageUploading from 'react-images-uploading';
 
-import { storage } from '../../../config';
+import { imgStorage } from '../../../config';
 import { useApi } from '../context';
 
 export const Form = ({ onAction }) => {
@@ -44,7 +44,7 @@ export const Form = ({ onAction }) => {
     const onChange = (imageList) => {
         console.log(imageList.map((image) => image.data_url));
         setImages(imageList);
-        storage.ref(`/images/${image.name}`).put(image)
+        imgStorage.ref(`/images/${image.name}`).put(image)
 
     };
 
@@ -58,7 +58,7 @@ export const Form = ({ onAction }) => {
 
             } else {
                 create(product)
-                storage.ref(`/images/${image.name}`).put(image)
+                imgStorage.ref(`/images/${image.name}`).put(image)
             }
             onAction()
             setSubmitting(false);
