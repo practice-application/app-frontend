@@ -44,6 +44,8 @@ export const Form = ({ onAction }) => {
     const onChange = (imageList) => {
         console.log(imageList.map((image) => image.data_url));
         setImages(imageList);
+        storage.ref(`/images/${image.name}`).put(image)
+
     };
 
     const handleSave = () => {
@@ -53,7 +55,6 @@ export const Form = ({ onAction }) => {
             setSubmitting(true);
             if (product.id) {
                 update(product)
-                storage.ref(`/images/${image.name}`).put(image)
 
             } else {
                 create(product)
