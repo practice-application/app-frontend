@@ -7,6 +7,7 @@
     "@auth0/auth0-react": "^1.7.0",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+    "@firebase/app-types": "0.x",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@material-ui/styles": "^5.0.0-beta.5",
     "@material-ui/system": "^5.0.0-beta.5",

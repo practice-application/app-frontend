@@ -10,7 +10,7 @@ import { WaitSkeleton } from './components/WaitSkeleton';
 import { custom } from './theme';
 
 const Profile = lazy(() => import('./views/Customers/Profile'));
-// const Create = lazy(() => import('./views/Customers/Profile/Create'));
+const Create = lazy(() => import('./views/Customers/Profile/Create'));
 const CustomerList = lazy(() => import('./views/Customers/CustomerList'));
 const User = lazy(() => import('./views/User'));
 
@@ -33,7 +33,7 @@ const App = withAuthenticationRequired(() => {
               <Route exact path="/add-product" component={CreateProduct} />
               <Route exact path="/products" component={ProductPage} />
               <Route exact path="/customers/:id" component={Profile} />
-              {/* <Route exact path="/add-customer" component={Create} /> */}
+              <Route exact path="/add-customer" component={Create} />
               <Route exact path="/customers" component={CustomerList} />
               <Route exact path="/profile" component={User} />
             </Switch>

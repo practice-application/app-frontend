@@ -18,7 +18,7 @@ import { useParams } from "react-router-dom";
 
 import { Trail } from '../../../components/Trail';
 import { CustomerProvider, useApi } from '../context';
-import { Form } from './Form'
+import Form from './Form'
 
 export const Profile = () => {
     return (

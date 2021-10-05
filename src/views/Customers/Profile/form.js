@@ -263,6 +263,7 @@ export const Form = ({ onAction }) => {
         </>
     )
 }
+export default Form;
 
 const TextInput = styled(TextField)(({ theme }) => ({
     marginTop: theme.spacing(2),

@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import ActionLink from '../../../components/ActionLink';
 import { Trail } from '../../../components/Trail';
 import { CustomerProvider } from '../context';
-import { Form } from './Form';
+import Form from './Form';
 
 export const Create = () => {
     const [submitted, setSubmitted] = useState(false);
