@@ -73,7 +73,7 @@ const CustomerList = () => {
 
                         </Box>
                         <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
-                            <Button variant='contained' component={ActionLink} to="/add">Add User</Button>
+                            <Button variant='contained' component={ActionLink} to="/add-customer">Add User</Button>
                         </Box>
                     </Grid>
                     <TableContainer sx={{

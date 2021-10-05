@@ -33,7 +33,7 @@ const App = withAuthenticationRequired(() => {
               <Route exact path="/add-product" component={CreateProduct} />
               <Route exact path="/products" component={ProductPage} />
               <Route exact path="/customers/:id" component={Profile} />
-              <Route exact path="/add" component={Create} />
+              <Route exact path="/add-customer" component={Create} />
               <Route exact path="/customers" component={CustomerList} />
               <Route exact path="/profile" component={User} />
             </Switch>
