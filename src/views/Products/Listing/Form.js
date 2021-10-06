@@ -42,24 +42,20 @@ export const Form = ({ onAction }) => {
     }
 
     const onChange = (imageList) => {
-        console.log(imageList.map((image) => image.data_url));
         setImages(imageList);
-
-
     };
 
-    const handleSave = (imageList) => {
-        console.log(product)
+    const handleSave = () => {
         if (validPrice()) {
             setErrorMsg(null);
             setSubmitting(true);
             if (product.id) {
                 update(product)
-                imgStorage.ref(`/images/${image}`).put(image)
+                imgStorage.ref(`/product-images/${product.id}/${product.name && image[0].file.name}`).put(image)
 
             } else {
                 create(product)
-                imgStorage.ref(`/images/${image}`).put(image)
+                imgStorage.ref(`/product-images/${product.id}/${product.name && image[0].file.name}`).put(image)
             }
             onAction()
             setSubmitting(false);
@@ -84,7 +80,6 @@ export const Form = ({ onAction }) => {
 
 
     const handleChange = (e) => {
-
         const key = e.target.id;
         const val = e.target.value;
 
