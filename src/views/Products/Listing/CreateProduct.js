@@ -9,9 +9,9 @@ import Typography from '@mui/material/Typography';
 import ActionLink from '../../../components/ActionLink';
 import { Trail } from '../../../components/Trail';
 import { ProductProvider } from '../context';
-import { Form } from './Form';
+import Form from './Form';
 
-export const CreateProduct = () => {
+const CreateProduct = () => {
     const [submitted, setSubmitted] = useState(false);
     const handleSubmit = () => {
         setSubmitted(true);

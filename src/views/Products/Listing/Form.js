@@ -21,7 +21,7 @@ import ImageUploading from 'react-images-uploading';
 import { imgStorage } from '../../../config';
 import { useApi } from '../context';
 
-export const Form = ({ onAction }) => {
+const Form = ({ onAction }) => {
     const [state, { update, create }] = useApi();
     const [product, setProduct] = useState();
     const [errorMsg, setErrorMsg] = useState(false);
@@ -189,6 +189,7 @@ export const Form = ({ onAction }) => {
         </>
     )
 }
+export default Form;
 
 const TextInput = styled(TextField)(({ theme }) => ({
     marginTop: theme.spacing(2),

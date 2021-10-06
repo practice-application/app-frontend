@@ -12,12 +12,12 @@ import { useParams } from "react-router-dom";
 
 import { Trail } from '../../../components/Trail';
 import { ProductProvider, useApi } from '../context';
-import { Form } from './Form'
+import Form from './Form'
 
-export const Listing = () => {
+const Listing = () => {
     return (
         <ProductProvider>
-            <ProductListing/>
+            <ProductListing />
         </ProductProvider>
     );
 }
@@ -65,23 +65,23 @@ const ProductListing = () => {
                         </Grid>
                     </Grid>
                     <Container maxWidth="sm" sx={{ paddingTop: 10 }}>
-                        
+
                         {view ? (
                             <Card >
-                            <Typography variant="h1">
-                                {product.name}
-                            </Typography>
-                            <Typography >
-                                {product.price}
-                            </Typography>
-                            <Typography >
-                                {product.description}
-                            </Typography>
-                        </Card>
+                                <Typography variant="h1">
+                                    {product.name}
+                                </Typography>
+                                <Typography >
+                                    {product.price}
+                                </Typography>
+                                <Typography >
+                                    {product.description}
+                                </Typography>
+                            </Card>
                         ) : (
                             <Form onAction={changeBack} />
-                        
-                            
+
+
                         )}
                     </Container>
                 </>

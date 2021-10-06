@@ -67,13 +67,8 @@ const initialState = {
         description: '',
         image: {
             data_url: '',
-            // file: {
-            lastModified: '',
-            lastModifiedDate: '',
+            id: '',
             name: '',
-            size: '',
-            type: ''
-            // }
         }
     },
     error: null,
