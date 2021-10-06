@@ -51,11 +51,11 @@ export const Form = ({ onAction }) => {
             setSubmitting(true);
             if (product.id) {
                 update(product)
-                imgStorage.ref(`/product-images/${product.id}/${product.name && image[0].file.name}`).put(image)
+                imgStorage.ref(`/product-images/${product.id}/${product.name + ", " + image[0].file.name}`).put(image)
 
             } else {
                 create(product)
-                imgStorage.ref(`/product-images/${product.id}/${product.name && image[0].file.name}`).put(image)
+                imgStorage.ref(`/product-images/${product.id}/${product.name + ", " + image[0].file.name}`).put(image)
             }
             onAction()
             setSubmitting(false);
