@@ -23,7 +23,7 @@ import { useApi } from '../context';
 
 const pageSize = 9;
 
-const ProductPageExt = () => {
+export const ProductPageExt = () => {
     return (
         <ProductProvider>
             <ProductPage />

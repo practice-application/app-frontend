@@ -11,12 +11,11 @@ import { Trail } from '../../../components/Trail';
 import { CustomerProvider } from '../context';
 import Form from './Form';
 
-const Create = () => {
+export const Create = () => {
     const [submitted, setSubmitted] = useState(false);
     const handleSubmit = () => {
         setSubmitted(true);
     };
-
 
     return (
         <CustomerProvider>

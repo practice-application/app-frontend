@@ -14,7 +14,7 @@ import { Trail } from '../../../components/Trail';
 import { ProductProvider, useApi } from '../context';
 import Form from './Form'
 
-const Listing = () => {
+export const Listing = () => {
     return (
         <ProductProvider>
             <ProductListing />

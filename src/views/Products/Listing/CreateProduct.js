@@ -11,7 +11,7 @@ import { Trail } from '../../../components/Trail';
 import { ProductProvider } from '../context';
 import Form from './Form';
 
-const CreateProduct = () => {
+export const CreateProduct = () => {
     const [submitted, setSubmitted] = useState(false);
     const handleSubmit = () => {
         setSubmitted(true);

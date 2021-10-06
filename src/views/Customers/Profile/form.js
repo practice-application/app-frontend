@@ -24,7 +24,7 @@ import { useApi } from '../context';
 
 const steps = ['Basic Info', 'Address'];
 
-const Form = ({ onAction }) => {
+export const Form = ({ onAction }) => {
     const [state, { update, create }] = useApi();
     const [person, setPerson] = useState();
     const [errorMsg, setErrorMsg] = useState(false);

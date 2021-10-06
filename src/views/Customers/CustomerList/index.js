@@ -25,7 +25,7 @@ import { CustomerProvider } from '../context';
 
 const pageSize = 10;
 
-const CustomerListExt = () => {
+export const CustomerListExt = () => {
     return (
         <CustomerProvider>
             <CustomerList />

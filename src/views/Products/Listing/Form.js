@@ -21,7 +21,7 @@ import ImageUploading from 'react-images-uploading';
 import { imgStorage } from '../../../config';
 import { useApi } from '../context';
 
-const Form = ({ onAction }) => {
+export const Form = ({ onAction }) => {
     const [state, { update, create }] = useApi();
     const [product, setProduct] = useState();
     const [errorMsg, setErrorMsg] = useState(false);
