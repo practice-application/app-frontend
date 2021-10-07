@@ -29,7 +29,6 @@ export const ImagePager = props => {
     };
 
     const handleDialogClose = () => {
-
         setDialogOpen(false);
     };
 
@@ -70,7 +69,7 @@ export const ImagePager = props => {
                                             horizontal: 'left',
                                         }}
                                     >
-                                        <MenuItem onClick={() => onDelete(index)}>
+                                        <MenuItem onClick={() => { onDelete(index); handleClose(); handleBack(index) }}>
                                             <ListItemIcon>
                                                 <DeleteForeverIcon fontSize="small" />
                                             </ListItemIcon>
@@ -107,8 +106,10 @@ export const ImagePager = props => {
                         </>
                         : null}
                 </div>
-            ))}
-            {image &&
+            ))
+            }
+            {
+                image &&
                 <MobileStepper
                     variant="text"
                     steps={maxSteps}
@@ -126,7 +127,7 @@ export const ImagePager = props => {
                     }
                 />
             }
-        </Card>
+        </Card >
     )
 }
 export default ImagePager;
