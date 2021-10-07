@@ -20,6 +20,7 @@ import { Trail } from '../../../components/Trail';
 import { CustomerProvider, useApi } from '../context';
 import Form from './Form'
 
+
 export const Profile = () => {
     return (
         <CustomerProvider>
@@ -37,6 +38,7 @@ const Customer = () => {
     useEffect(() => {
         fetchPerson(id);
     }, [fetchPerson, id]);
+
 
     useEffect(() => {
         setPerson(state.person);

@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import CloseIcon from '@mui/icons-material/Close';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
 import ImageUploading from 'react-images-uploading';
 
+import { ImagePager } from '../../../components/ImagePager'
 import { imgStorage } from '../../../config';
 import { useApi } from '../context';
 
@@ -27,6 +22,7 @@ export const Form = ({ onAction }) => {
     const [errorMsg, setErrorMsg] = useState(false);
     const [submitting, setSubmitting] = useState();
     const [image, setImages] = useState([]);
+    const maxSteps = image.length;
     const maxNumber = 5;
 
     const validPrice = () => {
@@ -131,9 +127,7 @@ export const Form = ({ onAction }) => {
                                 dataURLKey="data_url"
                             >
                                 {({ imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove, isDragging, dragProps, errors }) => (
-
                                     <>
-                                        {console.log(imageList)}
                                         <Button
                                             startIcon={isDragging ? <ArrowDownwardIcon /> : <CloudUploadIcon />}
                                             sx={{ mr: 1 }}
@@ -141,38 +135,21 @@ export const Form = ({ onAction }) => {
                                             color={isDragging ? 'success' : undefined}
                                             onClick={onImageUpload}
                                             {...dragProps}
-                                        >
-                                            {isDragging ? "Drop here please" : "Upload new File"}
+                                        > {image[0] ? "Add Another file" : isDragging ? "Drop File here" : "Upload new File"}
                                         </Button>
-                                        <Button color="error" variant="outlined" startIcon={<DeleteForeverIcon />} onClick={onImageRemoveAll}>Remove all images</Button>
+                                        {image[0] &&
+                                            <Button color="error" variant="outlined" startIcon={<DeleteForeverIcon />} onClick={onImageRemoveAll}>Remove all images</Button>}
                                         {errors &&
-                                            <>
-                                                {errors.maxNumber && <Typography variant="body2" color="error">Number of selected images exceed {maxNumber}</Typography>}
-                                                {errors.acceptType && <Typography variant="body2" color="error">Your selected file type is not allow</Typography>}
-                                                {errors.maxFileSize && <Typography variant="body2" color="error">Selected file size exceed maxFileSize</Typography>}
-                                                {errors.resolution && <Typography variant="body2" color="error">Selected file is not match your desired resolution</Typography>}
-                                            </>
+                                            <Typography variant="body2" color="error">
+                                                {errors.maxNumber && `Number of selected images exceed ${maxNumber}`}
+                                                {errors.acceptType && `Your selected file type is not allow`}
+                                                {errors.maxFileSize && `Selected file size exceed maxFileSize`}
+                                                {errors.resolution && `Selected file is not match your desired resolution`}
+                                            </Typography>
                                         }
-                                        {imageList.map((image, index) => (
-                                            <Card key={index} >
-                                                <CardMedia
-                                                    component="img"
-                                                    height="190"
-                                                    image={image.data_url}
-                                                    alt={image.file.name}
-                                                />
-                                                <CardContent>
-                                                    <Typography variant="body2">{image.file.name}</Typography>
-                                                </CardContent>
-                                                <CardActions>
-                                                    <Button onClick={() => onImageUpdate(index)}>Change</Button>
-                                                    <IconButton onClick={() => onImageRemove(index)}><CloseIcon /></IconButton>
-                                                </CardActions>
-                                            </Card>
-                                        ))}
+                                        <ImagePager maxSteps={maxSteps} array={imageList} image={image[0]} onChange={onImageUpdate} onDelete={onImageRemove} />
                                     </>
                                 )}
-
                             </ImageUploading>
                         </Grid>
                     </Grid>
