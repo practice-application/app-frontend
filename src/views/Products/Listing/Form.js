@@ -147,7 +147,14 @@ export const Form = ({ onAction }) => {
                                                 {errors.resolution && `Selected file is not match your desired resolution`}
                                             </Typography>
                                         }
-                                        <ImagePager maxSteps={maxSteps} array={imageList} image={image[0]} onChange={onImageUpdate} onDelete={onImageRemove} />
+                                        <ImagePager
+                                            action
+                                            maxSteps={maxSteps}
+                                            array={imageList}
+                                            image={image[0]}
+                                            onChange={onImageUpdate}
+                                            onDelete={onImageRemove}
+                                        />
                                     </>
                                 )}
                             </ImageUploading>

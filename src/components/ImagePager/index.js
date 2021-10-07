@@ -18,11 +18,11 @@ import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
 
 export const ImagePager = props => {
+    const { maxSteps, array, onDelete, onChange, image, action } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const [activeStep, setActiveStep] = useState(0);
     const [dialogOpen, setDialogOpen] = useState(false);
-    const { maxSteps, array, onDelete, onChange, image } = props
 
     const handleClickOpen = () => {
         setDialogOpen(true);
@@ -53,7 +53,7 @@ export const ImagePager = props => {
                 <div key={index} >
                     {activeStep === index ?
                         <>
-                            <CardHeader action={
+                            <CardHeader action={action &&
                                 <>
                                     <Menu
                                         id="demo-positioned-menu"
@@ -86,7 +86,6 @@ export const ImagePager = props => {
                                     <IconButton size="small" onClick={handleClick}>
                                         <MoreVertIcon fontSize="small" />
                                     </IconButton>
-
                                 </>
                             } disableTypography title={image.file.name} />
                             <CardActionArea onClick={handleClickOpen}>
@@ -116,11 +115,7 @@ export const ImagePager = props => {
                     position="static"
                     activeStep={activeStep}
                     nextButton={
-                        <Button
-                            onClick={handleNext}
-                            disabled={activeStep === maxSteps - 1}
-                            endIcon={<KeyboardArrowRight />}
-                        >
+                        <Button onClick={handleNext} disabled={activeStep === maxSteps - 1} endIcon={<KeyboardArrowRight />} >
                             Next
                         </Button>
                     }
@@ -138,4 +133,5 @@ export default ImagePager;
 
 ImagePager.propTypes = {
     array: PropTypes.array.isRequired,
+    action: PropTypes.bool
 };
