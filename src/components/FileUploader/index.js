@@ -12,7 +12,6 @@ export const FileUploader = props => {
     const maxNumber = 5;
 
     return (
-
         <>
             <Button
                 startIcon={isDragging ? <ArrowDownwardIcon /> : <CloudUploadIcon />}
@@ -43,5 +42,4 @@ FileUploader.propTypes = {
     onImageUpload: PropTypes.func,
     onImageRemoveAll: PropTypes.func,
     children: PropTypes.element,
-
 };

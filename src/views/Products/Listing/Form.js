@@ -133,7 +133,6 @@ export const Form = ({ onAction }) => {
                                             onDelete={onImageRemove}
                                         />
                                     </FileUploader>
-
                                 )}
                             </ImageUploading>
                         </Grid>
