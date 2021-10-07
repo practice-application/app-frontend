@@ -112,7 +112,6 @@ export const Form = ({ onAction }) => {
                                 size="small" variant="outlined" multiline minRows='8' fullWidth
                                 value={product && product.description}
                                 onChange={handleChange}
-
                             />
                         </Grid>
                         <Grid item xs={12}>
