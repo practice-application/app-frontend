@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
 import ImageUploading from 'react-images-uploading';
 
+import { FileUploader } from '../../../components/FileUploader';
 import { ImagePager } from '../../../components/ImagePager'
 import { imgStorage } from '../../../config';
 import { useApi } from '../context';
@@ -127,26 +124,7 @@ export const Form = ({ onAction }) => {
                                 dataURLKey="data_url"
                             >
                                 {({ imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove, isDragging, dragProps, errors }) => (
-                                    <>
-                                        <Button
-                                            startIcon={isDragging ? <ArrowDownwardIcon /> : <CloudUploadIcon />}
-                                            sx={{ mr: 1 }}
-                                            variant="outlined"
-                                            color={isDragging ? 'success' : undefined}
-                                            onClick={onImageUpload}
-                                            {...dragProps}
-                                        > {image[0] ? "Add Another file" : isDragging ? "Drop File here" : "Upload new File"}
-                                        </Button>
-                                        {image[0] &&
-                                            <Button color="error" variant="outlined" startIcon={<DeleteForeverIcon />} onClick={onImageRemoveAll}>Remove all images</Button>}
-                                        {errors &&
-                                            <Typography variant="body2" color="error">
-                                                {errors.maxNumber && `Number of selected images exceed ${maxNumber}`}
-                                                {errors.acceptType && `Your selected file type is not allow`}
-                                                {errors.maxFileSize && `Selected file size exceed maxFileSize`}
-                                                {errors.resolution && `Selected file is not match your desired resolution`}
-                                            </Typography>
-                                        }
+                                    <FileUploader image={image[0]} dragProps={dragProps} errors={errors} isDragging={isDragging} onChange={onChange} onImageRemoveAll={onImageRemoveAll} onImageUpload={onImageUpload}  >
                                         <ImagePager
                                             action
                                             maxSteps={maxSteps}
@@ -155,7 +133,8 @@ export const Form = ({ onAction }) => {
                                             onChange={onImageUpdate}
                                             onDelete={onImageRemove}
                                         />
-                                    </>
+                                    </FileUploader>
+
                                 )}
                             </ImageUploading>
                         </Grid>
