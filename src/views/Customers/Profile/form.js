@@ -64,7 +64,6 @@ export const Form = ({ onAction }) => {
     }
 
     const handleSave = () => {
-        console.log(person)
         if (validEmail()) {
             setErrorMsg(null);
             setSubmitting(true);

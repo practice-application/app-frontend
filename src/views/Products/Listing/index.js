@@ -91,8 +91,7 @@ const ProductListing = () => {
                                 </Typography>
                                 <Typography >
                                     {product.price}
-                                </Typography>
-                                <Typography >
+                                    <br />
                                     {product.description}
                                 </Typography>
                                 <ImagePager
@@ -103,7 +102,7 @@ const ProductListing = () => {
                                 />
                             </Card>
                         ) : (
-                            <Form onAction={changeBack} />
+                            <Form onAction={(changeBack)} />
                         )}
                     </Container>
 
