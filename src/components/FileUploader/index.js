@@ -8,8 +8,7 @@ import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
 
 export const FileUploader = props => {
-    const { children, isDragging, image, errors, onImageUpload, onImageRemoveAll, dragProps } = props;
-    const maxNumber = 5;
+    const { children, isDragging, image, errors, onImageUpload, onImageRemoveAll, dragProps, maxNumber } = props;
 
     return (
         <>
@@ -26,7 +25,7 @@ export const FileUploader = props => {
                 <Button color="error" variant="outlined" startIcon={<DeleteForeverIcon />} onClick={onImageRemoveAll}>Remove all images</Button>}
             {errors &&
                 <Typography variant="body2" color="error">
-                    {errors.maxNumber && `Number of selected images exceed ${maxNumber}`}
+                    {errors.maxNumber && `Number of selected images exceeds ${maxNumber}`}
                     {errors.acceptType && `Your selected file type is not allow`}
                     {errors.maxFileSize && `Selected file size exceed maxFileSize`}
                     {errors.resolution && `Selected file is not match your desired resolution`}

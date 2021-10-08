@@ -1,5 +1,4 @@
 import firebase from 'firebase';
-// const firebase = require('firebase');
 
 export const config = {
     auth0: {
@@ -18,6 +17,7 @@ export const config = {
     },
     url: 'https://jumpingbeans.herokuapp.com'
 };
+
 
 firebase.initializeApp(config.storage);
 export const imgStorage = firebase.storage();

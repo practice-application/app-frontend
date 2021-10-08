@@ -18,7 +18,7 @@ import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
 
 export const ImagePager = props => {
-    const { maxSteps, array, onDelete, onChange, image, action } = props;
+    const { maxSteps, array, onDelete, onChange, image, action, upload, view } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const [activeStep, setActiveStep] = useState(0);
@@ -48,7 +48,7 @@ export const ImagePager = props => {
     };
     return (
         <Card>
-            {array.map((image, index) => (
+            {array.map((item, index) => (
                 <div key={index} >
                     {activeStep === index ?
                         <>
@@ -86,21 +86,21 @@ export const ImagePager = props => {
                                         <MoreVertIcon fontSize="small" />
                                     </IconButton>
                                 </>
-                            } disableTypography title={image.file.name} />
+                            } disableTypography title={upload ? item.file.name : view && ''} />
                             <CardActionArea onClick={handleClickOpen}>
                                 <CardMedia
                                     component="img"
                                     height={200}
-                                    image={image.data_url}
-                                    alt={image.file.name}
+                                    image={upload ? item.data_url : view && item}
+                                    alt={upload ? item.file.name : view && item}
                                 />
                             </CardActionArea>
                             <Dialog fullWidth onClose={handleDialogClose} open={dialogOpen}>
                                 <CardMedia
                                     component="img"
                                     height="100%"
-                                    image={image.data_url}
-                                    alt={image.file.name}
+                                    image={upload ? item.data_url : view && item}
+                                    alt={upload ? item.file.name : view && item}
                                 />
                             </Dialog>
                         </>
@@ -108,8 +108,7 @@ export const ImagePager = props => {
                 </div>
             ))
             }
-            {
-                image &&
+            {image &&
                 <MobileStepper
                     variant="text"
                     steps={maxSteps}
@@ -127,12 +126,13 @@ export const ImagePager = props => {
                     }
                 />
             }
-        </Card >
+        </Card>
     )
 }
 export default ImagePager;
-
 ImagePager.propTypes = {
     array: PropTypes.array.isRequired,
-    action: PropTypes.bool
+    action: PropTypes.bool,
+    upload: PropTypes.bool,
+    view: PropTypes.bool
 };

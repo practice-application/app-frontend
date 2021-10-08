@@ -16,10 +16,10 @@ import { format, parseISO } from 'date-fns';
 import Moment from 'react-moment';
 import { useParams } from "react-router-dom";
 
+import { ImagePager } from '../../../components/ImagePager';
 import { Trail } from '../../../components/Trail';
 import { CustomerProvider, useApi } from '../context';
 import Form from './Form'
-
 
 export const Profile = () => {
     return (
@@ -54,7 +54,6 @@ const Customer = () => {
     const submit = () => {
         window.location.reload(false);
     }
-
 
     return (
         <>
@@ -117,6 +116,11 @@ const Customer = () => {
                                         </Typography>
                                     </ListItem>
                                 </Card>
+                                <ImagePager
+                                    maxSteps={5}
+                                // array={imageList}
+                                // image={image[0]}
+                                />
                             </Stack>
                         ) : (
                             <Form onAction={submit} />

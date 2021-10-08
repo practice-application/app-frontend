@@ -10,7 +10,9 @@ import Typography from '@mui/material/Typography';
 // import { format, parseISO } from 'date-fns';
 import { useParams } from "react-router-dom";
 
+import { ImagePager } from '../../../components/ImagePager';
 import { Trail } from '../../../components/Trail';
+import { imgStorage } from '../../../config';
 import { ProductProvider, useApi } from '../context';
 import Form from './Form'
 
@@ -26,7 +28,27 @@ const ProductListing = () => {
     const [view, setView] = useState(true);
     const [state, { fetchProduct }] = useApi();
     const [product, setProduct] = useState();
+    const [images, setImages] = useState([]);
     const { id } = useParams();
+    const maxSteps = images.length;
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            let result = await imgStorage.ref().child(`/product-images/${id}/`).list();
+            let urlPromises = result.items.map((imageRef) =>
+                imageRef.getDownloadURL()
+            );
+            return Promise.all(urlPromises);
+        };
+        const loadImages = async () => {
+            const urls = await fetchImages();
+            setImages(urls);
+        };
+        loadImages();
+    }, [id]);
+
+    console.log(images.map((item) => item));
+
 
     useEffect(() => {
         fetchProduct(id);
@@ -42,6 +64,7 @@ const ProductListing = () => {
     const changeBack = () => {
         setView(true);
     };
+
 
     return (
         <>
@@ -77,13 +100,18 @@ const ProductListing = () => {
                                 <Typography >
                                     {product.description}
                                 </Typography>
+                                <ImagePager
+                                    maxSteps={maxSteps}
+                                    array={images}
+                                    image={images[0]}
+                                    view
+                                />
                             </Card>
                         ) : (
                             <Form onAction={changeBack} />
-
-
                         )}
                     </Container>
+
                 </>
             }
         </>

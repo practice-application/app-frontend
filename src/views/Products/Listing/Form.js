@@ -9,7 +9,7 @@ import * as PropTypes from 'prop-types';
 import ImageUploading from 'react-images-uploading';
 
 import { FileUploader } from '../../../components/FileUploader';
-import { ImagePager } from '../../../components/ImagePager'
+import { ImagePager } from '../../../components/ImagePager';
 import { imgStorage } from '../../../config';
 import { useApi } from '../context';
 
@@ -20,7 +20,7 @@ export const Form = ({ onAction }) => {
     const [submitting, setSubmitting] = useState();
     const [image, setImages] = useState([]);
     const maxSteps = image.length;
-    const maxNumber = 5;
+    const maxNumber = 5
 
     const validPrice = () => {
         let isValid = true;
@@ -54,6 +54,8 @@ export const Form = ({ onAction }) => {
             setSubmitting(false);
         }
     };
+
+
 
     const formValid = () => {
         if (!product.price) {
@@ -115,7 +117,9 @@ export const Form = ({ onAction }) => {
                             />
                         </Grid>
                         <Grid item xs={12}>
+
                             <ImageUploading
+                                accept={'.xlsx,.xls,image/*,.doc,.docx,.txt,.rtf,.pdf'}
                                 multiple
                                 value={image}
                                 onChange={onChange}
@@ -123,8 +127,17 @@ export const Form = ({ onAction }) => {
                                 dataURLKey="data_url"
                             >
                                 {({ imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove, isDragging, dragProps, errors }) => (
-                                    <FileUploader image={image[0]} dragProps={dragProps} errors={errors} isDragging={isDragging} onChange={onChange} onImageRemoveAll={onImageRemoveAll} onImageUpload={onImageUpload}  >
+                                    <FileUploader
+                                        maxNumber={maxNumber}
+                                        image={image[0]}
+                                        dragProps={dragProps}
+                                        errors={errors}
+                                        isDragging={isDragging}
+                                        onChange={onChange}
+                                        onImageRemoveAll={onImageRemoveAll}
+                                        onImageUpload={onImageUpload}>
                                         <ImagePager
+                                            upload
                                             action
                                             maxSteps={maxSteps}
                                             array={imageList}
@@ -135,6 +148,8 @@ export const Form = ({ onAction }) => {
                                     </FileUploader>
                                 )}
                             </ImageUploading>
+
+
                         </Grid>
                     </Grid>
                     <Button
