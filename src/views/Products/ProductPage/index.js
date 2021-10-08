@@ -17,6 +17,7 @@ import Typography from '@mui/material/Typography';
 
 import ActionLink from '../../../components/ActionLink';
 import { Pager } from '../../../components/TablePager';
+import { imgStorage } from '../../../config';
 import { ProductProvider } from '../context';
 import { useApi } from '../context';
 
@@ -34,7 +35,25 @@ export const ProductPageExt = () => {
 const ProductPage = () => {
     const [view, setView] = useState('true');
     const [{ products }, { deleteProduct, fetchProducts }] = useApi();
+    const [images, setImages] = useState([]);
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            let result = await imgStorage.ref().child(`/product-images/${products}/`).list();
+            let urlPromises = result.items.map((imageRef) =>
+                imageRef.getDownloadURL()
+            );
+            return Promise.all(urlPromises);
+        };
+        const loadImages = async () => {
+            const urls = await fetchImages();
+            setImages(urls);
+        };
+        loadImages();
+    }, [products]);
+
+    console.log(images)
 
     useEffect(() => {
         fetchProducts(page);
@@ -54,7 +73,7 @@ const ProductPage = () => {
     const changeBack = () => {
         setView(true);
     };
-    console.log(products)
+
 
     return (
         <>
@@ -77,9 +96,7 @@ const ProductPage = () => {
                     <Grid container spacing={2} direction="row" justifyContent="flex-start" >
                         {products.data.map((item) =>
                             <Grid key={item.id} item xs={4}>
-                                {/* <CardActionArea component={ActionLink} to={`/products/${item.id}`}> */}
                                 <Card sx={{ m: 1, padding: 1, }}>
-
                                     <CardHeader
                                         title={item.name}
                                         subheader={`$${item.price}`}
@@ -91,7 +108,7 @@ const ProductPage = () => {
                                     <CardMedia
                                         component="img"
                                         height="190"
-                                        image='https://mui.com/static/images/cards/paella.jpg'
+                                        image={item.products}
                                         alt={'image'}
                                     />
                                     <CardContent>
@@ -105,7 +122,6 @@ const ProductPage = () => {
                                         </Button>
                                     </CardActions>
                                 </Card>
-                                {/* </CardActionArea> */}
                             </Grid>
                         )}
                     </Grid>

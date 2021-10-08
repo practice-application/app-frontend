@@ -44,18 +44,16 @@ export const Form = ({ onAction }) => {
             setSubmitting(true);
             if (product.id) {
                 update(product)
-                imgStorage.ref(`/product-images/${product.id}/${product.name + ", " + image[0].file.name}`).put(image)
+                imgStorage.ref(`/product-images/${product.id}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
 
             } else {
                 create(product)
-                imgStorage.ref(`/product-images/${product.id}/${product.name + ", " + image[0].file.name}`).put(image)
+                imgStorage.ref(`/product-images/${product.id}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
             }
             onAction()
             setSubmitting(false);
         }
     };
-
-
 
     const formValid = () => {
         if (!product.price) {
@@ -117,7 +115,6 @@ export const Form = ({ onAction }) => {
                             />
                         </Grid>
                         <Grid item xs={12}>
-
                             <ImageUploading
                                 accept={'.xlsx,.xls,image/*,.doc,.docx,.txt,.rtf,.pdf'}
                                 multiple
@@ -148,8 +145,6 @@ export const Form = ({ onAction }) => {
                                     </FileUploader>
                                 )}
                             </ImageUploading>
-
-
                         </Grid>
                     </Grid>
                     <Button

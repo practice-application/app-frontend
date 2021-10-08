@@ -47,9 +47,6 @@ const ProductListing = () => {
         loadImages();
     }, [id]);
 
-    console.log(images.map((item) => item));
-
-
     useEffect(() => {
         fetchProduct(id);
     }, [fetchProduct, id]);
@@ -64,7 +61,6 @@ const ProductListing = () => {
     const changeBack = () => {
         setView(true);
     };
-
 
     return (
         <>
@@ -88,7 +84,6 @@ const ProductListing = () => {
                         </Grid>
                     </Grid>
                     <Container maxWidth="sm" sx={{ paddingTop: 10 }}>
-
                         {view ? (
                             <Card >
                                 <Typography variant="h1">
@@ -103,7 +98,7 @@ const ProductListing = () => {
                                 <ImagePager
                                     maxSteps={maxSteps}
                                     array={images}
-                                    image={images[0]}
+                                    image={images}
                                     view
                                 />
                             </Card>
