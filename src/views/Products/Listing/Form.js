@@ -54,7 +54,7 @@ export const Form = ({ onAction }) => {
             setSubmitting(false);
         }
     };
-
+    console.log(image)
     const formValid = () => {
         if (!product.price) {
             return false;
@@ -115,6 +115,7 @@ export const Form = ({ onAction }) => {
                             />
                         </Grid>
                         <Grid item xs={12}>
+
                             <ImageUploading
                                 accept={'.xlsx,.xls,image/*,.doc,.docx,.txt,.rtf,.pdf'}
                                 multiple

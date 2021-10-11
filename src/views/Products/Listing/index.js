@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import CreateIcon from '@mui/icons-material/Create';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 // import { format, parseISO } from 'date-fns';
 import { useParams } from "react-router-dom";
@@ -34,7 +34,7 @@ const ProductListing = () => {
 
     useEffect(() => {
         const fetchImages = async () => {
-            let result = await imgStorage.ref().child(`/product-images/${id}/`).list();
+            let result = await imgStorage.ref().child(`/product-images/${id}/`).list(id);
             let urlPromises = result.items.map((imageRef) =>
                 imageRef.getDownloadURL()
             );
@@ -46,6 +46,20 @@ const ProductListing = () => {
         };
         loadImages();
     }, [id]);
+
+
+    const deleteFromFirebase = (url) => {
+        let pictureRef = imgStorage.ref().child(`/product-images/${id}/${images}`);
+        pictureRef.delete()
+            .then(() => {
+                setImages(images.filter((image) => image !== id));
+                alert("Picture is deleted successfully!");
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+    console.log(images)
 
     useEffect(() => {
         fetchProduct(id);
@@ -85,7 +99,7 @@ const ProductListing = () => {
                     </Grid>
                     <Container maxWidth="sm" sx={{ paddingTop: 10 }}>
                         {view ? (
-                            <Card >
+                            <Paper sx={{ mb: 1 }}>
                                 <Typography variant="h1">
                                     {product.name}
                                 </Typography>
@@ -94,16 +108,19 @@ const ProductListing = () => {
                                     <br />
                                     {product.description}
                                 </Typography>
-                                <ImagePager
-                                    maxSteps={maxSteps}
-                                    array={images}
-                                    image={images}
-                                    view
-                                />
-                            </Card>
+                            </Paper>
                         ) : (
                             <Form onAction={(changeBack)} />
                         )}
+                        <ImagePager
+                            maxSteps={maxSteps}
+                            array={images}
+                            image={images}
+                            view
+                            action={!view === true}
+                            onDelete={(images) => deleteFromFirebase(images)}
+                            title={`${product.name}'s images`}
+                        />
                     </Container>
 
                 </>

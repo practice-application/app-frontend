@@ -18,7 +18,7 @@ import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
 
 export const ImagePager = props => {
-    const { maxSteps, array, onDelete, onChange, image, action, upload, view } = props;
+    const { maxSteps, array, onDelete, onChange, image, action, upload, view, title } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const [activeStep, setActiveStep] = useState(0);
@@ -75,18 +75,20 @@ export const ImagePager = props => {
                                             </ListItemIcon>
                                             <Typography variant="body2">Delete Image</Typography>
                                         </MenuItem>
-                                        <MenuItem onClick={() => onChange(index)}>
-                                            <ListItemIcon>
-                                                <CreateIcon fontSize="small" />
-                                            </ListItemIcon>
-                                            <Typography variant="body2">Change Image</Typography>
-                                        </MenuItem>
+                                        {onChange &&
+                                            <MenuItem onClick={() => onChange(index)}>
+                                                <ListItemIcon>
+                                                    <CreateIcon fontSize="small" />
+                                                </ListItemIcon>
+                                                <Typography variant="body2">Change Image</Typography>
+                                            </MenuItem>
+                                        }
                                     </Menu>
                                     <IconButton size="small" onClick={handleClick}>
                                         <MoreVertIcon fontSize="small" />
                                     </IconButton>
                                 </>
-                            } disableTypography title={upload ? item.file.name : view && ''} />
+                            } disableTypography title={upload ? item.file.name : view && title} />
                             <CardActionArea onClick={handleClickOpen}>
                                 <CardMedia
                                     component="img"
