@@ -90,7 +90,7 @@ const ProductListing = () => {
                                     {product.name}
                                 </Typography>
                                 <Typography >
-                                    {product.price}
+                                    ${product.price}
                                     <br />
                                     {product.description}
                                 </Typography>
