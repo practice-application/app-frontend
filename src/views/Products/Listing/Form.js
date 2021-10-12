@@ -157,7 +157,7 @@ export const Form = ({ onAction }) => {
                         onClick={handleSave}
                         disabled={!formValid()}
                     >
-                        {submitting ? <CircularProgress size={24} /> : product.id ? 'Update Product' : 'Create Product'}
+                        {submitting ? <CircularProgress size={24} color="inherit" /> : product.id ? 'Update Product' : 'Create Product'}
                     </Button>
                 </>
             }

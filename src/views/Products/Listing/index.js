@@ -49,12 +49,12 @@ const ProductListing = () => {
     }, [id]);
 
     const onDelete = async () => {
-        const resp = await imgStorage.refFromURL(images.splice(1))
+        var array = [...images]
+        var index = array.indexOf(images)
+        const resp = await imgStorage.refFromURL(images.splice(index, 1))
         resp.delete()
         window.location.reload()
     }
-
-    console.log(images)
 
     useEffect(() => {
         fetchProduct(id);
@@ -109,7 +109,7 @@ const ProductListing = () => {
                                     image={images[0]}
                                     view
                                     title={`Photos of ${product.name}`}
-                                    onDelete={() => onDelete(images)}
+                                    onDelete={(e) => onDelete(e)}
                                     action
                                 />
                             </Paper>
@@ -126,4 +126,3 @@ const ProductListing = () => {
 }
 
 export default Listing;
-
