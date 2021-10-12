@@ -83,6 +83,27 @@ export const useApi = () => {
     const { getAccessTokenSilently } = useAuth0();
     const { state, dispatch } = useContext(ProductContext);
 
+    const searchProducts = useCallback(async (query) => {
+        const reqInit = {
+            method: "GET",
+            headers: {
+                Accept: 'application/ json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + await getAccessTokenSilently()
+
+            },
+        }
+        console.log(await getAccessTokenSilently())
+        const resp = await fetch(`${config.url}/products?st=${query}`, reqInit);
+        if (resp.ok) {
+            
+            dispatch({ type: 'get', payload: { json: await resp.json() } });
+        } else {
+            dispatch({ type: 'error', error: resp.Error, meta: { method: 'get' } });
+        }
+        console.log(resp)
+    }, [getAccessTokenSilently, dispatch]);
+
     const fetchProducts = useCallback(async (page = { limit: 10 }) => {
         const reqInit = {
             method: "GET",
@@ -178,8 +199,8 @@ export const useApi = () => {
 
 
     const actions = useMemo(() => {
-        return { fetchProducts, fetchProduct, update, create, deleteProduct }
-    }, [fetchProducts, fetchProduct, update, create, deleteProduct]);
+        return { searchProducts, fetchProducts, fetchProduct, update, create, deleteProduct }
+    }, [searchProducts, fetchProducts, fetchProduct, update, create, deleteProduct]);
 
     return [state, actions];
 }

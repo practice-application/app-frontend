@@ -14,12 +14,15 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
 
 import ActionLink from '../../../components/ActionLink';
 import { Pager } from '../../../components/TablePager';
 import { imgStorage } from '../../../config';
 import { ProductProvider } from '../context';
 import { useApi } from '../context';
+import { event } from 'react-ga';
 
 
 const pageSize = 9;
@@ -34,8 +37,9 @@ export const ProductPageExt = () => {
 
 const ProductPage = () => {
     const [view, setView] = useState('true');
-    const [{ products }, { deleteProduct, fetchProducts }] = useApi();
+    const [{ products }, { deleteProduct, fetchProducts, searchProducts }] = useApi();
     const [images, setImages] = useState([]);
+    const [query, setQuery] = useState('');
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
 
     useEffect(() => {
@@ -59,6 +63,10 @@ const ProductPage = () => {
         fetchProducts(page);
     }, [fetchProducts, page]);
 
+    const handleSearch = () => {
+        searchProducts(query)
+    };
+
     const handleDelete = (id) => {
         deleteProduct(id);
     };
@@ -77,6 +85,13 @@ const ProductPage = () => {
 
     return (
         <>
+            <Grid direction='row'>
+                <TextField id="outlined-basic" variant="outlined" label="Search"  sx={{width: '94%'}} value={query} onChange={e => setQuery(e.target.value)}/>
+                {/* onClick={() => handleSearch()} */}
+                <IconButton > 
+                    <SearchIcon sx={{ m:1 }} onClick={handleSearch}/>
+                </IconButton>
+            </Grid>
             <Grid container sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
                     <Button
