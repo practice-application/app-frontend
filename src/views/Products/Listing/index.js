@@ -48,13 +48,12 @@ const ProductListing = () => {
         loadImages();
     }, [id]);
 
-    const onDelete = async () => {
-        var array = [...images]
-        var index = array.indexOf(images)
-        const resp = await imgStorage.refFromURL(images.splice(index, 1))
+    const onDelete = async (e) => {
+        const resp = await imgStorage.refFromURL(images.splice(e, 1))
         resp.delete()
         window.location.reload()
     }
+
 
     useEffect(() => {
         fetchProduct(id);
@@ -116,9 +115,7 @@ const ProductListing = () => {
                         ) : (
                             <Form onAction={(changeBack)} />
                         )}
-
                     </Container>
-
                 </>
             }
         </>
