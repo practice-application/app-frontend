@@ -24,6 +24,8 @@ export const Listing = () => {
     );
 }
 
+
+
 const ProductListing = () => {
     const [view, setView] = useState(true);
     const [state, { fetchProduct }] = useApi();
@@ -34,11 +36,13 @@ const ProductListing = () => {
 
     useEffect(() => {
         const fetchImages = async () => {
-            let result = await imgStorage.ref().child(`/product-images/${id}/`).list(id);
+            var fileLocation = `/product-images/${id}/`
+            let result = await imgStorage.ref().child(fileLocation).list();
             let urlPromises = result.items.map((imageRef) =>
                 imageRef.getDownloadURL()
             );
             return Promise.all(urlPromises);
+
         };
         const loadImages = async () => {
             const urls = await fetchImages();
@@ -47,19 +51,12 @@ const ProductListing = () => {
         loadImages();
     }, [id]);
 
+    const onDelete = async () => {
+        await imgStorage.refFromURL(images).delete()
+        window.location.reload()
 
-    const deleteFromFirebase = (url) => {
-        let pictureRef = imgStorage.ref().child(`/product-images/${id}/${images}`);
-        pictureRef.delete()
-            .then(() => {
-                setImages(images.filter((image) => image !== id));
-                alert("Picture is deleted successfully!");
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-    console.log(images)
+
+    }
 
     useEffect(() => {
         fetchProduct(id);
@@ -75,6 +72,7 @@ const ProductListing = () => {
     const changeBack = () => {
         setView(true);
     };
+    console.log(images[0])
 
     return (
         <>
@@ -99,7 +97,7 @@ const ProductListing = () => {
                     </Grid>
                     <Container maxWidth="sm" sx={{ paddingTop: 10 }}>
                         {view ? (
-                            <Paper sx={{ mb: 1 }}>
+                            <Paper >
                                 <Typography variant="h1">
                                     {product.name}
                                 </Typography>
@@ -108,19 +106,20 @@ const ProductListing = () => {
                                     <br />
                                     {product.description}
                                 </Typography>
+                                <ImagePager
+                                    maxSteps={maxSteps}
+                                    array={images}
+                                    image={images[0]}
+                                    view
+                                    title={`Photos of ${product.name}`}
+                                    onDelete={onDelete}
+                                    action
+                                />
                             </Paper>
                         ) : (
                             <Form onAction={(changeBack)} />
                         )}
-                        <ImagePager
-                            maxSteps={maxSteps}
-                            array={images}
-                            image={images}
-                            view
-                            action={!view === true}
-                            onDelete={(images) => deleteFromFirebase(images)}
-                            title={`${product.name}'s images`}
-                        />
+
                     </Container>
 
                 </>
