@@ -101,7 +101,7 @@ export const useApi = () => {
         } else {
             dispatch({ type: 'error', error: resp.Error, meta: { method: 'get' } });
         }
-        console.log(resp)
+        
     }, [getAccessTokenSilently, dispatch]);
 
     const fetchProducts = useCallback(async (page = { limit: 10 }) => {

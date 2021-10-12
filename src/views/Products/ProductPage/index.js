@@ -22,7 +22,6 @@ import { Pager } from '../../../components/TablePager';
 import { imgStorage } from '../../../config';
 import { ProductProvider } from '../context';
 import { useApi } from '../context';
-import { event } from 'react-ga';
 
 
 const pageSize = 9;
@@ -85,11 +84,11 @@ const ProductPage = () => {
 
     return (
         <>
-            <Grid direction='row'>
+            <Grid container direction='row'>
                 <TextField id="outlined-basic" variant="outlined" label="Search"  sx={{width: '94%'}} value={query} onChange={e => setQuery(e.target.value)}/>
                 {/* onClick={() => handleSearch()} */}
-                <IconButton > 
-                    <SearchIcon sx={{ m:1 }} onClick={handleSearch}/>
+                <IconButton onClick={handleSearch}> 
+                    <SearchIcon sx={{ m:1 }} />
                 </IconButton>
             </Grid>
             <Grid container sx={{ display: 'flex', justifyContent: 'flex-end' }}>
