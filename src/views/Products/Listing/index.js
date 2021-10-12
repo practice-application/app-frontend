@@ -7,7 +7,6 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-// import { format, parseISO } from 'date-fns';
 import { useParams } from "react-router-dom";
 
 import { ImagePager } from '../../../components/ImagePager';
@@ -23,8 +22,6 @@ export const Listing = () => {
         </ProductProvider>
     );
 }
-
-
 
 const ProductListing = () => {
     const [view, setView] = useState(true);
@@ -52,11 +49,12 @@ const ProductListing = () => {
     }, [id]);
 
     const onDelete = async () => {
-        await imgStorage.refFromURL(images).delete()
+        const resp = await imgStorage.refFromURL(images.splice(1))
+        resp.delete()
         window.location.reload()
-
-
     }
+
+    console.log(images)
 
     useEffect(() => {
         fetchProduct(id);
@@ -72,7 +70,6 @@ const ProductListing = () => {
     const changeBack = () => {
         setView(true);
     };
-    console.log(images[0])
 
     return (
         <>
@@ -112,7 +109,7 @@ const ProductListing = () => {
                                     image={images[0]}
                                     view
                                     title={`Photos of ${product.name}`}
-                                    onDelete={onDelete}
+                                    onDelete={() => onDelete(images)}
                                     action
                                 />
                             </Paper>

@@ -4,6 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import SearchIcon from '@mui/icons-material/Search';
 import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -13,9 +14,8 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import SearchIcon from '@mui/icons-material/Search';
+import Typography from '@mui/material/Typography';
 
 import ActionLink from '../../../components/ActionLink';
 import { Pager } from '../../../components/TablePager';
@@ -85,10 +85,10 @@ const ProductPage = () => {
     return (
         <>
             <Grid container direction='row'>
-                <TextField id="outlined-basic" variant="outlined" label="Search"  sx={{width: '94%'}} value={query} onChange={e => setQuery(e.target.value)}/>
+                <TextField id="outlined-basic" variant="outlined" label="Search" sx={{ width: '94%' }} value={query} onChange={e => setQuery(e.target.value)} />
                 {/* onClick={() => handleSearch()} */}
-                <IconButton onClick={handleSearch}> 
-                    <SearchIcon sx={{ m:1 }} />
+                <IconButton onClick={handleSearch}>
+                    <SearchIcon sx={{ m: 1 }} />
                 </IconButton>
             </Grid>
             <Grid container sx={{ display: 'flex', justifyContent: 'flex-end' }}>
