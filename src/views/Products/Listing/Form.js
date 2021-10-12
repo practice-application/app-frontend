@@ -13,6 +13,8 @@ import { ImagePager } from '../../../components/ImagePager';
 import { imgStorage } from '../../../config';
 import { useApi } from '../context';
 
+
+
 export const Form = ({ onAction }) => {
     const [state, { update, create }] = useApi();
     const [product, setProduct] = useState();
@@ -38,20 +40,21 @@ export const Form = ({ onAction }) => {
         setImages(imageList);
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         if (validPrice()) {
             setErrorMsg(null);
             setSubmitting(true);
             if (product.id) {
                 update(product)
-                imgStorage.ref(`/product-images/${product.id}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
+                await imgStorage.ref(`/product-images/${product.id}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
 
             } else {
                 create(product)
-                imgStorage.ref(`/product-images/${product.id}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
+                await imgStorage.ref(`/product-images/${product.id}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
             }
             onAction()
             setSubmitting(false);
+            window.location.reload()
         }
     };
     console.log(image)
