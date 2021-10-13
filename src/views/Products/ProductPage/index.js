@@ -62,8 +62,9 @@ const ProductPage = () => {
         fetchProducts(page);
     }, [fetchProducts, page]);
 
-    const handleSearch = () => {
+    const handleSearch = (e) => {
         searchProducts(query)
+        // window.location.reload(false)
     };
 
     const handleDelete = (id) => {
@@ -85,9 +86,9 @@ const ProductPage = () => {
     return (
         <>
             <Grid container direction='row'>
-                <TextField id="outlined-basic" variant="outlined" label="Search" sx={{ width: '94%' }} value={query} onChange={e => setQuery(e.target.value)} />
+                <TextField id="outlined-basic" variant="outlined" label="Search" sx={{ width: '94%' }}  onChange={(e) => {setQuery(e.target.value)}} />
                 {/* onClick={() => handleSearch()} */}
-                <IconButton onClick={handleSearch}>
+                <IconButton onClick={() => handleSearch()}>
                     <SearchIcon sx={{ m: 1 }} />
                 </IconButton>
             </Grid>
@@ -108,7 +109,13 @@ const ProductPage = () => {
             {products.data ?
                 <>
                     <Grid container spacing={2} direction="row" justifyContent="flex-start" >
-                        {products.data.map((item) =>
+                        {products.data.filter((item) => {
+                            if (query === "" ) {
+                                return item
+                            } else if (item.name.toLowerCase().includes(query.toLowerCase())) {
+                                return item
+                            }
+                            }).map((item) =>
                             <Grid key={item.id} item xs={4}>
                                 <Card sx={{ m: 1, padding: 1, }}>
                                     <CardHeader
