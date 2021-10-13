@@ -67,7 +67,8 @@ const initialState = {
         name: '',
         price: '',
         description: '',
-        imageID: ''
+        imageID: '',
+        user: ''
     },
     error: null,
 };

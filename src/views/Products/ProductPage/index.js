@@ -86,7 +86,7 @@ const ProductPage = () => {
     return (
         <>
             <Grid container direction='row'>
-                <TextField id="outlined-basic" variant="outlined" label="Search" sx={{ width: '94%' }}  onChange={(e) => {setQuery(e.target.value)}} />
+                <TextField id="outlined-basic" variant="outlined" label="Search" sx={{ width: '94%' }} onChange={(e) => { setQuery(e.target.value) }} />
                 {/* onClick={() => handleSearch()} */}
                 <IconButton onClick={() => handleSearch()}>
                     <SearchIcon sx={{ m: 1 }} />
@@ -110,12 +110,12 @@ const ProductPage = () => {
                 <>
                     <Grid container spacing={2} direction="row" justifyContent="flex-start" >
                         {products.data.filter((item) => {
-                            if (query === "" ) {
+                            if (query === "") {
                                 return item
                             } else if (item.name.toLowerCase().includes(query.toLowerCase())) {
                                 return item
                             }
-                            }).map((item) =>
+                        }).map((item) =>
                             <Grid key={item.id} item xs={4}>
                                 <Card sx={{ m: 1, padding: 1, }}>
                                     <CardHeader

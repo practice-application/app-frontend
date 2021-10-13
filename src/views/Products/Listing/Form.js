@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { useAuth0 } from "@auth0/auth0-react";
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
@@ -24,6 +25,9 @@ export const Form = ({ onAction }) => {
     const [message, setMessage] = useState();
     const maxSteps = image.length;
     const maxNumber = 5
+    const { user } = useAuth0();
+    const { nickname } = user;
+    console.log(nickname)
 
     const validPrice = () => {
         let isValid = true;
@@ -41,8 +45,9 @@ export const Form = ({ onAction }) => {
         setImages(imageList);
     };
 
+    let User = nickname
+    console.log(User)
     let setID = uuidv4()
-
     const handleSave = async () => {
         if (validPrice()) {
             setErrorMsg(null);
@@ -50,7 +55,7 @@ export const Form = ({ onAction }) => {
             if (product.id) {
                 update(product)
                 if (image[0]) {
-                    await imgStorage.ref(`/product-images/${product.imageID}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
+                    await imgStorage.ref(`/product-images/${product.imageID}/${product.name + ", " + product.user}`).put(image[0].file)
                 }
                 onAction()
                 setSubmitting(false);
@@ -58,7 +63,7 @@ export const Form = ({ onAction }) => {
             } else {
                 if (image[0]) {
                     create(product)
-                    await imgStorage.ref(`/product-images/${product.imageID = setID}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
+                    await imgStorage.ref(`/product-images/${product.imageID = setID}/${product.name + ", " + (product.user = nickname)}`).put(image[0].file)
                     onAction()
                     setSubmitting(false);
                 }
@@ -127,8 +132,6 @@ export const Form = ({ onAction }) => {
                                 value={product && product.description}
                                 onChange={handleChange}
                             />
-
-
                         </Grid>
                         <Grid item xs={12}>
                             <ImageUploading

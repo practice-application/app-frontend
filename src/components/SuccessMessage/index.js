@@ -12,7 +12,7 @@ export const SuccessMessage = props => {
     return (
         <Grid container direction="column" justifyContent="center" alignItems="center" >
             <Typography variant="h3">
-                {category} uploaded successfully
+                {category} was created successfully
             </Typography>
             <Box sx={{ pt: '1rem', width: '50%' }}>
                 <Button fullWidth variant="contained" data-test="return" component={ActionLink} to={to}>Return</Button>

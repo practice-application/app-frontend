@@ -3,10 +3,14 @@ import React, { useEffect, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import CreateIcon from '@mui/icons-material/Create';
 import Button from '@mui/material/Button';
+import CardHeader from '@mui/material/CardHeader';
 import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
+import Moment from 'react-moment';
 import { useParams } from "react-router-dom";
 
 import { ImagePager } from '../../../components/ImagePager';
@@ -94,15 +98,18 @@ const ProductListing = () => {
                     </Grid>
                     <Container maxWidth="sm" sx={{ paddingTop: 10 }}>
                         {view ? (
-                            <Paper >
-                                <Typography variant="h1">
-                                    {product.name}
-                                </Typography>
-                                <Typography >
-                                    ${product.price}
-                                    <br />
+                            <Paper sx={{ mt: 1, p: 1 }}>
+                                <CardHeader title={product.name} />
+                                <ListItem>
+                                    <ListItemText>
+                                        Price
+                                    </ListItemText> ${product.price}
+                                </ListItem>
+                                <Divider />
+                                <ListItem>
                                     {product.description}
-                                </Typography>
+                                </ListItem>
+
                                 <ImagePager
                                     maxSteps={maxSteps}
                                     array={images}
@@ -112,6 +119,17 @@ const ProductListing = () => {
                                     onDelete={(e) => onDelete(e)}
                                     action
                                 />
+                                <Divider />
+                                <ListItem>
+                                    Uploaded{' '} <Moment fromNow interval={30000} date={product.date} />
+                                </ListItem>
+                                <Divider />
+                                <ListItem>
+                                    <ListItemText>
+                                        Uploaded By:
+                                    </ListItemText> {product.user}
+                                </ListItem>
+
                             </Paper>
                         ) : (
                             <Form onAction={(changeBack)} />
