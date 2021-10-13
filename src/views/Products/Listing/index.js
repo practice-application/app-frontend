@@ -106,9 +106,14 @@ const ProductListing = () => {
                                     </ListItemText> ${product.price}
                                 </ListItem>
                                 <Divider />
-                                <ListItem>
-                                    {product.description}
-                                </ListItem>
+                                {product.description &&
+                                    <>
+                                        <ListItem>
+                                            {product.description}
+                                        </ListItem>
+                                        <Divider />
+                                    </>
+                                }
                                 <ImagePager
                                     maxSteps={maxSteps}
                                     array={images}
