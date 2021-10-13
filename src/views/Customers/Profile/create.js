@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 
-import Box from '@mui/material/Box';
-import Button from "@mui/material/Button";
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 
-import ActionLink from '../../../components/ActionLink';
+import { SuccessMessage } from '../../../components/SuccessMessage';
 import { Trail } from '../../../components/Trail';
 import { CustomerProvider } from '../context';
 import Form from './Form';
+
 
 export const Create = () => {
     const [submitted, setSubmitted] = useState(false);
@@ -25,14 +22,7 @@ export const Create = () => {
                     ?
                     <Form onAction={handleSubmit} />
                     :
-                    <Grid container direction="column" justifyContent="center" alignItems="center" >
-                        <Typography variant="h3">
-                            Member uploaded successfully
-                        </Typography>
-                        <Box sx={{ pt: '1rem', width: '50%' }}>
-                            <Button fullWidth variant="contained" data-test="return" component={ActionLink} to="/customers">Return</Button>
-                        </Box>
-                    </Grid>
+                    <SuccessMessage to="/customers" category="Customer" />
                 }
             </Container>
         </CustomerProvider>

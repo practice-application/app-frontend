@@ -67,7 +67,6 @@ export const Form = ({ onAction }) => {
                     setMessage(true)
                 }
             }
-
         }
     };
     console.log(image)
