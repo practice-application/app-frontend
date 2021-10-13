@@ -109,7 +109,6 @@ const ProductListing = () => {
                                 <ListItem>
                                     {product.description}
                                 </ListItem>
-
                                 <ImagePager
                                     maxSteps={maxSteps}
                                     array={images}
@@ -121,7 +120,10 @@ const ProductListing = () => {
                                 />
                                 <Divider />
                                 <ListItem>
-                                    Uploaded{' '} <Moment fromNow interval={30000} date={product.date} />
+                                    <ListItemText>
+                                        Created:
+                                    </ListItemText>
+                                    <Moment fromNow interval={30000} date={product.date} />
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
@@ -129,7 +131,6 @@ const ProductListing = () => {
                                         Uploaded By:
                                     </ListItemText> {product.user}
                                 </ListItem>
-
                             </Paper>
                         ) : (
                             <Form onAction={(changeBack)} />

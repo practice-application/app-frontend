@@ -45,8 +45,6 @@ export const Form = ({ onAction }) => {
         setImages(imageList);
     };
 
-    let User = nickname
-    console.log(User)
     let setID = uuidv4()
     const handleSave = async () => {
         if (validPrice()) {
