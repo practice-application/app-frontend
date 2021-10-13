@@ -27,7 +27,6 @@ export const Form = ({ onAction }) => {
     const maxNumber = 5
     const { user } = useAuth0();
     const { nickname } = user;
-    console.log(nickname)
 
     const validPrice = () => {
         let isValid = true;
