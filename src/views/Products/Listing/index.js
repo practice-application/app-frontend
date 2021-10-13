@@ -46,7 +46,6 @@ const ProductListing = () => {
             setImages(urls);
         };
         loadImages();
-
     }, [state]);
 
 

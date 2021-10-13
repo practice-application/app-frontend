@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from '@mui/material/Grid';
@@ -20,6 +21,7 @@ export const Form = ({ onAction }) => {
     const [errorMsg, setErrorMsg] = useState(false);
     const [submitting, setSubmitting] = useState();
     const [image, setImages] = useState([]);
+    const [message, setMessage] = useState();
     const maxSteps = image.length;
     const maxNumber = 5
 
@@ -40,21 +42,32 @@ export const Form = ({ onAction }) => {
     };
 
     let setID = uuidv4()
+
     const handleSave = async () => {
         if (validPrice()) {
             setErrorMsg(null);
             setSubmitting(true);
             if (product.id) {
                 update(product)
-                await imgStorage.ref(`/product-images/${product.imageID}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
-
+                if (image[0]) {
+                    await imgStorage.ref(`/product-images/${product.imageID}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
+                }
+                onAction()
+                setSubmitting(false);
+                window.location.reload()
             } else {
-                create(product)
-                await imgStorage.ref(`/product-images/${product.imageID = setID}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
+                if (image[0]) {
+                    create(product)
+                    await imgStorage.ref(`/product-images/${product.imageID = setID}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
+                    onAction()
+                    setSubmitting(false);
+                }
+                else {
+                    setSubmitting(false);
+                    setMessage(true)
+                }
             }
-            onAction()
-            setSubmitting(false);
-            window.location.reload()
+
         }
     };
     console.log(image)
@@ -74,8 +87,6 @@ export const Form = ({ onAction }) => {
         setProduct(state.product);
     }, [state.product]);
 
-
-
     const handleChange = (e) => {
         const key = e.target.id;
         const val = e.target.value;
@@ -85,7 +96,6 @@ export const Form = ({ onAction }) => {
             return { ...prev };
         });
     }
-
 
     return (
         <>
@@ -152,7 +162,7 @@ export const Form = ({ onAction }) => {
                                     </FileUploader>
                                 )}
                             </ImageUploading>
-
+                            {message && <Typography color="error.main">A minimum of 1 image is required before submission</Typography>}
                         </Grid>
                     </Grid>
                     <Button
