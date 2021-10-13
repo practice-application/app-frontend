@@ -18,7 +18,7 @@ import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
 
 export const ImagePager = props => {
-    const { maxSteps, array, onDelete, onChange, image, action, upload, view, title } = props;
+    const { maxSteps, array, onDelete, onChange, image, action, upload, view, title, elevation } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const [activeStep, setActiveStep] = useState(0);
@@ -47,7 +47,7 @@ export const ImagePager = props => {
         setAnchorEl(null);
     };
     return (
-        <Card>
+        <Card elevation={1 || elevation}>
             {array.map((item, index) => (
                 <div key={index} >
                     {activeStep === index ?

@@ -98,22 +98,36 @@ const ProductListing = () => {
                     </Grid>
                     <Container maxWidth="sm" sx={{ paddingTop: 10 }}>
                         {view ? (
-                            <Paper sx={{ mt: 1, p: 1 }}>
-                                <CardHeader title={product.name} />
-                                <ListItem>
-                                    <ListItemText>
-                                        Price
-                                    </ListItemText> ${product.price}
-                                </ListItem>
-                                <Divider />
-                                {product.description &&
-                                    <>
-                                        <ListItem>
-                                            {product.description}
-                                        </ListItem>
-                                        <Divider />
-                                    </>
-                                }
+                            <>
+                                <Paper sx={{ my: 1, p: 1 }}>
+                                    <CardHeader title={product.name} />
+                                    <ListItem>
+                                        <ListItemText>
+                                            Price
+                                        </ListItemText> ${product.price}
+                                    </ListItem>
+                                    <Divider />
+                                    {product.description &&
+                                        <>
+                                            <ListItem>
+                                                {product.description}
+                                            </ListItem>
+                                            <Divider />
+                                        </>
+                                    }
+                                    <ListItem>
+                                        <ListItemText>
+                                            Created:
+                                        </ListItemText>
+                                        <Moment fromNow interval={30000} date={product.date} />
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem>
+                                        <ListItemText>
+                                            Uploaded By:
+                                        </ListItemText>  {product.user}
+                                    </ListItem>
+                                </Paper>
                                 <ImagePager
                                     maxSteps={maxSteps}
                                     array={images}
@@ -123,20 +137,7 @@ const ProductListing = () => {
                                     onDelete={(e) => onDelete(e)}
                                     action
                                 />
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText>
-                                        Created:
-                                    </ListItemText>
-                                    <Moment fromNow interval={30000} date={product.date} />
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText>
-                                        Uploaded By:
-                                    </ListItemText> {product.user}
-                                </ListItem>
-                            </Paper>
+                            </>
                         ) : (
                             <Form onAction={(changeBack)} />
                         )}
