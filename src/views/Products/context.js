@@ -3,6 +3,8 @@ import React, { createContext, useContext, useCallback, useMemo, useReducer } fr
 import { useAuth0 } from "@auth0/auth0-react";
 import cloneDeep from 'lodash.clonedeep';
 
+
+
 import { config } from '../../config';
 
 const reducer = (state, action) => {
@@ -64,7 +66,8 @@ const initialState = {
     product: {
         name: '',
         price: '',
-        description: ''
+        description: '',
+        imageID: ''
     },
     error: null,
 };
@@ -96,12 +99,12 @@ export const useApi = () => {
         console.log(await getAccessTokenSilently())
         const resp = await fetch(`${config.url}/products?st=${query}`, reqInit);
         if (resp.ok) {
-            
+
             dispatch({ type: 'get', payload: { json: await resp.json() } });
         } else {
             dispatch({ type: 'error', error: resp.Error, meta: { method: 'get' } });
         }
-        
+
     }, [getAccessTokenSilently, dispatch]);
 
     const fetchProducts = useCallback(async (page = { limit: 10 }) => {
@@ -111,7 +114,6 @@ export const useApi = () => {
                 Accept: 'application/ json',
                 'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + await getAccessTokenSilently()
-
             },
         }
         console.log(await getAccessTokenSilently())

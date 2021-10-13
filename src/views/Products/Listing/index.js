@@ -33,20 +33,22 @@ const ProductListing = () => {
 
     useEffect(() => {
         const fetchImages = async () => {
-            var fileLocation = `/product-images/${id}/`
+            const fileLocation = `/product-images/${state.product.imageID}/`
             let result = await imgStorage.ref().child(fileLocation).list();
             let urlPromises = result.items.map((imageRef) =>
                 imageRef.getDownloadURL()
             );
+            console.log(fileLocation)
             return Promise.all(urlPromises);
-
         };
         const loadImages = async () => {
             const urls = await fetchImages();
             setImages(urls);
         };
         loadImages();
-    }, [id]);
+
+    }, [state]);
+
 
     const onDelete = async (e) => {
         const resp = await imgStorage.refFromURL(images.splice(e, 1))

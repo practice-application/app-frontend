@@ -7,13 +7,12 @@ import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import * as PropTypes from 'prop-types';
 import ImageUploading from 'react-images-uploading';
+import { v4 as uuidv4 } from 'uuid';
 
 import { FileUploader } from '../../../components/FileUploader';
 import { ImagePager } from '../../../components/ImagePager';
 import { imgStorage } from '../../../config';
 import { useApi } from '../context';
-
-
 
 export const Form = ({ onAction }) => {
     const [state, { update, create }] = useApi();
@@ -40,17 +39,18 @@ export const Form = ({ onAction }) => {
         setImages(imageList);
     };
 
+    let setID = uuidv4()
     const handleSave = async () => {
         if (validPrice()) {
             setErrorMsg(null);
             setSubmitting(true);
             if (product.id) {
                 update(product)
-                await imgStorage.ref(`/product-images/${product.id}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
+                await imgStorage.ref(`/product-images/${product.imageID}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
 
             } else {
                 create(product)
-                await imgStorage.ref(`/product-images/${product.id}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
+                await imgStorage.ref(`/product-images/${product.imageID = setID}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
             }
             onAction()
             setSubmitting(false);
@@ -75,6 +75,7 @@ export const Form = ({ onAction }) => {
     }, [state.product]);
 
 
+
     const handleChange = (e) => {
         const key = e.target.id;
         const val = e.target.value;
@@ -84,6 +85,7 @@ export const Form = ({ onAction }) => {
             return { ...prev };
         });
     }
+
 
     return (
         <>
@@ -116,9 +118,10 @@ export const Form = ({ onAction }) => {
                                 value={product && product.description}
                                 onChange={handleChange}
                             />
+
+
                         </Grid>
                         <Grid item xs={12}>
-
                             <ImageUploading
                                 accept={'.xlsx,.xls,image/*,.doc,.docx,.txt,.rtf,.pdf'}
                                 multiple
@@ -149,6 +152,7 @@ export const Form = ({ onAction }) => {
                                     </FileUploader>
                                 )}
                             </ImageUploading>
+
                         </Grid>
                     </Grid>
                     <Button
