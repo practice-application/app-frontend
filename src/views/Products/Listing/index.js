@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { useAuth0 } from "@auth0/auth0-react";
 import CloseIcon from '@mui/icons-material/Close';
 import CreateIcon from '@mui/icons-material/Create';
 import Button from '@mui/material/Button';
@@ -34,6 +35,8 @@ const ProductListing = () => {
     const [images, setImages] = useState([]);
     const { id } = useParams();
     const maxSteps = images.length;
+    const { user } = useAuth0();
+    const { nickname } = user;
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -74,6 +77,14 @@ const ProductListing = () => {
     const changeBack = () => {
         setView(true);
     };
+
+    const customName = () => {
+        if (nickname === product.user) {
+            return "Me"
+        }
+        return (product.user)
+
+    }
 
     return (
         <>
@@ -125,7 +136,7 @@ const ProductListing = () => {
                                     <ListItem>
                                         <ListItemText>
                                             Uploaded By:
-                                        </ListItemText>  {product.user}
+                                        </ListItemText>  {customName()}
                                     </ListItem>
                                 </Paper>
                                 <ImagePager
