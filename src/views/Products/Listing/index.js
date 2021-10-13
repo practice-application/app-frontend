@@ -55,13 +55,11 @@ const ProductListing = () => {
         loadImages();
     }, [state]);
 
-
     const onDelete = async (e) => {
         const resp = await imgStorage.refFromURL(images.splice(e, 1))
         resp.delete()
         window.location.reload()
     }
-
 
     useEffect(() => {
         fetchProduct(id);
@@ -112,12 +110,6 @@ const ProductListing = () => {
                             <>
                                 <Paper sx={{ my: 1, p: 1 }}>
                                     <CardHeader title={product.name} />
-                                    <ListItem>
-                                        <ListItemText>
-                                            Price
-                                        </ListItemText> ${product.price}
-                                    </ListItem>
-                                    <Divider />
                                     {product.description &&
                                         <>
                                             <ListItem>
@@ -126,6 +118,12 @@ const ProductListing = () => {
                                             <Divider />
                                         </>
                                     }
+                                    <ListItem>
+                                        <ListItemText>
+                                            Price
+                                        </ListItemText> ${product.price}
+                                    </ListItem>
+                                    <Divider />
                                     <ListItem>
                                         <ListItemText>
                                             Created:
