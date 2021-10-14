@@ -45,7 +45,6 @@ const ProductListing = () => {
             let urlPromises = result.items.map((imageRef) =>
                 imageRef.getDownloadURL()
             );
-            console.log(fileLocation)
             return Promise.all(urlPromises);
         };
         const loadImages = async () => {
@@ -98,12 +97,15 @@ const ProductListing = () => {
                             <Trail pageName="Products" returningPage="/products"
                                 currentPage={product.name} />
                         </Grid>
-                        <Grid item>
-                            <Button
-                                variant={view === true ? "contained" : "outlined"}
-                                endIcon={view === true ? <CreateIcon fontSize="small" /> : <CloseIcon fontSize="small" />}
-                                onClick={view === true ? change : changeBack}> {view === true ? "Edit Product" : "Cancel"}</Button>
-                        </Grid>
+                        {nickname === product.user &&
+                            <Grid item>
+                                <Button
+                                    variant={view === true ? "contained" : "outlined"}
+                                    endIcon={view === true ? <CreateIcon fontSize="small" /> : <CloseIcon fontSize="small" />}
+                                    onClick={view === true ? change : changeBack}> {view === true ? "Edit Product" : "Cancel"}</Button>
+
+                            </Grid>
+                        }
                     </Grid>
                     <Container maxWidth="sm" sx={{ paddingTop: 10 }}>
                         {view ? (
