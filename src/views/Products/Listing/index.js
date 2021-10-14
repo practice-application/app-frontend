@@ -146,7 +146,7 @@ const ProductListing = () => {
                                     view
                                     title={`Photos of ${product.name}`}
                                     onDelete={(e) => onDelete(e)}
-                                    action
+                                    action={nickname === product.user}
                                 />
                             </>
                         ) : (
