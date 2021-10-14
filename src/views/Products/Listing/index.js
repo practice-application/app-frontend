@@ -135,7 +135,7 @@ const ProductListing = () => {
                                     <Divider />
                                     <ListItem>
                                         <ListItemText>
-                                            Uploaded By:
+                                            Seller:
                                         </ListItemText>  {customName()}
                                     </ListItem>
                                 </Paper>
