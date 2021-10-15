@@ -202,7 +202,7 @@ export const Form = ({ onAction }) => {
                                 renderInput={(params) => (
                                     <TextInput
                                         {...params}
-                                        id="tags" size="small" variant="outlined" fullWidth label="Tags"
+                                        id="tags" size="small" variant="outlined" fullWidth label="Tags" helperText="Please create 5 tags"
                                     />
                                 )}
                             />
