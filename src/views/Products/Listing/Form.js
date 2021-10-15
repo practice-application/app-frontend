@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
+import CheckIcon from '@mui/icons-material/Check';
 import { Typography } from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from '@mui/material/Grid';
+import MenuItem from '@mui/material/MenuItem';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import * as PropTypes from 'prop-types';
@@ -15,6 +18,7 @@ import { FileUploader } from '../../../components/FileUploader';
 import { ImagePager } from '../../../components/ImagePager';
 import { imgStorage } from '../../../config';
 import { useApi } from '../context';
+import { ProductCategories } from '../ProductCategories'
 
 export const Form = ({ onAction }) => {
     const [state, { update, create }] = useApi();
@@ -88,6 +92,7 @@ export const Form = ({ onAction }) => {
         setProduct(state.product);
     }, [state.product]);
 
+    const options = useMemo(() => ProductCategories, []);
     const handleChange = (e) => {
         const key = e.target.id;
         const val = e.target.value;
@@ -103,14 +108,14 @@ export const Form = ({ onAction }) => {
             {product &&
                 <>
                     <Grid container direction='column' spacing={1}>
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                             <TextInput id="name" label="Name"
                                 size="small" variant="outlined" fullWidth
                                 value={product && product.name}
                                 onChange={handleChange}
                             />
                         </Grid>
-                        <Grid item xs={6} >
+                        <Grid item xs={12} >
                             <TextInput id="price" label="Price"
                                 type="number"
                                 InputProps={{
@@ -122,6 +127,22 @@ export const Form = ({ onAction }) => {
                                 error={Boolean(errorMsg)}
                                 helperText={errorMsg}
                             />
+                            <Autocomplete
+                                onChange={(e, val) => handleChange({ target: { id: "category", value: val } })}
+                                id="category"
+                                getOptionLabel={ProductCategories.label}
+                                value={product && product.category}
+                                options={options.map((option) => option.label)}
+                                isOptionEqualToValue={(ProductCategories, val) => ProductCategories === val}
+                                sx={{ width: 300 }}
+                                renderOption={(props, option, { selected }) => (
+                                    <MenuItem key={option} {...props}>
+                                        {option}{selected && <CheckIcon sx={{ color: 'success.main', pl: 1 }} />}
+                                    </MenuItem>
+                                )
+                                }
+                                renderInput={(params) => <TextInput {...params} size="small" variant="outlined" fullWidth label="Category" />}
+                            />
                         </Grid>
                         <Grid item xs={12}>
                             <TextInput id="description" label="Description"
@@ -129,6 +150,7 @@ export const Form = ({ onAction }) => {
                                 value={product && product.description}
                                 onChange={handleChange}
                             />
+
                         </Grid>
                         <Grid item xs={12}>
                             <ImageUploading

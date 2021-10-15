@@ -98,7 +98,6 @@ export const Form = ({ onAction }) => {
     const handleChange = (e) => {
         const key = e.target.id;
         const val = e.target.value;
-        console.log(val)
 
         setPerson(prev => {
             prev[key] = val;

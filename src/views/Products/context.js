@@ -68,7 +68,9 @@ const initialState = {
         price: '',
         description: '',
         imageID: '',
-        user: ''
+        user: '',
+        tags: '',
+        category: ''
     },
     error: null,
 };

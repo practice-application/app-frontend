@@ -34,6 +34,8 @@ export const ProductPageExt = () => {
     );
 }
 
+
+
 const ProductPage = () => {
     const [view, setView] = useState('true');
     const [{ products }, { deleteProduct, fetchProducts, searchProducts }] = useApi();
@@ -43,7 +45,8 @@ const ProductPage = () => {
 
     useEffect(() => {
         const fetchImages = async () => {
-            let result = await imgStorage.ref().child(`/product-images/${products}/`).list();
+            const fileLocation = `/product-images`
+            let result = await imgStorage.ref().child(`${fileLocation}/${products.data.imageID}/`).list();
             let urlPromises = result.items.map((imageRef) =>
                 imageRef.getDownloadURL()
             );
@@ -55,8 +58,7 @@ const ProductPage = () => {
         };
         loadImages();
     }, [products]);
-
-    console.log(images)
+    console.log(products.data.total)
 
     useEffect(() => {
         fetchProducts(page);
@@ -67,8 +69,9 @@ const ProductPage = () => {
         // window.location.reload(false)
     };
 
-    const handleDelete = (id) => {
+    const handleDelete = async (id) => {
         deleteProduct(id);
+
     };
 
     const handlePage = () => {
@@ -115,8 +118,8 @@ const ProductPage = () => {
                             } else if (item.name.toLowerCase().includes(query.toLowerCase())) {
                                 return item
                             }
-                        }).map((item) =>
-                            <Grid key={item.id} item xs={4}>
+                        }).map((item, index) =>
+                            <Grid key={index} item xs={4}>
                                 <Card sx={{ m: 1, padding: 1, }}>
                                     <CardHeader
                                         title={item.name}
@@ -126,12 +129,14 @@ const ProductPage = () => {
                                                 <DeleteForeverIcon />
                                             </IconButton> : ''}
                                     />
-                                    <CardMedia
+                                    {/* <CardMedia
                                         component="img"
                                         height="190"
-                                        image={item.products}
-                                        alt={'image'}
-                                    />
+
+                                        image={items = `${item.imageID}/${item.name + ", " + item.user}`}
+                                        alt=""
+                                    /> */}
+
                                     <CardContent>
                                         <Typography variant="body2" color="text.secondary">
                                             {item.description}
@@ -142,6 +147,7 @@ const ProductPage = () => {
                                             View Product
                                         </Button>
                                     </CardActions>
+
                                 </Card>
                             </Grid>
                         )}
