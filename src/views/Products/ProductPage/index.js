@@ -39,26 +39,25 @@ export const ProductPageExt = () => {
 const ProductPage = () => {
     const [view, setView] = useState('true');
     const [{ products }, { deleteProduct, fetchProducts, searchProducts }] = useApi();
-    const [images, setImages] = useState([]);
+    // const [images, setImages] = useState([]);
     const [query, setQuery] = useState('');
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
 
-    useEffect(() => {
-        const fetchImages = async () => {
-            const fileLocation = `/product-images`
-            let result = await imgStorage.ref().child(`${fileLocation}/${products.data.imageID}/`).list();
-            let urlPromises = result.items.map((imageRef) =>
-                imageRef.getDownloadURL()
-            );
-            return Promise.all(urlPromises);
-        };
-        const loadImages = async () => {
-            const urls = await fetchImages();
-            setImages(urls);
-        };
-        loadImages();
-    }, [products]);
-    console.log(products.data.total)
+    // useEffect(() => {
+    //     const fetchImages = async () => {
+    //         const fileLocation = `/product-images`
+    //         let result = await imgStorage.ref().child(`${fileLocation}/${products.data.imageID}/`).list();
+    //         let urlPromises = result.items.map((imageRef) =>
+    //             imageRef.getDownloadURL()
+    //         );
+    //         return Promise.all(urlPromises);
+    //     };
+    //     const loadImages = async () => {
+    //         const urls = await fetchImages();
+    //         setImages(urls);
+    //     };
+    //     loadImages();
+    // }, [products]);
 
     useEffect(() => {
         fetchProducts(page);

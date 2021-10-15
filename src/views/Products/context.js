@@ -69,7 +69,7 @@ const initialState = {
         description: '',
         imageID: '',
         user: '',
-        tags: '',
+        tags: [5],
         category: ''
     },
     error: null,

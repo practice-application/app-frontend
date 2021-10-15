@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import CloseIcon from '@mui/icons-material/Close';
 import CreateIcon from '@mui/icons-material/Create';
+import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
@@ -12,7 +13,6 @@ import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
 import Moment from 'react-moment';
 import { useParams } from "react-router-dom";
 
@@ -155,14 +155,16 @@ const ProductListing = () => {
                                     onDelete={(e) => onDelete(e)}
                                     action={nickname === product.user}
                                 />
+
                                 <Paper sx={{ my: 1, p: 1 }}>
                                     <ListItem>
                                         <ListItemText>
                                             Tags
                                         </ListItemText>
-                                        <Chip label={<Typography>Label</Typography>} />
+                                        {product.tags.map((item, i) => <Chip sx={{ mx: 0.25 }} key={i} label={<Typography>{item}</Typography>} />)}
                                     </ListItem>
                                 </Paper>
+
                             </>
                         ) : (
                             <Form onAction={(changeBack)} />
