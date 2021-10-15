@@ -129,6 +129,12 @@ const ProductListing = () => {
                                     <Divider />
                                     <ListItem>
                                         <ListItemText>
+                                            Category
+                                        </ListItemText> {product.category}
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem>
+                                        <ListItemText>
                                             Created:
                                         </ListItemText>
                                         <Moment fromNow interval={30000} date={product.date} />

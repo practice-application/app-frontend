@@ -133,15 +133,15 @@ export const Form = ({ onAction }) => {
                                 getOptionLabel={ProductCategories.label}
                                 value={product && product.category}
                                 options={options.map((option) => option.label)}
-                                isOptionEqualToValue={(ProductCategories, val) => ProductCategories === val}
-                                sx={{ width: 300 }}
+                                isOptionEqualToValue={(option, val) => option === val}
+                                renderInput={(params) => <TextInput {...params} id="category" size="small" variant="outlined" fullWidth label="Category" />}
                                 renderOption={(props, option, { selected }) => (
                                     <MenuItem key={option} {...props}>
                                         {option}{selected && <CheckIcon sx={{ color: 'success.main', pl: 1 }} />}
                                     </MenuItem>
                                 )
                                 }
-                                renderInput={(params) => <TextInput {...params} size="small" variant="outlined" fullWidth label="Category" />}
+
                             />
                         </Grid>
                         <Grid item xs={12}>
