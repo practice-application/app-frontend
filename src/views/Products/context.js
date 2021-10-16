@@ -89,7 +89,7 @@ export const useApi = () => {
     const { getAccessTokenSilently } = useAuth0();
     const { state, dispatch } = useContext(ProductContext);
 
-    const searchProducts = useCallback(async (query) => {
+    const searchProducts = useCallback(async (query, page = { limit: 10 }) => {
         const reqInit = {
             method: "GET",
             headers: {
@@ -100,12 +100,13 @@ export const useApi = () => {
             },
         }
         console.log(await getAccessTokenSilently())
-        const resp = await fetch(`${config.url}/products?st=${query}`, reqInit);
+        const resp = await fetch(`${config.url}/products?st=${query}&off=0`, reqInit);
         if (resp.ok) {
+            
+            dispatch({ type: 'query', payload: { json: await resp.json(), page: page  } });
             console.log(resp)
-            dispatch({ type: 'get', payload: { json: await resp.json() } });
         } else {
-            dispatch({ type: 'error', error: resp.Error, meta: { method: 'get' } });
+            dispatch({ type: 'error', error: resp.Error, meta: { method: 'query' } });
         }
 
     }, [getAccessTokenSilently, dispatch]);
