@@ -23,3 +23,6 @@ export const ProductCategories = [
     { label: 'Sports & Recreation' },
 ]
 
+export const Empty = [
+
+]

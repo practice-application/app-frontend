@@ -5,6 +5,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from '@mui/material/Grid';
 import MenuItem from '@mui/material/MenuItem';
@@ -18,9 +19,10 @@ import { FileUploader } from '../../../components/FileUploader';
 import { ImagePager } from '../../../components/ImagePager';
 import { imgStorage } from '../../../config';
 import { useApi } from '../context';
-import { ProductCategories } from '../ProductCategories'
+import { ProductCategories, Empty } from '../ProductCategories'
 
 export const Form = ({ onAction }) => {
+
     const [state, { update, create }] = useApi();
     const [product, setProduct] = useState();
     const [errorMsg, setErrorMsg] = useState(false);
@@ -46,7 +48,7 @@ export const Form = ({ onAction }) => {
 
     const onChange = (imageList) => {
         setImages(imageList);
-    };
+    }
 
     let setID = uuidv4()
     const handleSave = async () => {
@@ -75,7 +77,6 @@ export const Form = ({ onAction }) => {
             }
         }
     };
-    console.log(image)
     const formValid = () => {
         if (!product.price) {
             return false;
@@ -150,7 +151,6 @@ export const Form = ({ onAction }) => {
                                 value={product && product.description}
                                 onChange={handleChange}
                             />
-
                         </Grid>
                         <Grid item xs={12}>
                             <ImageUploading
@@ -185,6 +185,28 @@ export const Form = ({ onAction }) => {
                             </ImageUploading>
                             {message && <Typography color="error.main">A minimum of 1 image is required before submission</Typography>}
                         </Grid>
+                        <Grid item xs={12}>
+                            <Autocomplete
+                                onChange={(e, val) => handleChange({ target: { id: "tags", value: val } })}
+                                multiple
+                                isOptionEqualToValue={(option, val) => option === val}
+                                id="tags"
+                                value={product && product.tags.map((item) => item)}
+                                options={Empty}
+                                freeSolo
+                                renderTags={(value, getTagProps) =>
+                                    value.map((option, index) => (
+                                        <Chip label={<Typography>{option}</Typography>} {...getTagProps({ index })} />
+                                    ))
+                                }
+                                renderInput={(params) => (
+                                    <TextInput
+                                        {...params}
+                                        id="tags" size="small" variant="outlined" fullWidth label="Tags" helperText="Please create 5 tags"
+                                    />
+                                )}
+                            />
+                        </Grid>
                     </Grid>
                     <Button
                         sx={{ marginTop: 2 }}
@@ -208,3 +230,4 @@ const TextInput = styled(TextField)(({ theme }) => ({
 Form.propTypes = {
     onAction: PropTypes.func,
 };
+
