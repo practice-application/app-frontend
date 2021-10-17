@@ -13,7 +13,6 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
 // import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -27,7 +26,7 @@ import { ProductProvider } from '../context';
 import { useApi } from '../context';
 
 
-const pageSize = 9;
+const pageSize = 12;
 
 export const ProductPageExt = () => {
     return (
@@ -121,7 +120,7 @@ const ProductPage = () => {
                                 return item
                             }
                         }).map((item, index) =>
-                            <Grid key={index} item xs={4}>
+                            <Grid key={index} item xs={3}>
                                 <Card sx={{ m: 1, padding: 1, }}>
                                     <CardHeader
                                         title={item.name}
