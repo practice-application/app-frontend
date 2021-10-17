@@ -17,6 +17,8 @@ import Chip from '@mui/material/Chip';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import InputAdornment from '@mui/material/InputAdornment';
+
 
 import ActionLink from '../../../components/ActionLink';
 import { Pager } from '../../../components/TablePager';
@@ -25,7 +27,7 @@ import { ProductProvider } from '../context';
 import { useApi } from '../context';
 
 
-const pageSize = 9;
+const pageSize = 3;
 
 export const ProductPageExt = () => {
     return (
@@ -34,8 +36,6 @@ export const ProductPageExt = () => {
         </ProductProvider>
     );
 }
-
-
 
 const ProductPage = () => {
     const [view, setView] = useState('true');
@@ -88,22 +88,19 @@ const ProductPage = () => {
 
     return (
         <>
-            <Grid container direction='row'>
-                <TextField id="outlined-basic" variant="outlined" label="Search" sx={{ width: '94%' }} onChange={(e) => { setQuery(e.target.value) }} />
-                {/* onClick={() => handleSearch()} */}
-                <IconButton onClick={() => handleSearch()}>
-                    <SearchIcon sx={{ m: 1 }} />
-                </IconButton>
-            </Grid>
-            <Grid container sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
+            <Grid container>
+                <Box >
+                    <TextField id="outlined-basic" variant="outlined" label="Search" sx={{ width: '355%' }} onChange={(e) => { setQuery(e.target.value) }} 
+                    InputProps={{endAdornment: (<InputAdornment position="end"> <IconButton onClick={() => handleSearch()}><SearchIcon /></IconButton></InputAdornment>), }}/>
+                </Box>
+                <Box sx={{ my: 1, padding: 0.5, paddingLeft: 82 }}>
                     <Button
                         variant="outlined"
                         endIcon={view === true ? <CloseIcon fontSize="small" /> : <CreateIcon fontSize="small" />}
                         onClick={view === true ? change : changeBack}> {view === true ? "Close" : "Edit"}
                     </Button>
                 </Box>
-                <Box container sx={{ display: 'flex', my: 1, padding: 0.5 }}>
+                <Box container sx={{ my: 1, padding: 0.5 }}>
                     <Button variant='contained' component={ActionLink} to="/add-product">
                         Add new Product
                     </Button>
@@ -162,10 +159,10 @@ const ProductPage = () => {
                 :
                 <Grid sx={{ py: 4 }} container direction="column" justify="center" alignItems="center" >
                     <ErrorOutlineIcon />
-                    <Typography sx={{ pt: 2 }}>No customer data to display at the moment</Typography>
+                    <Typography sx={{ pt: 2 }}>Search could not find any product(s) of that description</Typography>
                     <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
-                        <Button variant='contained' sx={{ mr: 0.5 }} component={ActionLink} to="/add">Add Product</Button>
-                        <Button variant='outlined' sx={{ ml: 0.5 }} component={ActionLink} to="/products/create">Return</Button>
+                        <Button variant='contained' sx={{ mr: 0.5 }} component={ActionLink} to="/add-product">Add Product</Button>
+                        <Button variant='outlined' sx={{ ml: 0.5 }} component={ActionLink} to="/products">Return</Button>
                     </Box>
 
                 </Grid>
