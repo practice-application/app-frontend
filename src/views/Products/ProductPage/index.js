@@ -100,9 +100,11 @@ const ProductPage = () => {
             >
                 <Grid item xs={6} md={9}>
                     <TextField type="text" id="outlined-basic" size="small" variant="outlined" fullWidth label="Search" value={query} onChange={(e) => { setQuery(e.target.value) }}
-                        InputProps={{ startAdornment: (<InputAdornment position="start"> <IconButton onClick={() => handleSearch()}><SearchIcon /></IconButton></InputAdornment>), 
-                        endAdornment: (<InputAdornment  position="end"> <IconButton onClick={resetSearch}> <ClearIcon fontSize="small"/> </IconButton></InputAdornment>) }} />
-                        
+                        InputProps={{
+                            startAdornment: (<InputAdornment position="start"> <IconButton size="small" onClick={() => handleSearch()}><SearchIcon fontSize="small" /></IconButton></InputAdornment>),
+                            endAdornment: (<InputAdornment position="end"> <IconButton size="small" onClick={resetSearch}> <ClearIcon fontSize="small" /> </IconButton></InputAdornment>)
+                        }} />
+
                 </Grid>
                 <Grid item xs={6} md={3}>
                     <Button
