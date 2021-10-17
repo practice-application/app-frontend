@@ -93,18 +93,17 @@ const ProductPage = () => {
                 alignItems="center"
                 spacing={1}
             >
-                <Grid item xs={9}>
+                <Grid item xs={6} md={9}>
                     <TextField id="outlined-basic" size="small" variant="outlined" fullWidth label="Search" onChange={(e) => { setQuery(e.target.value) }}
                         InputProps={{ endAdornment: (<InputAdornment position="end"> <IconButton onClick={() => handleSearch()}><SearchIcon /></IconButton></InputAdornment>), }} />
                 </Grid>
-                <Grid item xs={1} >
+                <Grid item xs={6} md={3}>
                     <Button
+                        sx={{ mr: 1 }}
                         variant="outlined"
                         endIcon={view === true ? <CloseIcon fontSize="small" /> : <CreateIcon fontSize="small" />}
                         onClick={view === true ? change : changeBack}> {view === true ? "Close" : "Edit"}
                     </Button>
-                </Grid>
-                <Grid item xs={2}>
                     <Button variant='contained' component={ActionLink} to="/add-product">
                         Add new Product
                     </Button>
