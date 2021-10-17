@@ -13,12 +13,12 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 // import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import InputAdornment from '@mui/material/InputAdornment';
-
 
 import ActionLink from '../../../components/ActionLink';
 import { Pager } from '../../../components/TablePager';
@@ -27,7 +27,7 @@ import { ProductProvider } from '../context';
 import { useApi } from '../context';
 
 
-const pageSize = 3;
+const pageSize = 9;
 
 export const ProductPageExt = () => {
     return (
@@ -66,12 +66,10 @@ const ProductPage = () => {
 
     const handleSearch = (e) => {
         searchProducts(query)
-        // window.location.reload(false)
     };
 
     const handleDelete = async (id) => {
         deleteProduct(id);
-
     };
 
     const handlePage = () => {
@@ -84,28 +82,36 @@ const ProductPage = () => {
     const changeBack = () => {
         setView(true);
     };
-
-
+    console.log(products.data)
     return (
         <>
-            <Grid container >
-                <Grid item>
-                    <TextField id="outlined-basic" variant="outlined" label="Search" sx={{ width: '355%' }} onChange={(e) => { setQuery(e.target.value) }} 
-                    InputProps={{endAdornment: (<InputAdornment position="end"> <IconButton onClick={() => handleSearch()}><SearchIcon /></IconButton></InputAdornment>), }}/>
+
+            <Grid
+                container
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                spacing={1}
+            >
+                <Grid item xs={9}>
+                    <TextField id="outlined-basic" size="small" variant="outlined" fullWidth label="Search" onChange={(e) => { setQuery(e.target.value) }}
+                        InputProps={{ endAdornment: (<InputAdornment position="end"> <IconButton onClick={() => handleSearch()}><SearchIcon /></IconButton></InputAdornment>), }} />
                 </Grid>
-                <Grid item sx={{ my: 1, padding: 0.5, paddingLeft: 82 }}>
+                <Grid item xs={1} >
                     <Button
                         variant="outlined"
                         endIcon={view === true ? <CloseIcon fontSize="small" /> : <CreateIcon fontSize="small" />}
                         onClick={view === true ? change : changeBack}> {view === true ? "Close" : "Edit"}
                     </Button>
                 </Grid>
-                <Grid item sx={{ my: 1, padding: 0.5 }}>
+                <Grid item xs={2}>
                     <Button variant='contained' component={ActionLink} to="/add-product">
                         Add new Product
                     </Button>
                 </Grid>
             </Grid>
+
+
             {products.data ?
                 <>
                     <Grid container spacing={2} direction="row" justifyContent="flex-start" >
@@ -139,7 +145,6 @@ const ProductPage = () => {
                                         <Typography variant="body2" color="text.secondary">
                                             {item.description}
                                         </Typography>
-
                                         {item.tags.map((tag, i) => <Chip size="small" sx={{ mx: 0.25 }} key={i} label={tag} />)}
                                     </CardContent>
                                     <CardActions disableSpacing>
@@ -147,7 +152,6 @@ const ProductPage = () => {
                                             View Product
                                         </Button>
                                     </CardActions>
-
                                 </Card>
                             </Grid>
                         )}
