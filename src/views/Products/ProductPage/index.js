@@ -27,7 +27,7 @@ import { ProductProvider } from '../context';
 import { useApi } from '../context';
 
 
-const pageSize = 9;
+const pageSize = 12;
 
 export const ProductPageExt = () => {
     return (
@@ -91,6 +91,7 @@ const ProductPage = () => {
         <>
 
             <Grid
+                sx={{ pb: 2 }}
                 container
                 direction="row"
                 justifyContent="flex-start"
@@ -119,7 +120,7 @@ const ProductPage = () => {
 
             {products.data ?
                 <>
-                    <Grid container spacing={2} direction="row" justifyContent="flex-start" >
+                    <Grid container spacing={1} direction="row" justifyContent="flex-start" >
                         {products.data.filter((item) => {
                             if (query === "") {
                                 return item
@@ -127,8 +128,8 @@ const ProductPage = () => {
                                 return item
                             }
                         }).map((item, index) =>
-                            <Grid key={index} item xs={4}>
-                                <Card sx={{ m: 1, padding: 1, }}>
+                            <Grid key={index} item xs={3}>
+                                <Card sx={{ m: 1 }}>
                                     <CardHeader
                                         title={item.name}
                                         subheader={`$${item.price}`}
@@ -137,7 +138,7 @@ const ProductPage = () => {
                                                 <DeleteForeverIcon />
                                             </IconButton> : ''}
                                     />
-                                    <Chip size="small" variant="outlined" sx={{ mx: 0.25 }} label={item.category} />
+
                                     {/* <CardMedia
                                         component="img"
                                         height="190"
@@ -147,6 +148,7 @@ const ProductPage = () => {
                                     /> */}
 
                                     <CardContent>
+                                        <Chip size="small" variant="outlined" sx={{ mx: 0.25 }} label={item.category} />
                                         <Typography variant="body2" color="text.secondary">
                                             {item.description}
                                         </Typography>
