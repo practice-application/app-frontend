@@ -13,12 +13,12 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
 // import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import ClearIcon from '@mui/icons-material/Clear';
 
 import ActionLink from '../../../components/ActionLink';
 import { Pager } from '../../../components/TablePager';
@@ -68,6 +68,10 @@ const ProductPage = () => {
         searchProducts(query)
     };
 
+    const resetSearch = () => {
+        setQuery('');
+    };
+
     const handleDelete = async (id) => {
         deleteProduct(id);
     };
@@ -94,8 +98,10 @@ const ProductPage = () => {
                 spacing={1}
             >
                 <Grid item xs={6} md={9}>
-                    <TextField id="outlined-basic" size="small" variant="outlined" fullWidth label="Search" onChange={(e) => { setQuery(e.target.value) }}
-                        InputProps={{ endAdornment: (<InputAdornment position="end"> <IconButton onClick={() => handleSearch()}><SearchIcon /></IconButton></InputAdornment>), }} />
+                    <TextField type="text" id="outlined-basic" size="small" variant="outlined" fullWidth label="Search" value={query} onChange={(e) => { setQuery(e.target.value) }}
+                        InputProps={{ startAdornment: (<InputAdornment position="start"> <IconButton onClick={() => handleSearch()}><SearchIcon /></IconButton></InputAdornment>), 
+                        endAdornment: (<InputAdornment position="end"> <IconButton onClick={resetSearch}> <ClearIcon /> </IconButton></InputAdornment>) }} />
+                        
                 </Grid>
                 <Grid item xs={6} md={3}>
                     <Button
