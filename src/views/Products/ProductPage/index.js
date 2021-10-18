@@ -111,19 +111,32 @@ const ProductPage = () => {
                             value={categories}
                             label="Categories"
                             onChange={handleChange}
+                            sx={{ borderRadius: '4rem' }}
                         >
-                            <MenuItem >Technology & Electronics</MenuItem>
-                            <MenuItem >Music</MenuItem>
-                            <MenuItem >Books</MenuItem>
-                            <MenuItem >Services</MenuItem>
-                            <MenuItem >Clothing, Men's</MenuItem>
-                            <MenuItem >Clothing, Women</MenuItem>
-                            <MenuItem >Clothing, children's</MenuItem>
-                            <MenuItem >Vehicles</MenuItem>
-                            <MenuItem >Hobbies</MenuItem>
-                            <MenuItem >Gaming</MenuItem>
-                            <MenuItem >Music</MenuItem>
-                            <MenuItem >Books</MenuItem>
+                            <MenuItem value={'Technology&Electronics'}>Technology & Electronics</MenuItem>
+                            <MenuItem value={'Music'}>Music</MenuItem>
+                            <MenuItem value={'Books'}>Books</MenuItem>
+                            <MenuItem value={'Services'}>Services</MenuItem>
+                            <MenuItem value={'Clothing, Mens'}>Clothing, Men's</MenuItem>
+                            <MenuItem value={'Clothing, Women'}>Clothing, Women</MenuItem>
+                            <MenuItem value={'Clothing, childrens'}>Clothing, children's</MenuItem>
+                            <MenuItem value={'Vehicles'}>Vehicles</MenuItem>
+                            <MenuItem value={'Toys & Games'}>Toys & Games</MenuItem>
+                            <MenuItem value={'Hobbies'}>Hobbies</MenuItem>
+                            <MenuItem value={'Gaming'}>Gaming</MenuItem>
+                            <MenuItem value={'Homeware'}>Homeware</MenuItem>
+                            <MenuItem value={'Movies & Entertainment'}>Movies & Entertainment</MenuItem>
+                            <MenuItem value={'Food & Drink'}>Food & Drink</MenuItem>
+                            <MenuItem value={'Toiletries'}>Toiletries</MenuItem>
+                            <MenuItem value={'Office'}>Office</MenuItem>
+                            <MenuItem value={'Furniture'}>Furniture</MenuItem>
+                            <MenuItem value={'Misc'}>Misc</MenuItem>
+                            <MenuItem value={'Replicas'}>Replicas</MenuItem>
+                            <MenuItem value={'Pet care'}>Pet care</MenuItem>
+                            <MenuItem value={'Jewelery & Accessories'}>Jewelery & Accessories</MenuItem>
+                            <MenuItem value={'Sports & Recreation'}>Sports & Recreation</MenuItem>
+                            
+
                         </Select>
                     </FormControl>
                 </Grid>
