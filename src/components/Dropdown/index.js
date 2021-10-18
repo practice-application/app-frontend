@@ -20,6 +20,8 @@ export const Dropdown = props => {
             return <Tags value={value} onChange={onChange} tags={tags} />
         case 'categories':
             return <ProductCategory value={value} onChange={onChange} />
+        case 'productDropdown':
+            return <CategoryDropwdown value={value} onChange={onChange} />
         default:
             throw new Error('Invalid dataType prop passed to Dropdown');
     }
@@ -96,6 +98,14 @@ const ProductCategory = props => {
                 </MenuItem>
             )}
         />
+    )
+}
+
+const CategoryDropwdown = props => {
+    return (
+        <>
+
+        </>
     )
 }
 const TextInput = styled(TextField)(({ theme }) => ({
