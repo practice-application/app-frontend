@@ -89,7 +89,7 @@ const ProductPage = () => {
     const changeBack = () => {
         setView(true);
     };
-    console.log(products.data)
+
     return (
         <>
 
@@ -129,7 +129,9 @@ const ProductPage = () => {
                         {products.data.filter((item) => {
                             if (query === "") {
                                 return item
-                            } else if (item.name.toLowerCase().includes(query.toLowerCase())) {
+                            } else if (item.name.toLowerCase().includes(query.toLowerCase()) +
+                                item.category.toLowerCase().includes(query.toLowerCase())
+                            ) {
                                 return item
                             }
                         }).map((item, index) =>
