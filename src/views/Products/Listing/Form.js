@@ -42,10 +42,17 @@ export const Form = ({ onAction }) => {
         }
     }
 
+    var extraFiles = (
+        image[1] && imgStorage.ref(`/product-images/${product.imageID}/${product.name + ", " + image[1].file.name}`).put(image[1].file),
+        image[2] && imgStorage.ref(`/product-images/${product.imageID}/${product.name + ", " + image[2].file.name}`).put(image[2].file),
+        image[3] && imgStorage.ref(`/product-images/${product.imageID}/${product.name + ", " + image[3].file.name}`).put(image[3].file),
+        image[4] && imgStorage.ref(`/product-images/${product.imageID}/${product.name + ", " + image[4].file.name}`).put(image[4].file)
+    )
+
     const onChange = (imageList) => {
         setImages(imageList);
+        console.log(imageList.map((item) => item.file.name))
     }
-
     let setID = uuidv4()
     const handleSave = async () => {
         if (validPrice()) {
@@ -54,15 +61,18 @@ export const Form = ({ onAction }) => {
             if (product.id) {
                 update(product)
                 if (image[0]) {
-                    await imgStorage.ref(`/product-images/${product.imageID}/${product.name + ", " + product.user}`).put(image[0].file)
+                    await imgStorage.ref(`/product-images/${product.imageID}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
+                    await extraFiles
                 }
                 onAction()
                 setSubmitting(false);
                 window.location.reload()
             } else {
                 if (image[0]) {
+                    product.user = nickname
                     create(product)
-                    await imgStorage.ref(`/product-images/${product.imageID = setID}/${product.name + ", " + (product.user = nickname)}`).put(image[0].file)
+                    await imgStorage.ref(`/product-images/${product.imageID = setID}/${product.name + ", " + image[0].file.name}`).put(image[0].file)
+                    await extraFiles
                     onAction()
                     setSubmitting(false);
                 }

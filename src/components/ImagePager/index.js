@@ -104,6 +104,7 @@ export const ImagePager = props => {
                                     image={upload ? item.data_url : view && item}
                                     alt={upload ? item.file.name : view && item}
                                 />
+
                             </Dialog>
                         </>
                         : null}
