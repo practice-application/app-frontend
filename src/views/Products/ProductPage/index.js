@@ -20,6 +20,12 @@ import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+
 import ActionLink from '../../../components/ActionLink';
 import { Pager } from '../../../components/TablePager';
 // import { imgStorage } from '../../../config';
@@ -43,6 +49,7 @@ const ProductPage = () => {
     // const [images, setImages] = useState([]);
     const [query, setQuery] = useState('');
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
+    const [categories, setCategories] = useState('');
 
     // useEffect(() => {
     //     const fetchImages = async () => {
@@ -76,6 +83,10 @@ const ProductPage = () => {
         window.location.reload()
     };
 
+    const handleChange = (event) => {
+      setCategories(event.target.value);
+    };
+
     const handleDelete = async (id) => {
         deleteProduct(id);
     };
@@ -101,15 +112,45 @@ const ProductPage = () => {
                 alignItems="center"
                 spacing={1}
             >
-                <Grid item xs={6} md={9}>
+                <Grid item xs={4} md={6}>
                     <TextField type="text" id="outlined-basic" size="small" variant="outlined" fullWidth label="Search" value={query} onChange={(e) => { setQuery(e.target.value) }}
                         InputProps={{
                             startAdornment: (<InputAdornment position="start"> <IconButton size="small" onClick={() => handleSearch()}><SearchIcon fontSize="small" /></IconButton></InputAdornment>),
                             endAdornment: (<InputAdornment position="end"> <IconButton size="small" onClick={resetSearch}> <ClearIcon fontSize="small" /> </IconButton></InputAdornment>)
                         }} />
-
                 </Grid>
-                <Grid item xs={6} md={3}>
+
+                <Grid item xs={4} md={2}>
+                <FormControl fullWidth>
+                <InputLabel sx={{ m: -1 }} id="demo-simple-select-label">Categories</InputLabel>
+                    <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    size="small"
+                    value={categories}
+                    label="Categories"
+                    onChange={handleChange}
+                    >
+                    <MenuItem >Technology & Electronics</MenuItem>
+                    <MenuItem >Music</MenuItem>
+                    <MenuItem >Books</MenuItem>
+                    <MenuItem >Services</MenuItem>
+                    <MenuItem >Clothing, Men's</MenuItem>
+                    <MenuItem >Clothing, Women</MenuItem>
+                    <MenuItem >Clothing, children's</MenuItem>
+                    <MenuItem >Vehicles</MenuItem>
+                    <MenuItem >Hobbies</MenuItem>
+                    <MenuItem >Gaming</MenuItem>
+                    <MenuItem >Music</MenuItem>
+                    <MenuItem >Books</MenuItem>
+                    </Select>
+                </FormControl>
+                </Grid>
+
+               
+
+
+                <Grid item xs={4} md={4}>
                     <Button
                         sx={{ mr: 1 }}
                         variant="outlined"
