@@ -72,6 +72,10 @@ const ProductPage = () => {
         setQuery('');
     };
 
+    const pageRefresh = () => {
+        window.location.reload()
+    };
+
     const handleDelete = async (id) => {
         deleteProduct(id);
     };
@@ -174,7 +178,7 @@ const ProductPage = () => {
                     <Typography sx={{ pt: 2 }}>Search could not find any product(s) of that description</Typography>
                     <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
                         <Button variant='contained' sx={{ mr: 0.5 }} component={ActionLink} to="/add-product">Add Product</Button>
-                        <Button variant='outlined' sx={{ ml: 0.5 }} component={ActionLink} to="/products">Return</Button>
+                        <Button variant='outlined' sx={{ ml: 0.5 }} onClick={pageRefresh}>Return</Button>
                     </Box>
 
                 </Grid>
