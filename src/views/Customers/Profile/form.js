@@ -90,7 +90,6 @@ export const Form = ({ onAction }) => {
         setPerson(state.person);
     }, [state.person]);
 
-    // const options = useMemo(() => countryList().getData(), []);
     const handleChange = (e) => {
         const key = e.target.id;
         const val = e.target.value;
@@ -209,7 +208,7 @@ export const Form = ({ onAction }) => {
                                         value={person && person.region}
                                         onChange={handleChange}
                                     />
-                                    <Dropdown dataType="country" value={person && person.country} onChange={handleChange} errorMsg />
+                                    <Dropdown dataType="country" value={person && person.country} onChange={handleChange} errorMsg={errorMsg} />
                                 </>
                             }
                             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>

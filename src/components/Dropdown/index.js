@@ -11,8 +11,9 @@ import * as PropTypes from 'prop-types';
 import countryList from 'react-select-country-list';
 
 export const Dropdown = props => {
-    const { value, onChange, errorMsg, tags } = props
-    switch (props.dataType) {
+    const { value, onChange, errorMsg, tags, dataType } = props
+
+    switch (dataType) {
         case 'country':
             return <Country value={value} onChange={onChange} errorMsg={errorMsg} />
         case 'tags':
@@ -24,9 +25,9 @@ export const Dropdown = props => {
     }
 }
 
-
 const Tags = props => {
     const { value, onChange, tags } = props
+
     return (
         <Autocomplete
             onChange={(e, val) => onChange({ target: { id: "tags", value: val } })}
@@ -46,8 +47,8 @@ const Tags = props => {
                     {...params}
                     id="tags" size="small" variant="outlined" fullWidth label="Tags" helperText="Please create 5 tags"
                 />
-            )}
-        />)
+            )} />
+    )
 }
 
 const Country = props => {
@@ -68,9 +69,7 @@ const Country = props => {
                     <MenuItem key={option} {...props}>
                         {option}{selected && <CheckIcon sx={{ color: 'success.main', pl: 1 }} />}
                     </MenuItem>
-                )
-                }
-            />
+                )} />
             {errorMsg && <Typography variant="body2">{errorMsg}</Typography>}
         </>
     )
@@ -79,6 +78,7 @@ const Country = props => {
 const ProductCategory = props => {
     const { value, onChange } = props
     const options = useMemo(() => ProductCategories, []);
+
     return (<Autocomplete
         onChange={(e, val) => onChange({ target: { id: "category", value: val } })}
         id="category"
@@ -91,10 +91,7 @@ const ProductCategory = props => {
             <MenuItem key={option} {...props}>
                 {option}{selected && <CheckIcon sx={{ color: 'success.main', pl: 1 }} />}
             </MenuItem>
-        )
-        }
-
-    />
+        )} />
     )
 }
 const TextInput = styled(TextField)(({ theme }) => ({
@@ -127,9 +124,7 @@ const ProductCategories = [
     { label: 'Sports & Recreation' },
 ]
 
-const Empty = [
-
-]
+const Empty = []
 
 Dropdown.propTypes = {
     onChange: PropTypes.func,

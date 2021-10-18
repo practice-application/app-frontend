@@ -77,7 +77,6 @@ const ProductPage = () => {
     };
 
     const handlePage = () => {
-
         setPage(prev => ({ ...prev, offset: prev.offset + pageSize }))
     };
     const change = () => {
