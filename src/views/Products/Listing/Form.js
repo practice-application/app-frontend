@@ -123,7 +123,10 @@ export const Form = ({ onAction }) => {
                                 error={Boolean(errorMsg)}
                                 helperText={errorMsg}
                             />
-                            <Dropdown dataType="categories" value={product && product.category} onChange={handleChange} />
+                            <Dropdown
+                                dataType="categories"
+                                value={product && product.category}
+                                onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12}>
                             <TextInput id="description" label="Description"
@@ -166,7 +169,11 @@ export const Form = ({ onAction }) => {
                             {message && <Typography color="error.main">A minimum of 1 image is required before submission</Typography>}
                         </Grid>
                         <Grid item xs={12}>
-                            <Dropdown dataType="tags" value={product && product.tags.map((item) => item)} onChange={handleChange} tags />
+                            <Dropdown
+                                dataType="tags"
+                                value={product && product.tags.map((item) => item)}
+                                onChange={handleChange}
+                                tags />
                         </Grid>
                     </Grid>
                     <Button

@@ -208,7 +208,11 @@ export const Form = ({ onAction }) => {
                                         value={person && person.region}
                                         onChange={handleChange}
                                     />
-                                    <Dropdown dataType="country" value={person && person.country} onChange={handleChange} errorMsg={errorMsg} />
+                                    <Dropdown
+                                        dataType="country"
+                                        value={person && person.country}
+                                        onChange={handleChange}
+                                        errorMsg={errorMsg} />
                                 </>
                             }
                             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
