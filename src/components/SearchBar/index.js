@@ -7,19 +7,15 @@ import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import PropTypes from 'prop-types';
 
-const SearchBar = ({ value, onChange }) => {
+export const SearchBar = ({ value, onChange }) => {
     const [term, setTerm] = useState(value || "");
-    // const [timer, setTimer] = useState(null);
 
     const triggerOnChange = () => {
         onChange(term);
-        // setTimer(null);
     };
 
     const handleChange = event => {
         setTerm(event.target.value);
-        //timer && clearTimeout(timer);
-        //setTimer(setTimeout(() => triggerOnChange(), 3000));
     };
 
     const handleKeyDown = event => {

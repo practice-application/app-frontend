@@ -27,7 +27,6 @@ import { Pager } from '../../../components/TablePager';
 import { ProductProvider } from '../context';
 import { useApi } from '../context';
 
-
 const pageSize = 12;
 
 export const ProductPageExt = () => {
@@ -91,7 +90,6 @@ const ProductPage = () => {
 
     return (
         <>
-
             <Grid
                 sx={{ pb: 2 }}
                 container
@@ -129,10 +127,6 @@ const ProductPage = () => {
                         </Select>
                     </FormControl>
                 </Grid>
-
-
-
-
                 <Grid item xs={4} md={4}>
                     <Button
                         sx={{ mr: 1 }}
@@ -145,8 +139,6 @@ const ProductPage = () => {
                     </Button>
                 </Grid>
             </Grid>
-
-
             {products.data ?
                 <>
                     <Grid container spacing={1} direction="row" justifyContent="flex-start" >
@@ -169,7 +161,6 @@ const ProductPage = () => {
                                                 <DeleteForeverIcon />
                                             </IconButton> : ''}
                                     />
-
                                     {/* <CardMedia
                                         component="img"
                                         height="190"
@@ -206,7 +197,6 @@ const ProductPage = () => {
                         <Button variant='contained' sx={{ mr: 0.5 }} component={ActionLink} to="/add-product">Add Product</Button>
                         <Button variant='outlined' sx={{ ml: 0.5 }} onClick={pageRefresh}>Return</Button>
                     </Box>
-
                 </Grid>
             }
         </>
