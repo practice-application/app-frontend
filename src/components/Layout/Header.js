@@ -15,8 +15,6 @@ import { Link as ActionLink } from 'react-router-dom';
 
 import MenuDialog from '../MenuDialog'
 
-
-
 const MenuItems = [
     { label: 'Customers', link: '/customers' },
     { label: 'Organisation', link: '/organisation' },

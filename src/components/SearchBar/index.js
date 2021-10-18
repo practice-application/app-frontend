@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
+import ClearIcon from '@mui/icons-material/Clear';
+import SearchIcon from '@mui/icons-material/Search';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import ClearIcon from '@mui/icons-material/Clear';
-import SearchIcon from '@mui/icons-material/Search';
 import PropTypes from 'prop-types';
 
 const SearchBar = ({ value, onChange }) => {

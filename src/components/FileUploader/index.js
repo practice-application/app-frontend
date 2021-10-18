@@ -36,6 +36,7 @@ export const FileUploader = props => {
     )
 }
 export default FileUploader;
+
 FileUploader.propTypes = {
     onChange: PropTypes.func,
     onImageUpload: PropTypes.func,

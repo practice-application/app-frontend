@@ -24,6 +24,7 @@ export const Dropdown = props => {
             throw new Error('Invalid dataType prop passed to Dropdown');
     }
 }
+export default Dropdown;
 
 const Tags = props => {
     const { value, onChange, tags } = props
@@ -130,6 +131,6 @@ const ProductCategories = [
 const Empty = []
 
 Dropdown.propTypes = {
-    onChange: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
     tags: PropTypes.bool,
 };
