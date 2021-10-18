@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import ClearIcon from '@mui/icons-material/Clear';
 import CloseIcon from '@mui/icons-material/Close';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -18,7 +19,6 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import ClearIcon from '@mui/icons-material/Clear';
 
 import ActionLink from '../../../components/ActionLink';
 import { Pager } from '../../../components/TablePager';

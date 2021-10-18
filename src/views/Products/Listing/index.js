@@ -108,7 +108,7 @@ const ProductListing = () => {
                             </Grid>
                         }
                     </Grid>
-                    <Container maxWidth="sm" sx={{ paddingTop: 10 }}>
+                    <Container maxWidth={view ? "md" : "sm"} sx={{ paddingTop: 10 }}>
                         {view ? (
                             <>
                                 <Paper sx={{ my: 1, p: 1 }}>

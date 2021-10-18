@@ -102,8 +102,7 @@ export const useApi = () => {
         console.log(await getAccessTokenSilently())
         const resp = await fetch(`${config.url}/products?st=${query}&off=0`, reqInit);
         if (resp.ok) {
-            
-            dispatch({ type: 'query', payload: { json: await resp.json(), page: page  } });
+            dispatch({ type: 'query', payload: { json: await resp.json(), page: page } });
             console.log(resp)
         } else {
             dispatch({ type: 'error', error: resp.Error, meta: { method: 'query' } });
