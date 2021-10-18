@@ -39,6 +39,7 @@ const SearchBar = ({ value, onChange }) => {
                 sx={{ borderRadius: '4rem' }}
                 id="search"
                 color="secondary"
+                size="small"
                 value={term}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import ClearIcon from '@mui/icons-material/Clear';
 import CloseIcon from '@mui/icons-material/Close';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import SearchIcon from '@mui/icons-material/Search';
 import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -15,18 +13,15 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
 // import CardMedia from '@mui/material/CardMedia';
+import FormControl from '@mui/material/FormControl';
 import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
+import Typography from '@mui/material/Typography';
 
 import ActionLink from '../../../components/ActionLink';
+import SearchBar from '../../../components/SearchBar';
 import { Pager } from '../../../components/TablePager';
 // import { imgStorage } from '../../../config';
 import { ProductProvider } from '../context';
@@ -45,7 +40,7 @@ export const ProductPageExt = () => {
 
 const ProductPage = () => {
     const [view, setView] = useState('true');
-    const [{ products }, { deleteProduct, fetchProducts, searchProducts }] = useApi();
+    const [{ products }, { deleteProduct, fetchProducts }] = useApi();
     // const [images, setImages] = useState([]);
     const [query, setQuery] = useState('');
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
@@ -71,20 +66,13 @@ const ProductPage = () => {
         fetchProducts(page);
     }, [fetchProducts, page]);
 
-    const handleSearch = (e) => {
-        searchProducts(query)
-    };
-
-    const resetSearch = () => {
-        setQuery('');
-    };
 
     const pageRefresh = () => {
         window.location.reload()
     };
 
     const handleChange = (event) => {
-      setCategories(event.target.value);
+        setCategories(event.target.value);
     };
 
     const handleDelete = async (id) => {
@@ -113,41 +101,36 @@ const ProductPage = () => {
                 spacing={1}
             >
                 <Grid item xs={4} md={6}>
-                    <TextField type="text" id="outlined-basic" size="small" variant="outlined" fullWidth label="Search" value={query} onChange={(e) => { setQuery(e.target.value) }}
-                        InputProps={{
-                            startAdornment: (<InputAdornment position="start"> <IconButton size="small" onClick={() => handleSearch()}><SearchIcon fontSize="small" /></IconButton></InputAdornment>),
-                            endAdornment: (<InputAdornment position="end"> <IconButton size="small" onClick={resetSearch}> <ClearIcon fontSize="small" /> </IconButton></InputAdornment>)
-                        }} />
+                    <SearchBar value={query} onChange={setQuery} />
                 </Grid>
-
                 <Grid item xs={4} md={2}>
-                <FormControl fullWidth>
-                <InputLabel sx={{ m: -1 }} id="demo-simple-select-label">Categories</InputLabel>
-                    <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    size="small"
-                    value={categories}
-                    label="Categories"
-                    onChange={handleChange}
-                    >
-                    <MenuItem >Technology & Electronics</MenuItem>
-                    <MenuItem >Music</MenuItem>
-                    <MenuItem >Books</MenuItem>
-                    <MenuItem >Services</MenuItem>
-                    <MenuItem >Clothing, Men's</MenuItem>
-                    <MenuItem >Clothing, Women</MenuItem>
-                    <MenuItem >Clothing, children's</MenuItem>
-                    <MenuItem >Vehicles</MenuItem>
-                    <MenuItem >Hobbies</MenuItem>
-                    <MenuItem >Gaming</MenuItem>
-                    <MenuItem >Music</MenuItem>
-                    <MenuItem >Books</MenuItem>
-                    </Select>
-                </FormControl>
+                    <FormControl fullWidth>
+                        <InputLabel sx={{ m: -1 }} id="demo-simple-select-label">Categories</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            size="small"
+                            value={categories}
+                            label="Categories"
+                            onChange={handleChange}
+                        >
+                            <MenuItem >Technology & Electronics</MenuItem>
+                            <MenuItem >Music</MenuItem>
+                            <MenuItem >Books</MenuItem>
+                            <MenuItem >Services</MenuItem>
+                            <MenuItem >Clothing, Men's</MenuItem>
+                            <MenuItem >Clothing, Women</MenuItem>
+                            <MenuItem >Clothing, children's</MenuItem>
+                            <MenuItem >Vehicles</MenuItem>
+                            <MenuItem >Hobbies</MenuItem>
+                            <MenuItem >Gaming</MenuItem>
+                            <MenuItem >Music</MenuItem>
+                            <MenuItem >Books</MenuItem>
+                        </Select>
+                    </FormControl>
                 </Grid>
 
-               
+
 
 
                 <Grid item xs={4} md={4}>
