@@ -127,10 +127,10 @@ const ProductPage = () => {
                 <>
                     <Grid container spacing={1} direction="row" justifyContent="flex-start" >
                         {products.data.filter((item) => {
+                            var search = (item.name) + (item.category)
                             if (query === "") {
                                 return item
-                            } else if (item.name.toLowerCase().includes(query.toLowerCase()) +
-                                item.category.toLowerCase().includes(query.toLowerCase())
+                            } else if (search.toLowerCase().includes(query.toLowerCase())
                             ) {
                                 return item
                             }
