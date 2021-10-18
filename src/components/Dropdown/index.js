@@ -47,7 +47,8 @@ const Tags = props => {
                     {...params}
                     id="tags" size="small" variant="outlined" fullWidth label="Tags" helperText="Please create 5 tags"
                 />
-            )} />
+            )}
+        />
     )
 }
 
@@ -79,19 +80,21 @@ const ProductCategory = props => {
     const { value, onChange } = props
     const options = useMemo(() => ProductCategories, []);
 
-    return (<Autocomplete
-        onChange={(e, val) => onChange({ target: { id: "category", value: val } })}
-        id="category"
-        getOptionLabel={ProductCategories.label}
-        value={value}
-        options={options.map((option) => option.label)}
-        isOptionEqualToValue={(option, val) => option === val}
-        renderInput={(params) => <TextInput {...params} id="category" size="small" variant="outlined" fullWidth label="Category" />}
-        renderOption={(props, option, { selected }) => (
-            <MenuItem key={option} {...props}>
-                {option}{selected && <CheckIcon sx={{ color: 'success.main', pl: 1 }} />}
-            </MenuItem>
-        )} />
+    return (
+        <Autocomplete
+            onChange={(e, val) => onChange({ target: { id: "category", value: val } })}
+            id="category"
+            getOptionLabel={ProductCategories.label}
+            value={value}
+            options={options.map((option) => option.label)}
+            isOptionEqualToValue={(option, val) => option === val}
+            renderInput={(params) => <TextInput {...params} id="category" size="small" variant="outlined" fullWidth label="Category" />}
+            renderOption={(props, option, { selected }) => (
+                <MenuItem key={option} {...props}>
+                    {option}{selected && <CheckIcon sx={{ color: 'success.main', pl: 1 }} />}
+                </MenuItem>
+            )}
+        />
     )
 }
 const TextInput = styled(TextField)(({ theme }) => ({
