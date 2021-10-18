@@ -1,25 +1,21 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
-import CheckIcon from '@mui/icons-material/Check';
 import { Typography } from '@mui/material';
-import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
-import Chip from '@mui/material/Chip';
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from '@mui/material/Grid';
-import MenuItem from '@mui/material/MenuItem';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import * as PropTypes from 'prop-types';
 import ImageUploading from 'react-images-uploading';
 import { v4 as uuidv4 } from 'uuid';
 
+import { Dropdown } from '../../../components/Dropdown'
 import { FileUploader } from '../../../components/FileUploader';
 import { ImagePager } from '../../../components/ImagePager';
 import { imgStorage } from '../../../config';
 import { useApi } from '../context';
-import { ProductCategories, Empty } from '../ProductCategories'
 
 export const Form = ({ onAction }) => {
 
@@ -93,7 +89,6 @@ export const Form = ({ onAction }) => {
         setProduct(state.product);
     }, [state.product]);
 
-    const options = useMemo(() => ProductCategories, []);
     const handleChange = (e) => {
         const key = e.target.id;
         const val = e.target.value;
@@ -128,22 +123,7 @@ export const Form = ({ onAction }) => {
                                 error={Boolean(errorMsg)}
                                 helperText={errorMsg}
                             />
-                            <Autocomplete
-                                onChange={(e, val) => handleChange({ target: { id: "category", value: val } })}
-                                id="category"
-                                getOptionLabel={ProductCategories.label}
-                                value={product && product.category}
-                                options={options.map((option) => option.label)}
-                                isOptionEqualToValue={(option, val) => option === val}
-                                renderInput={(params) => <TextInput {...params} id="category" size="small" variant="outlined" fullWidth label="Category" />}
-                                renderOption={(props, option, { selected }) => (
-                                    <MenuItem key={option} {...props}>
-                                        {option}{selected && <CheckIcon sx={{ color: 'success.main', pl: 1 }} />}
-                                    </MenuItem>
-                                )
-                                }
-
-                            />
+                            <Dropdown dataType="categories" value={product && product.category} onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12}>
                             <TextInput id="description" label="Description"
@@ -186,26 +166,7 @@ export const Form = ({ onAction }) => {
                             {message && <Typography color="error.main">A minimum of 1 image is required before submission</Typography>}
                         </Grid>
                         <Grid item xs={12}>
-                            <Autocomplete
-                                onChange={(e, val) => handleChange({ target: { id: "tags", value: val } })}
-                                multiple
-                                isOptionEqualToValue={(option, val) => option === val}
-                                id="tags"
-                                value={product && product.tags.map((item) => item)}
-                                options={Empty}
-                                freeSolo
-                                renderTags={(value, getTagProps) =>
-                                    value.map((option, index) => (
-                                        <Chip label={<Typography>{option}</Typography>} {...getTagProps({ index })} />
-                                    ))
-                                }
-                                renderInput={(params) => (
-                                    <TextInput
-                                        {...params}
-                                        id="tags" size="small" variant="outlined" fullWidth label="Tags" helperText="Please create 5 tags"
-                                    />
-                                )}
-                            />
+                            <Dropdown dataType="tags" value={product && product.tags.map((item) => item)} onChange={handleChange} tags />
                         </Grid>
                     </Grid>
                     <Button

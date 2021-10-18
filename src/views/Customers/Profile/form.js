@@ -1,25 +1,21 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import CheckIcon from '@mui/icons-material/Check';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DatePicker from '@mui/lab/DatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from '@mui/material/Grid';
-import MenuItem from '@mui/material/MenuItem';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import { format, parseISO } from 'date-fns';
 import * as PropTypes from 'prop-types';
-import countryList from 'react-select-country-list';
 
+import { Dropdown } from '../../../components/Dropdown'
 import { useApi } from '../context';
 
 const steps = ['Basic Info', 'Address'];
@@ -94,7 +90,7 @@ export const Form = ({ onAction }) => {
         setPerson(state.person);
     }, [state.person]);
 
-    const options = useMemo(() => countryList().getData(), []);
+    // const options = useMemo(() => countryList().getData(), []);
     const handleChange = (e) => {
         const key = e.target.id;
         const val = e.target.value;
@@ -213,22 +209,7 @@ export const Form = ({ onAction }) => {
                                         value={person && person.region}
                                         onChange={handleChange}
                                     />
-                                    <Autocomplete
-                                        id="country"
-                                        onChange={(e, val) => handleChange({ target: { id: "country", value: val } })}
-                                        getOptionLabel={options.label}
-                                        value={person && person.country}
-                                        options={options.map((option) => option.label)}
-                                        isOptionEqualToValue={(option, val) => option === val}
-                                        renderInput={(params) => <TextInput size="small" id="country" variant="outlined" label="Country" fullWidth {...params} />}
-                                        renderOption={(props, option, { selected }) => (
-                                            <MenuItem key={option} {...props}>
-                                                {option}{selected && <CheckIcon sx={{ color: 'success.main', pl: 1 }} />}
-                                            </MenuItem>
-                                        )
-                                        }
-                                    />
-                                    {errorMsg && <Typography variant="body2">{errorMsg}</Typography>}
+                                    <Dropdown dataType="country" value={person && person.country} onChange={handleChange} errorMsg />
                                 </>
                             }
                             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
