@@ -1,27 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
-import CloseIcon from '@mui/icons-material/Close';
-import CreateIcon from '@mui/icons-material/Create';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 import FormControl from '@mui/material/FormControl';
-import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import ActionLink from '../../../components/ActionLink';
+import { DisplayCard } from '../../../components/DisplayCard';
 import SearchBar from '../../../components/SearchBar';
 import { Pager } from '../../../components/TablePager';
 import { ProductProvider } from '../context';
@@ -38,7 +28,6 @@ export const ProductPageExt = () => {
 }
 
 const ProductPage = () => {
-    const [view, setView] = useState('true');
     const [{ products }, { deleteProduct, fetchProducts }] = useApi();
     const [query, setQuery] = useState('');
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
@@ -64,14 +53,6 @@ const ProductPage = () => {
     const handlePage = () => {
         setPage(prev => ({ ...prev, offset: prev.offset + pageSize }))
     };
-    const change = () => {
-        setView(false);
-    };
-    const changeBack = () => {
-        setView(true);
-    };
-
-
 
     return (
         <>
@@ -83,10 +64,10 @@ const ProductPage = () => {
                 alignItems="center"
                 spacing={1}
             >
-                <Grid item xs={4} md={6}>
+                <Grid item xs={4} md={7}>
                     <SearchBar value={query} onChange={setQuery} />
                 </Grid>
-                <Grid item xs={4} md={2}>
+                <Grid item xs={4} md={3}>
                     <FormControl fullWidth>
                         <InputLabel sx={{ m: -1 }} id="demo-simple-select-label">Categories</InputLabel>
                         <Select
@@ -96,7 +77,6 @@ const ProductPage = () => {
                             value={categories}
                             label="Categories"
                             onChange={handleChange}
-                        // sx={{ borderRadius: '4rem' }}
                         >
                             <MenuItem value={'Technology&Electronics'}>Technology & Electronics</MenuItem>
                             <MenuItem value={'Music'}>Music</MenuItem>
@@ -120,18 +100,10 @@ const ProductPage = () => {
                             <MenuItem value={'Pet care'}>Pet care</MenuItem>
                             <MenuItem value={'Jewelery & Accessories'}>Jewelery & Accessories</MenuItem>
                             <MenuItem value={'Sports & Recreation'}>Sports & Recreation</MenuItem>
-
-
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item xs={4} md={4}>
-                    <Button
-                        sx={{ mr: 1 }}
-                        variant="outlined"
-                        endIcon={view === true ? <CloseIcon fontSize="small" /> : <CreateIcon fontSize="small" />}
-                        onClick={view === true ? change : changeBack}> {view === true ? "Close" : "Edit"}
-                    </Button>
+                <Grid item xs={4} md={2}>
                     <Button variant='contained' component={ActionLink} to="/add-product">
                         Add new Product
                     </Button>
@@ -144,48 +116,14 @@ const ProductPage = () => {
                             ? ((item.name) + (item.category) + (item.tags.map((tag) => tag))).toLowerCase().includes(query.toLowerCase())
                             : item).map((item, index) =>
                                 <Grid key={index} item xs={3}>
-                                    <Card sx={{ m: 1 }}>
-                                        <CardMedia
-                                            component="img"
-                                            height="190"
-
-                                            image=''
-                                            alt=""
-                                        />
-                                        <CardHeader
-                                            title={<Typography variant="h5">
-                                                {item.name}
-                                            </Typography>}
-                                            subheader={item.category}
-                                            action={view === true ?
-                                                <IconButton size="small" onClick={() => handleDelete(item.id)}>
-                                                    <DeleteForeverIcon />
-                                                </IconButton> : ''}
-                                        />
-                                        {/* <CardActionArea component={ActionLink} to={`/products/${item.id}`} > */}
-                                        <CardContent>
-                                            <Typography noWrap variant="body2" color="text.secondary">
-                                                {item.description}
-                                            </Typography>
-
-                                        </CardContent>
-                                        <CardActions disableSpacing>
-                                            <Stack
-                                                direction="column"
-                                                justifyContent="center"
-                                                alignItems="center"
-                                                spacing={2}
-                                            >
-                                                <Typography color="text.secondary" variant="caption">
-                                                    Price
-                                                </Typography>
-                                                <Typography variant="body1">
-                                                    {`$${item.price}`}
-                                                </Typography>
-                                            </Stack>
-                                        </CardActions>
-                                        {/* </CardActionArea> */}
-                                    </Card>
+                                    <DisplayCard
+                                        string={item.id}
+                                        onDelete={handleDelete}
+                                        title={item.name}
+                                        subtitle={item.category}
+                                        price={item.price}
+                                        owner={item.user}
+                                        description={item.description} />
                                 </Grid>
                             )}
                     </Grid>
