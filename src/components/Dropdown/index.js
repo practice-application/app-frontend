@@ -9,6 +9,10 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
 import countryList from 'react-select-country-list';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+
 
 export const Dropdown = props => {
     const { value, onChange, errorMsg, tags, dataType } = props
@@ -21,7 +25,7 @@ export const Dropdown = props => {
         case 'categories':
             return <ProductCategory value={value} onChange={onChange} />
         case 'productDropdown':
-            return <CategoryDropwdown value={value} onChange={onChange} />
+            return <CategoryDropdown value={value} onChange={onChange} />
         default:
             throw new Error('Invalid dataType prop passed to Dropdown');
     }
@@ -101,10 +105,31 @@ const ProductCategory = props => {
     )
 }
 
-const CategoryDropwdown = props => {
+const CategoryDropdown = props => {
+    const { value, onChange } = props
+    const options = useMemo(() => ProductCategories, []);
+
+    // const handleChange = (event) => {
+    //     setCategories(event.target.value);
+    // };
     return (
         <>
-
+        <FormControl fullWidth>
+            <InputLabel sx={{ m: -1 }} id="demo-simple-select-label">Categories</InputLabel>
+            <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                size="small"
+                value={value}
+                onChange={(val) => onChange({ target: { id: "productDropdown", value: val } })}
+            >
+            {options.map(item => 
+              <MenuItem key={item.id}>
+                {item.label}
+              </MenuItem>
+            )}
+            </Select>
+            </FormControl>
         </>
     )
 }

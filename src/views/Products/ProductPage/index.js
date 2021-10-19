@@ -4,10 +4,6 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 
 import ActionLink from '../../../components/ActionLink';
@@ -16,6 +12,8 @@ import SearchBar from '../../../components/SearchBar';
 import { Pager } from '../../../components/TablePager';
 import { ProductProvider } from '../context';
 import { useApi } from '../context';
+
+import Dropdown from '../../../components/Dropdown';
 
 const pageSize = 12;
 
@@ -67,41 +65,8 @@ const ProductPage = () => {
                 <Grid item xs={4} md={7}>
                     <SearchBar value={query} onChange={setQuery} />
                 </Grid>
-                <Grid item xs={4} md={3}>
-                    <FormControl fullWidth>
-                        <InputLabel sx={{ m: -1 }} id="demo-simple-select-label">Categories</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            size="small"
-                            value={categories}
-                            label="Categories"
-                            onChange={handleChange}
-                        >
-                            <MenuItem value={'Technology&Electronics'}>Technology & Electronics</MenuItem>
-                            <MenuItem value={'Music'}>Music</MenuItem>
-                            <MenuItem value={'Books'}>Books</MenuItem>
-                            <MenuItem value={'Services'}>Services</MenuItem>
-                            <MenuItem value={'Clothing, Mens'}>Clothing, Men's</MenuItem>
-                            <MenuItem value={'Clothing, Women'}>Clothing, Women</MenuItem>
-                            <MenuItem value={'Clothing, childrens'}>Clothing, children's</MenuItem>
-                            <MenuItem value={'Vehicles'}>Vehicles</MenuItem>
-                            <MenuItem value={'Toys & Games'}>Toys & Games</MenuItem>
-                            <MenuItem value={'Hobbies'}>Hobbies</MenuItem>
-                            <MenuItem value={'Gaming'}>Gaming</MenuItem>
-                            <MenuItem value={'Homeware'}>Homeware</MenuItem>
-                            <MenuItem value={'Movies & Entertainment'}>Movies & Entertainment</MenuItem>
-                            <MenuItem value={'Food & Drink'}>Food & Drink</MenuItem>
-                            <MenuItem value={'Toiletries'}>Toiletries</MenuItem>
-                            <MenuItem value={'Office'}>Office</MenuItem>
-                            <MenuItem value={'Furniture'}>Furniture</MenuItem>
-                            <MenuItem value={'Misc'}>Misc</MenuItem>
-                            <MenuItem value={'Replicas'}>Replicas</MenuItem>
-                            <MenuItem value={'Pet care'}>Pet care</MenuItem>
-                            <MenuItem value={'Jewelery & Accessories'}>Jewelery & Accessories</MenuItem>
-                            <MenuItem value={'Sports & Recreation'}>Sports & Recreation</MenuItem>
-                        </Select>
-                    </FormControl>
+                <Grid item xs={4} md={2}>
+                    <Dropdown dataType="productDropdown" value={categories && categories.category} onChange={e => setCategories(e.value)} />
                 </Grid>
                 <Grid item xs={4} md={2}>
                     <Button variant='contained' component={ActionLink} to="/add-product">
