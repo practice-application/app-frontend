@@ -8,12 +8,11 @@ import Typography from '@mui/material/Typography';
 
 import ActionLink from '../../../components/ActionLink';
 import { DisplayCard } from '../../../components/DisplayCard';
+import Dropdown from '../../../components/Dropdown';
 import SearchBar from '../../../components/SearchBar';
 import { Pager } from '../../../components/TablePager';
 import { ProductProvider } from '../context';
 import { useApi } from '../context';
-
-import Dropdown from '../../../components/Dropdown';
 
 const pageSize = 12;
 
@@ -66,7 +65,7 @@ const ProductPage = () => {
                     <SearchBar value={query} onChange={setQuery} />
                 </Grid>
                 <Grid item xs={4} md={2}>
-                    <Dropdown dataType="productDropdown" value={categories && categories.category} onChange={e => setCategories(e.value)} />
+                    <Dropdown dataType="productDropdown" value={categories} onChange={setCategories} />
                 </Grid>
                 <Grid item xs={4} md={2}>
                     <Button variant='contained' component={ActionLink} to="/add-product">

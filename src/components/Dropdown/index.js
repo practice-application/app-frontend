@@ -3,15 +3,15 @@ import React, { useMemo } from 'react';
 import CheckIcon from '@mui/icons-material/Check';
 import Autocomplete from '@mui/material/Autocomplete';
 import Chip from '@mui/material/Chip';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
 import countryList from 'react-select-country-list';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
 
 
 export const Dropdown = props => {
@@ -114,21 +114,20 @@ const CategoryDropdown = props => {
     // };
     return (
         <>
-        <FormControl fullWidth>
-            <InputLabel sx={{ m: -1 }} id="demo-simple-select-label">Categories</InputLabel>
-            <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                size="small"
-                value={value}
-                onChange={(val) => onChange({ target: { id: "productDropdown", value: val } })}
-            >
-            {options.map(item => 
-              <MenuItem key={item.id}>
-                {item.label}
-              </MenuItem>
-            )}
-            </Select>
+            <FormControl fullWidth>
+                <InputLabel sx={{ m: -1 }} >Categories</InputLabel>
+                <Select
+                    id="productDropdown"
+                    size="small"
+                    value={value}
+                    onChange={(val) => onChange({ target: { id: "productDropdown", value: val } })}
+                >
+                    {options.map((item, index) =>
+                        <MenuItem key={index}>
+                            {item.label}
+                        </MenuItem>
+                    )}
+                </Select>
             </FormControl>
         </>
     )
