@@ -20,12 +20,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import dateFormat from 'dateformat';
 
-import ActionLink from '../../components/ActionLink';
-import { Pager } from '../../components/TablePager';
 import { useApi } from '../Products/context';
 import { ProductProvider } from '../Products/context';
 
-const pageSize = 12;
 
 export const User = () => {
     return (
@@ -39,7 +36,6 @@ const Profile = () => {
     const { user } = useAuth0();
     const { name, picture, email, nickname, email_verified, created_at } = user;
     const [{ products }, { deleteProduct, fetchProducts }] = useApi();
-    const [page, setPage] = useState({ offset: 0, limit: pageSize });
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -51,8 +47,8 @@ const Profile = () => {
     }
 
     useEffect(() => {
-        fetchProducts(page);
-    }, [fetchProducts, page]);
+        fetchProducts();
+    }, [fetchProducts]);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -66,9 +62,6 @@ const Profile = () => {
         setAnchorEl(null);
     };
 
-    const handlePage = () => {
-        setPage(prev => ({ ...prev, offset: prev.offset + pageSize }))
-    };
 
     return (
         <Container maxWidth="md">
@@ -156,9 +149,6 @@ const Profile = () => {
                             </Card>
                         )}
                     </List>
-                    <Pager count={products.data.length} total={products.matches}
-                        onPage={() => handlePage()}
-                    />
                 </>
             }
         </Container>
