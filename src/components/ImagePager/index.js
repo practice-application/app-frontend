@@ -18,7 +18,7 @@ import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
 
 export const ImagePager = props => {
-    const { maxSteps, array, onDelete, onChange, image, action, upload, view, title, elevation } = props;
+    const { maxSteps, array, onDelete, onChange, image, action, upload, view, title, elevation, height } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const [activeStep, setActiveStep] = useState(0);
@@ -92,7 +92,7 @@ export const ImagePager = props => {
                             <CardActionArea onClick={handleClickOpen}>
                                 <CardMedia
                                     component="img"
-                                    height={200}
+                                    height={200 | height}
                                     image={upload ? item.data_url : view && item}
                                     alt={upload ? item.file.name : view && item}
                                 />

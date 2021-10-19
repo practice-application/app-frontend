@@ -147,6 +147,7 @@ const ProductListing = () => {
                                     </ListItem>
                                 </Paper>
                                 <ImagePager
+                                    height={500}
                                     maxSteps={maxSteps}
                                     array={images}
                                     image={images[0]}
