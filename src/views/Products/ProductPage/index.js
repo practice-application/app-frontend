@@ -25,7 +25,7 @@ export const ProductPageExt = () => {
 }
 
 const ProductPage = () => {
-    const [{ products }, { deleteProduct, fetchProducts }] = useApi();
+    const [{ products }, { fetchProducts }] = useApi();
     const [query, setQuery] = useState('');
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
     const [categories, setCategories] = useState('');
@@ -39,13 +39,6 @@ const ProductPage = () => {
         window.location.reload()
     };
 
-    // const handleChange = (event) => {
-    //     setCategories(event.target.value);
-    // };
-
-    const handleDelete = async (id) => {
-        deleteProduct(id);
-    };
 
     const handlePage = () => {
         setPage(prev => ({ ...prev, offset: prev.offset + pageSize }))
@@ -61,16 +54,11 @@ const ProductPage = () => {
                 alignItems="center"
                 spacing={1}
             >
-                <Grid item xs={4} md={7}>
+                <Grid item xs={8} md={10}>
                     <SearchBar value={query} onChange={setQuery} />
                 </Grid>
                 <Grid item xs={4} md={2}>
                     <Dropdown dataType="productDropdown" value={categories} onChange={setCategories} />
-                </Grid>
-                <Grid item xs={4} md={2}>
-                    <Button variant='contained' component={ActionLink} to="/add-product">
-                        Add new Product
-                    </Button>
                 </Grid>
             </Grid>
             {products.data ?

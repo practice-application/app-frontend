@@ -5,10 +5,12 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -20,6 +22,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import dateFormat from 'dateformat';
 
+import ActionLink from '../../components/ActionLink';
 import { useApi } from '../Products/context';
 import { ProductProvider } from '../Products/context';
 
@@ -101,7 +104,23 @@ const Profile = () => {
             </Card>
             {products.data &&
                 <>
-                    <Typography variant="h2" gutterBottom noWrap>My Listings</Typography>
+                    <Grid
+                        sx={{ pt: 2 }}
+                        container
+                        direction="row"
+                        // justifyContent="center"
+                        alignItems="center"
+                        spacing={1}
+                    >
+                        <Grid item xs={8} md={8}>
+                            <Typography variant="h2" gutterBottom noWrap>My Listings</Typography>
+                        </Grid>
+                        <Grid item xs={4} md={4}>
+                            <Button variant='contained' component={ActionLink} to="/add-product">
+                                Create new Listing
+                            </Button></Grid>
+                    </Grid>
+
                     <List>
                         {products.data.map((item, index) =>
                             <Card sx={{ my: 1 }} key={index}>
@@ -142,7 +161,6 @@ const Profile = () => {
                                             secondary={item.category}
                                         />
                                     </ListItem>
-
                                 }
                             </Card>
                         )}
