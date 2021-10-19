@@ -105,7 +105,7 @@ const Profile = () => {
                     <List>
                         {products.data.map((item, index) =>
                             <Card sx={{ my: 1 }} key={index}>
-                                {item.user === nickname ?
+                                {item.user === nickname &&
                                     <ListItem secondaryAction={
                                         <>
                                             <Menu
@@ -142,9 +142,7 @@ const Profile = () => {
                                             secondary={item.category}
                                         />
                                     </ListItem>
-                                    : <Typography>
-                                        You have no listings
-                                    </Typography>
+
                                 }
                             </Card>
                         )}
