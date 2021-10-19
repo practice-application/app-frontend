@@ -5,12 +5,12 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -19,6 +19,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import dateFormat from 'dateformat';
 
@@ -103,23 +104,18 @@ const Profile = () => {
                 </CardContent>
             </Card>
             {products.data &&
-                <>
-                    <Grid
-                        sx={{ pt: 2 }}
-                        container
+                <Box sx={{ pt: 3 }}>
+                    <Stack
                         direction="row"
-                        // justifyContent="center"
+                        justifyContent="space-between"
                         alignItems="center"
-                        spacing={1}
+                        spacing={2}
                     >
-                        <Grid item xs={8} md={8}>
-                            <Typography variant="h2" gutterBottom noWrap>My Listings</Typography>
-                        </Grid>
-                        <Grid item xs={4} md={4}>
-                            <Button variant='contained' component={ActionLink} to="/add-product">
-                                Create new Listing
-                            </Button></Grid>
-                    </Grid>
+                        <Typography variant="h2" noWrap>My Listings</Typography>
+                        <Button variant='contained' component={ActionLink} to="/add-product">
+                            Create new Listing
+                        </Button>
+                    </Stack>
 
                     <List>
                         {products.data.map((item, index) =>
@@ -165,9 +161,9 @@ const Profile = () => {
                             </Card>
                         )}
                     </List>
-                </>
+                </Box>
             }
-        </Container>
+        </Container >
 
     );
 
