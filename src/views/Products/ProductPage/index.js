@@ -82,11 +82,9 @@ const ProductPage = () => {
                                 <Grid key={index} item xs={3}>
                                     <DisplayCard
                                         string={item.id}
-                                        onDelete={handleDelete}
                                         title={item.name}
                                         subtitle={item.category}
                                         price={item.price}
-                                        owner={item.user}
                                         description={item.description} />
                                 </Grid>
                             )}
