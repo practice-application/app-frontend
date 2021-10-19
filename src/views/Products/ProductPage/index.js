@@ -24,7 +24,6 @@ import Typography from '@mui/material/Typography';
 import ActionLink from '../../../components/ActionLink';
 import SearchBar from '../../../components/SearchBar';
 import { Pager } from '../../../components/TablePager';
-// import { imgStorage } from '../../../config';
 import { ProductProvider } from '../context';
 import { useApi } from '../context';
 
@@ -41,27 +40,9 @@ export const ProductPageExt = () => {
 const ProductPage = () => {
     const [view, setView] = useState('true');
     const [{ products }, { deleteProduct, fetchProducts }] = useApi();
-    // const [images, setImages] = useState([]);
     const [query, setQuery] = useState('');
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
     const [categories, setCategories] = useState('');
-
-
-    // useEffect(() => {
-    //     const fetchImages = async () => {
-    //         const fileLocation = `/product-images`
-    //         let result = await imgStorage.ref().child(`${fileLocation}/${products.data.imageID}/`).list();
-    //         let urlPromises = result.items.map((imageRef) =>
-    //             imageRef.getDownloadURL()
-    //         );
-    //         return Promise.all(urlPromises);
-    //     };
-    //     const loadImages = async () => {
-    //         const urls = await fetchImages();
-    //         setImages(urls);
-    //     };
-    //     loadImages();
-    // }, [products]);
 
     useEffect(() => {
         fetchProducts(page);
@@ -89,6 +70,8 @@ const ProductPage = () => {
     const changeBack = () => {
         setView(true);
     };
+
+
 
     return (
         <>
@@ -157,60 +140,54 @@ const ProductPage = () => {
             {products.data ?
                 <>
                     <Grid container spacing={1} direction="row" justifyContent="flex-start" >
-                        {products.data.filter((item) => {
-                            var search = (item.name) + (item.category) + (item.tags.map((tag) => tag))
-                            if (query === "") {
-                                return item
-                            } else if (search.toLowerCase().includes(query.toLowerCase())
-                            ) {
-                                return item
-                            }
-                        }).map((item, index) =>
-                            <Grid key={index} item xs={3}>
-                                <Card sx={{ m: 1 }}>
-                                    <CardMedia
-                                        component="img"
-                                        height="190"
+                        {products.data.filter(item => query
+                            ? ((item.name) + (item.category) + (item.tags.map((tag) => tag))).toLowerCase().includes(query.toLowerCase())
+                            : item).map((item, index) =>
+                                <Grid key={index} item xs={3}>
+                                    <Card sx={{ m: 1 }}>
+                                        <CardMedia
+                                            component="img"
+                                            height="190"
 
-                                        image=''
-                                        alt=""
-                                    />
-                                    <CardHeader
-                                        title={<Typography variant="h5">
-                                            {item.name}
-                                        </Typography>}
-                                        subheader={item.category}
-                                        action={view === true ?
-                                            <IconButton size="small" onClick={() => handleDelete(item.id)}>
-                                                <DeleteForeverIcon />
-                                            </IconButton> : ''}
-                                    />
-                                    {/* <CardActionArea component={ActionLink} to={`/products/${item.id}`} > */}
-                                    <CardContent>
-                                        <Typography noWrap variant="body2" color="text.secondary">
-                                            {item.description}
-                                        </Typography>
+                                            image=''
+                                            alt=""
+                                        />
+                                        <CardHeader
+                                            title={<Typography variant="h5">
+                                                {item.name}
+                                            </Typography>}
+                                            subheader={item.category}
+                                            action={view === true ?
+                                                <IconButton size="small" onClick={() => handleDelete(item.id)}>
+                                                    <DeleteForeverIcon />
+                                                </IconButton> : ''}
+                                        />
+                                        {/* <CardActionArea component={ActionLink} to={`/products/${item.id}`} > */}
+                                        <CardContent>
+                                            <Typography noWrap variant="body2" color="text.secondary">
+                                                {item.description}
+                                            </Typography>
 
-                                    </CardContent>
-                                    <CardActions disableSpacing>
-                                        <Stack
-                                            direction="column"
-                                            justifyContent="center"
-                                            alignItems="center"
-                                            spacing={2}
-                                        >
-                                            <Typography color="text.secondary" variant="caption">
-                                                Price
-                                            </Typography>
-                                            <Typography variant="body1">
-                                                {`$${item.price}`}
-                                            </Typography>
-                                        </Stack>
-                                    </CardActions>
-                                    {/* </CardActionArea> */}
-                                </Card>
-                            </Grid>
-                        )}
+                                        </CardContent>
+                                        <CardActions disableSpacing>
+                                            <Stack
+                                                direction="column"
+                                                justifyContent="center"
+                                                alignItems="center"
+                                                spacing={2}
+                                            >
+                                                <Typography color="text.secondary" variant="caption">
+                                                    Price
+                                                </Typography>
+                                                <Typography variant="body1">
+                                                    {`$${item.price}`}
+                                                </Typography>
+                                            </Stack>
+                                        </CardActions>
+                                        {/* </CardActionArea> */}
+                                    </Card>
+                                </Grid>
+                            )}
                     </Grid>
                     <Pager count={products.data.length} total={products.matches}
                         onPage={() => handlePage()}
