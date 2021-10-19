@@ -25,6 +25,7 @@ export const Form = ({ onAction }) => {
     const [submitting, setSubmitting] = useState();
     const [image, setImages] = useState([]);
     const [message, setMessage] = useState();
+    const [setID] = useState(uuidv4());
     const maxSteps = image.length;
     const maxNumber = 5
     const { user } = useAuth0();
@@ -42,37 +43,37 @@ export const Form = ({ onAction }) => {
         }
     }
 
-    var extraFiles = (
-        image[1] && imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[1].file.name}`).put(image[1].file),
-        image[2] && imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[2].file.name}`).put(image[2].file),
-        image[3] && imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[3].file.name}`).put(image[3].file),
-        image[4] && imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[4].file.name}`).put(image[4].file)
-    )
+    const imageUpload = async () => {
+        image[0] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[0].file.name}`).put(image[0].file)
+        image[1] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[1].file.name}`).put(image[1].file)
+        image[2] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[2].file.name}`).put(image[2].file)
+        image[3] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[3].file.name}`).put(image[3].file)
+        image[4] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[4].file.name}`).put(image[4].file)
+    }
 
     const onChange = (imageList) => {
         setImages(imageList);
         console.log(imageList.map((item) => item.file.name))
     }
-    let setID = uuidv4()
-    const handleSave = async () => {
+
+    const handleSave = () => {
         if (validPrice()) {
             setErrorMsg(null);
             setSubmitting(true);
             if (product.id) {
                 update(product)
                 if (image[0]) {
-                    await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[0].file.name}`).put(image[0].file)
-                    await extraFiles
+                    imageUpload()
                 }
                 onAction()
                 setSubmitting(false);
                 window.location.reload()
             } else {
                 if (image[0]) {
+                    product.imageID = setID
                     product.user = nickname
                     create(product)
-                    await imgStorage.ref(`/product-images/${product.imageID = setID}/${product.name + "-" + image[0].file.name}`).put(image[0].file)
-                    await extraFiles
+                    imageUpload()
                     onAction()
                     setSubmitting(false);
                 }
