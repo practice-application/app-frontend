@@ -40,9 +40,9 @@ const ProductPage = () => {
         window.location.reload()
     };
 
-    const handleChange = (event) => {
-        setCategories(event.target.value);
-    };
+    // const handleChange = (event) => {
+    //     setCategories(event.target.value);
+    // };
 
     const handleDelete = async (id) => {
         deleteProduct(id);
