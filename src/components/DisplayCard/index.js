@@ -6,7 +6,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ShareIcon from '@mui/icons-material/Share';
-import { CardActionArea, CardHeader } from '@mui/material';
+import { CardActionArea, CardHeader, CardActions } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -43,27 +43,33 @@ const BigDisplayCard = props => {
     const { title, subtitle, description, price, string, to, image } = props;
     const [view, setView] = useState(false);
 
+    const handleClick = () => {
+        view === false && setView(true);
+        view === true && setView(false);
+    }
+
     return (
         <Card sx={{ m: 1 }}>
-            {/* <CardActionArea component={ActionLink} to={`/products/${string}` || to} > */}
-            <CardMedia
-                component="img"
-                height="200"
-                image={image}
-                alt={`${image} text`}
-            />
-            <CardHeader
-                title={<Typography variant="h5">
-                    {title}
-                </Typography>}
-                subheader={subtitle}
-            />
-            <ListItem>
-                <Typography noWrap variant="body2" color="text.secondary">
-                    {description}
-                </Typography>
-            </ListItem>
-            <ListItem>
+            <CardActionArea component={ActionLink} to={`/products/${string}` || to} >
+                <CardMedia
+                    component="img"
+                    height="200"
+                    image={image}
+                    alt={`${image} text`}
+                />
+                <CardHeader
+                    title={<Typography variant="h5">
+                        {title}
+                    </Typography>}
+                    subheader={subtitle}
+                />
+                <ListItem>
+                    <Typography noWrap variant="body2" color="text.secondary">
+                        {description}
+                    </Typography>
+                </ListItem>
+            </CardActionArea>
+            <CardActions >
                 <Stack
                     direction="column"
                     justifyContent="center"
@@ -76,18 +82,15 @@ const BigDisplayCard = props => {
                     <Typography variant="body1">
                         {`$${price}`}
                     </Typography>
-                    <IconButton onClick={() => view === false ? setView(true) : setView(false)} sx={{ marginLeft: 30 }}>
-                        {view === false ?
-                            <FavoriteBorderIcon />
-                            :
-                            <FavoriteIcon />
-                        }
-                    </IconButton>
                 </Stack>
-
-            </ListItem>
-            {/* </CardActionArea> */}
-
+                <IconButton onClick={handleClick}>
+                    {view === false ?
+                        <FavoriteBorderIcon />
+                        :
+                        <FavoriteIcon />
+                    }
+                </IconButton>
+            </CardActions>
         </Card>
     )
 }
