@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import ShareIcon from '@mui/icons-material/Share';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -18,8 +19,8 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Popover from '@mui/material/Popover';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import dateFormat from 'dateformat';
@@ -66,6 +67,8 @@ const Profile = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+
 
 
     return (
@@ -124,7 +127,8 @@ const Profile = () => {
                                 {item.user === nickname &&
                                     <ListItem secondaryAction={
                                         <>
-                                            <Menu
+                                            <Popover
+                                                elevation={2}
                                                 anchorEl={anchorEl}
                                                 open={open}
                                                 onClose={handleClose}
@@ -141,9 +145,15 @@ const Profile = () => {
                                                     <ListItemIcon>
                                                         <DeleteForeverIcon fontSize="small" />
                                                     </ListItemIcon>
-                                                    <Typography variant="body2">Delete</Typography>
+                                                    <Typography variant="body2">Remove listing</Typography>
                                                 </MenuItem>
-                                            </Menu>
+                                                <MenuItem>
+                                                    <ListItemIcon>
+                                                        <ShareIcon fontSize="small" />
+                                                    </ListItemIcon>
+                                                    <Typography variant="body2">Share</Typography>
+                                                </MenuItem>
+                                            </Popover>
                                             <IconButton size="small" onClick={handleClick}>
                                                 <MoreVertIcon fontSize="small" />
                                             </IconButton>

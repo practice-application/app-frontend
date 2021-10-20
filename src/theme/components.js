@@ -83,6 +83,10 @@ export const components = {
             elevation1: {
                 boxShadow: '2px 2px 2px rgba(126, 143, 158, 0.1)',
             },
+            elevation2: {
+                boxShadow: '2px 2px 2px rgba(126, 143, 158, 0.1)',
+                backgroundColor: '#ffffff'
+            },
             elevation9: {
                 boxShadow: '0px 2px 20px rgba(235, 239, 244, 0.8)',
             },

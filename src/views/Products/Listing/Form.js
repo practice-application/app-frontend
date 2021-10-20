@@ -29,7 +29,7 @@ export const Form = ({ onAction }) => {
     const maxSteps = image.length;
     const maxNumber = 5
     const { user } = useAuth0();
-    const { nickname } = user;
+    const { nickname, picture } = user;
 
     const validPrice = () => {
         let isValid = true;
@@ -62,8 +62,10 @@ export const Form = ({ onAction }) => {
             setSubmitting(true);
             if (product.id) {
                 update(product)
+                product.userPic = picture
                 if (image[0]) {
                     imageUpload()
+
                 }
                 onAction()
                 setSubmitting(false);
@@ -71,6 +73,7 @@ export const Form = ({ onAction }) => {
             } else {
                 if (image[0]) {
                     product.imageID = setID
+                    product.userPic = picture
                     product.user = nickname
                     create(product)
                     imageUpload()

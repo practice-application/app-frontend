@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import CloseIcon from '@mui/icons-material/Close';
 import CreateIcon from '@mui/icons-material/Create';
 import { Typography } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
@@ -143,7 +144,7 @@ const ProductListing = () => {
                                     <ListItem>
                                         <ListItemText>
                                             Seller:
-                                        </ListItemText>  {customName()}
+                                        </ListItemText> <Avatar sx={{ width: 30, height: 30, mr: 1 }} alt={product.user} src={product.userPic} /> {customName()}
                                     </ListItem>
                                 </Paper>
                                 <ImagePager
