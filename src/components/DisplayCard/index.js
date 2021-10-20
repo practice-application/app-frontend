@@ -84,7 +84,8 @@ const BigDisplayCard = props => {
             <IconButton onClick={() => setView('true')} sx={{ marginLeft: 30 }}>
                 <FavoriteBorderIcon />
             </IconButton>}
-            {view === ('true') &&  <IconButton onClick={() => setView('false')} sx={{ marginLeft: 30 }}>
+            {view === ('true') &&  
+            <IconButton onClick={() => setView('false')} sx={{ marginLeft: 30 }}>
                 <FavoriteIcon />
             </IconButton> }
 
