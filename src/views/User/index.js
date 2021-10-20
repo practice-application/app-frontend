@@ -15,6 +15,7 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
@@ -148,15 +149,18 @@ const Profile = () => {
                                             </IconButton>
                                         </>
                                     }>
-                                        <ListItemAvatar>
-                                            <Avatar>
-                                            </Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText
-                                            primary={item.name}
-                                            secondary={item.category}
-                                        />
+                                        <ListItemButton component={ActionLink} to={`/products/${item.id}`}>
+                                            <ListItemAvatar>
+                                                <Avatar>
+                                                </Avatar>
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                                primary={item.name}
+                                                secondary={item.category}
+                                            />
+                                        </ListItemButton>
                                     </ListItem>
+
                                 }
                             </Card>
                         )}

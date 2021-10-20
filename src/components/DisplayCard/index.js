@@ -15,7 +15,6 @@ export const DisplayCard = props => {
 
     return (
         <Card sx={{ m: 1 }}>
-
             <CardActionArea component={ActionLink} to={`/products/${string}` || to} >
                 <CardMedia
                     component="img"
