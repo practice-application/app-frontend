@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ListIcon from '@mui/icons-material/List';
 import PersonIcon from '@mui/icons-material/Person';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -30,6 +30,11 @@ import { DisplayCard } from '../../components/DisplayCard';
 import { useApi } from '../Products/context';
 import { ProductProvider } from '../Products/context';
 
+const tabArray = [
+    { label: "Personal Info", icon: <PersonIcon />, value: '1' },
+    { label: "My Cart", icon: <ShoppingCartIcon />, value: '2' },
+    { label: "My Listings", icon: <ListIcon />, value: '3' },
+]
 
 export const User = () => {
     return (
@@ -75,9 +80,9 @@ const Profile = () => {
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
-                        <Tab icon={<PersonIcon />} label="Personal Info" value="1" />
-                        <Tab icon={<ShoppingCartIcon />} label="My Cart" value="2" />
-                        <Tab icon={<ListIcon />} label={"My Listings"} value="3" />
+                        {tabArray.map((item, i) =>
+                            <Tab key={i} icon={item.icon} label={item.label} value={item.value} />
+                        )}
                     </TabList>
                 </Box>
                 <TabPanel value="1">
