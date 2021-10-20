@@ -56,7 +56,7 @@ const Profile = () => {
 
     var emailVerified;
     if (email_verified === true) {
-        emailVerified = <CheckCircleIcon />
+        emailVerified = <CheckCircleIcon sx={{ color: 'success.main' }} />
     } else {
         emailVerified = "Needs verification"
     }
@@ -79,7 +79,7 @@ const Profile = () => {
         <Container maxWidth="md">
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <TabList onChange={handleChange} aria-label="lab API tabs example">
+                    <TabList onChange={handleChange} >
                         {tabArray.map((item, i) =>
                             <Tab key={i} icon={item.icon} label={item.label} value={item.value} />
                         )}
