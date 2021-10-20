@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import ListIcon from '@mui/icons-material/List';
+import PersonIcon from '@mui/icons-material/Person';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
@@ -71,9 +75,9 @@ const Profile = () => {
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
-                        <Tab label="Personal Info" value="1" />
-                        <Tab label="My Cart" value="2" />
-                        <Tab label="My Listings" value="3" />
+                        <Tab icon={<PersonIcon />} label="Personal Info" value="1" />
+                        <Tab icon={<ShoppingCartIcon />} label="My Cart" value="2" />
+                        <Tab icon={<ListIcon />} label={"My Listings"} value="3" />
                     </TabList>
                 </Box>
                 <TabPanel value="1">
@@ -124,7 +128,7 @@ const Profile = () => {
                             spacing={2}
                         >
                             <Typography variant="h2" noWrap>My Listings</Typography>
-                            <Button variant='contained' component={ActionLink} to="/add-product">
+                            <Button startIcon={<AddOutlinedIcon />} variant='contained' component={ActionLink} to="/add-product">
                                 Create new Listing
                             </Button>
                         </Stack>
