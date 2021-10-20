@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import ShareIcon from '@mui/icons-material/Share';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -12,20 +9,16 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MenuItem from '@mui/material/MenuItem';
-import Popover from '@mui/material/Popover';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import dateFormat from 'dateformat';
 
 import ActionLink from '../../components/ActionLink';
+import { DisplayCard } from '../../components/DisplayCard';
 import { useApi } from '../Products/context';
 import { ProductProvider } from '../Products/context';
 
@@ -42,8 +35,6 @@ const Profile = () => {
     const { user } = useAuth0();
     const { name, picture, email, nickname, email_verified, created_at } = user;
     const [{ products }, { deleteProduct, fetchProducts }] = useApi();
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
 
     var emailVerified;
     if (email_verified === true) {
@@ -56,19 +47,14 @@ const Profile = () => {
         fetchProducts();
     }, [fetchProducts]);
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+
 
     const handleDelete = async (id) => {
         deleteProduct(id);
     };
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
 
-
+    console.log(useAuth0())
 
 
     return (
@@ -120,64 +106,12 @@ const Profile = () => {
                             Create new Listing
                         </Button>
                     </Stack>
+                    <DisplayCard dataType="small"
+                        array={products.data} onDelete={handleDelete} />
 
-                    <List>
-                        {products.data.map((item, index) =>
-                            <Card sx={{ my: 1 }} key={index}>
-                                {item.user === nickname &&
-                                    <ListItem secondaryAction={
-                                        <>
-                                            <Popover
-                                                elevation={2}
-                                                anchorEl={anchorEl}
-                                                open={open}
-                                                onClose={handleClose}
-                                                anchorOrigin={{
-                                                    vertical: 'top',
-                                                    horizontal: 'left',
-                                                }}
-                                                transformOrigin={{
-                                                    vertical: 'top',
-                                                    horizontal: 'left',
-                                                }}
-                                            >
-                                                <MenuItem onClick={() => { handleDelete(item.id); handleClose() }}>
-                                                    <ListItemIcon>
-                                                        <DeleteForeverIcon fontSize="small" />
-                                                    </ListItemIcon>
-                                                    <Typography variant="body2">Remove listing</Typography>
-                                                </MenuItem>
-                                                <MenuItem>
-                                                    <ListItemIcon>
-                                                        <ShareIcon fontSize="small" />
-                                                    </ListItemIcon>
-                                                    <Typography variant="body2">Share</Typography>
-                                                </MenuItem>
-                                            </Popover>
-                                            <IconButton size="small" onClick={handleClick}>
-                                                <MoreVertIcon fontSize="small" />
-                                            </IconButton>
-                                        </>
-                                    }>
-                                        <ListItemButton component={ActionLink} to={`/products/${item.id}`}>
-                                            <ListItemAvatar>
-                                                <Avatar>
-                                                </Avatar>
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary={item.name}
-                                                secondary={item.category}
-                                            />
-                                        </ListItemButton>
-                                    </ListItem>
-
-                                }
-                            </Card>
-                        )}
-                    </List>
                 </Box>
             }
-        </Container >
+        </Container>
 
     );
 

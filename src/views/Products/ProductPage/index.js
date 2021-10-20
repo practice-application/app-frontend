@@ -69,6 +69,7 @@ const ProductPage = () => {
                             : item).map((item, index) =>
                                 <Grid key={index} item xs={3}>
                                     <DisplayCard
+                                        dataType="large"
                                         string={item.id}
                                         title={item.name}
                                         subtitle={item.category}
