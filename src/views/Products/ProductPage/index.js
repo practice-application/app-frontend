@@ -28,7 +28,7 @@ const ProductPage = () => {
     const [{ products }, { fetchProducts }] = useApi();
     const [query, setQuery] = useState('');
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
-    const [categories, setCategories] = useState('');
+    const [category, setCategory] = useState('');
 
     useEffect(() => {
         fetchProducts(page);
@@ -39,6 +39,13 @@ const ProductPage = () => {
         window.location.reload()
     };
 
+    const handleChange = (event) => {
+        setCategory(event.target.value);
+    };
+
+    // const handleDelete = async (id) => {
+    //     deleteProduct(id);
+    // };
 
     const handlePage = () => {
         setPage(prev => ({ ...prev, offset: prev.offset + pageSize }))
@@ -58,14 +65,14 @@ const ProductPage = () => {
                     <SearchBar value={query} onChange={setQuery} />
                 </Grid>
                 <Grid item xs={4} md={2}>
-                    <Dropdown dataType="productDropdown" value={categories} onChange={setCategories} />
+                    <Dropdown dataType="productDropdown" value={category} onChange={handleChange} />
                 </Grid>
             </Grid>
             {products.data ?
                 <>
                     <Grid container spacing={1} direction="row" justifyContent="flex-start" >
-                        {products.data.filter(item => query
-                            ? ((item.name) + (item.category) + (item.tags.map((tag) => tag))).toLowerCase().includes(query.toLowerCase())
+                        {products.data.filter(item => category
+                            ? ((item.category)).toLowerCase().includes(category.toLowerCase())
                             : item).map((item, index) =>
                                 <Grid key={index} item xs={3}>
                                     <DisplayCard
@@ -76,7 +83,26 @@ const ProductPage = () => {
                                         description={item.description} />
                                 </Grid>
                             )}
-                    </Grid>
+                    </Grid> 
+                    {/* <Pager count={products.data.length} total={products.matches}
+                        onPage={() => handlePage()}
+                        /> */}
+               
+                <Grid container spacing={1} direction="row" justifyContent="flex-start" >
+                    
+                    {products.data.filter(item => query
+                        ? ((item.name) + (item.category) + (item.tags.map((tag) => tag))).toLowerCase().includes(query.toLowerCase())
+                        : item).map((item, index) =>
+                            <Grid key={index} item xs={3}>
+                                <DisplayCard
+                                    string={item.id}
+                                    title={item.name}
+                                    subtitle={item.category}
+                                    price={item.price}
+                                    description={item.description} />
+                            </Grid>
+                        )}
+                </Grid>
                     <Pager count={products.data.length} total={products.matches}
                         onPage={() => handlePage()}
                     />
