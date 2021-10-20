@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CreateIcon from '@mui/icons-material/Create';
 import ListIcon from '@mui/icons-material/List';
 import PersonIcon from '@mui/icons-material/Person';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -86,7 +87,17 @@ const Profile = () => {
                     </TabList>
                 </Box>
                 <TabPanel value="1">
-                    <Typography variant="h2" gutterBottom noWrap>Personal Details</Typography>
+                    <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        spacing={2}
+                    >
+                        <Typography variant="h2" gutterBottom noWrap>Personal Details</Typography>
+                        <Button startIcon={<CreateIcon />} variant='contained' >
+                            Edit Profile
+                        </Button>
+                    </Stack>
                     <Card elevation={1} sx={{ mb: 1 }}>
                         <CardContent>
                             <List sx={{ padding: 2 }}>

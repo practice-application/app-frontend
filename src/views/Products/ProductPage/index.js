@@ -27,6 +27,7 @@ export const ProductPageExt = () => {
 const ProductPage = () => {
     const [{ products }, { fetchProducts }] = useApi();
     const [query, setQuery] = useState('');
+    const [category, setCategory] = useState('');
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
 
     useEffect(() => {
@@ -39,7 +40,7 @@ const ProductPage = () => {
     };
 
     const handleChange = (event) => {
-        setQuery(event.target.value);
+        setCategory(event.target.value);
     };
 
     const handlePage = () => {
@@ -60,14 +61,14 @@ const ProductPage = () => {
                     <SearchBar value={query} onChange={setQuery} />
                 </Grid>
                 <Grid item xs={4} md={2}>
-                    <Dropdown dataType="productDropdown" value={query} onChange={handleChange} />
+                    <Dropdown dataType="productDropdown" value={category} onChange={handleChange} />
                 </Grid>
             </Grid>
             {products.data ?
                 <>
                     <Grid container spacing={1} direction="row" justifyContent="flex-start" >
-                        {products.data.filter(item => query
-                            ? ((item.name) + (item.category) + (item.tags.map((tag) => tag))).toLowerCase().includes(query.toLowerCase())
+                        {products.data.filter(item => query + category
+                            ? ((item.name) + (item.category) + (item.tags.map((tag) => tag))).toLowerCase().includes(query + category.toLowerCase())
                             : item).map((item, index) =>
                                 <Grid key={index} item xs={3}>
                                     <DisplayCard
