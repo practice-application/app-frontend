@@ -20,6 +20,8 @@ import Popover from '@mui/material/Popover';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import ActionLink from '../ActionLink';
 
@@ -39,6 +41,7 @@ export default DisplayCard;
 
 const BigDisplayCard = props => {
     const { title, subtitle, description, price, string, to, image } = props;
+    const [view, setView] = useState('false');
 
     return (
         <Card sx={{ m: 1 }}>
@@ -73,9 +76,18 @@ const BigDisplayCard = props => {
                         <Typography variant="body1">
                             {`$${price}`}
                         </Typography>
+                    
                     </Stack>
                 </ListItem>
             </CardActionArea>
+            {view === ('false') &&
+            <IconButton onClick={() => setView('true')} sx={{ marginLeft: 30 }}>
+                <FavoriteBorderIcon />
+            </IconButton>}
+            {view === ('true') &&  <IconButton onClick={() => setView('false')} sx={{ marginLeft: 30 }}>
+                <FavoriteIcon />
+            </IconButton> }
+
         </Card>
     )
 }
