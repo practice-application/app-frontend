@@ -84,26 +84,27 @@ const ProductPage = () => {
                                         description={item.description} />
                                 </Grid>
                             )}
-                    </Grid> 
+                    </Grid>
                     {/* <Pager count={products.data.length} total={products.matches}
                         onPage={() => handlePage()}
                         /> */}
-               
-                <Grid container spacing={1} direction="row" justifyContent="flex-start" >
-                    
-                    {products.data.filter(item => query
-                        ? ((item.name) + (item.category) + (item.tags.map((tag) => tag))).toLowerCase().includes(query.toLowerCase())
-                        : item).map((item, index) =>
-                            <Grid key={index} item xs={3}>
-                                <DisplayCard
-                                    string={item.id}
-                                    title={item.name}
-                                    subtitle={item.category}
-                                    price={item.price}
-                                    description={item.description} />
-                            </Grid>
-                        )}
-                </Grid>
+
+                    <Grid container spacing={1} direction="row" justifyContent="flex-start" >
+
+                        {products.data.filter(item => query
+                            ? ((item.name) + (item.category) + (item.tags.map((tag) => tag))).toLowerCase().includes(query.toLowerCase())
+                            : item).map((item, index) =>
+                                <Grid key={index} item xs={3}>
+                                    <DisplayCard
+                                        dataType="large"
+                                        string={item.id}
+                                        title={item.name}
+                                        subtitle={item.category}
+                                        price={item.price}
+                                        description={item.description} />
+                                </Grid>
+                            )}
+                    </Grid>
                     <Pager count={products.data.length} total={products.matches}
                         onPage={() => handlePage()}
                     />

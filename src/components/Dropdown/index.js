@@ -108,24 +108,24 @@ const ProductCategory = props => {
 const CategoryDropdown = props => {
     const { value, onChange } = props
     const options = useMemo(() => ProductCategories, []);
-   
+
     return (
         <>
-        <FormControl fullWidth>
-            <InputLabel sx={{ m: -1 }} id="demo-simple-select-label">Categories</InputLabel>
-            <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                size="small"
-                value={value}
-                onChange={onChange}
-            >
-            {options.map((item) => 
-              <MenuItem value={item.label}>
-                {item.label}
-              </MenuItem>
-            )}
-            </Select>
+            <FormControl fullWidth>
+                <InputLabel sx={{ m: -1 }} id="demo-simple-select-label">Categories</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    size="small"
+                    value={value}
+                    onChange={onChange}
+                >
+                    {options.map((item, i) =>
+                        <MenuItem key={i} value={item.label}>
+                            {item.label}
+                        </MenuItem>
+                    )}
+                </Select>
             </FormControl>
         </>
     )

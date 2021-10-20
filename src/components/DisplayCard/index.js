@@ -32,7 +32,7 @@ export const DisplayCard = props => {
         case 'small':
             return <MiniDispayCard array={array} onDelete={onDelete} />
         default:
-            throw new Error('Invalid dataType prop passed to Dropdown');
+            throw new Error('Invalid dataType prop passed to Card');
     }
 }
 export default DisplayCard;
