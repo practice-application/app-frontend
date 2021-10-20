@@ -120,6 +120,9 @@ const CategoryDropdown = props => {
                     value={value}
                     onChange={onChange}
                 >
+                    <MenuItem value="">
+                        Categories
+                    </MenuItem>
                     {options.map((item, i) =>
                         <MenuItem key={i} value={item.label}>
                             {item.label}
