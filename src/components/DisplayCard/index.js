@@ -87,7 +87,7 @@ const BigDisplayCard = props => {
                     {view === false ?
                         <FavoriteBorderIcon />
                         :
-                        <FavoriteIcon />
+                        <FavoriteIcon sx={{ color: 'error.main' }} />
                     }
                 </IconButton>
             </CardActions>
