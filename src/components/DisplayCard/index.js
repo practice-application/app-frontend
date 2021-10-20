@@ -158,5 +158,6 @@ const MiniDispayCard = props => {
 }
 DisplayCard.propTypes = {
     onDelete: PropTypes.func,
+    array: PropTypes.array,
 
 };

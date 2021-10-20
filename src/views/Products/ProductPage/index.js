@@ -66,7 +66,6 @@ const ProductPage = () => {
             {products.data ?
                 <>
                     <Grid container spacing={1} direction="row" justifyContent="flex-start" >
-
                         {products.data.filter(item => query
                             ? ((item.name) + (item.category) + (item.tags.map((tag) => tag))).toLowerCase().includes(query.toLowerCase())
                             : item).map((item, index) =>
