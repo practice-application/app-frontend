@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ShareIcon from '@mui/icons-material/Share';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { CardActionArea, CardHeader, CardActions } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
@@ -32,7 +32,7 @@ export const DisplayCard = props => {
             return <BigDisplayCard title={title} subtitle={subtitle} description={description}
                 price={price} string={string} to={to} image={image} />
         case 'small':
-            return <MiniDispayCard array={array} onDelete={onDelete} />
+            return <MiniDispayCard array={array} image={image} onDelete={onDelete} />
         default:
             throw new Error('Invalid dataType prop passed to Card');
     }
@@ -51,10 +51,10 @@ const BigDisplayCard = props => {
     return (
         <Card sx={{ m: 1 }}>
             <CardActionArea component={ActionLink} to={`/products/${string}` || to} >
-                <CardMedia
-                    component="img"
+                <img
+                    // component="picture"
                     height="200"
-                    image={image}
+                    src={image}
                     alt={`${image} text`}
                 />
                 <CardHeader
@@ -85,9 +85,9 @@ const BigDisplayCard = props => {
                 </Stack>
                 <IconButton onClick={handleClick}>
                     {view === false ?
-                        <FavoriteBorderIcon />
+                        <ShoppingCartOutlinedIcon />
                         :
-                        <FavoriteIcon sx={{ color: 'error.main' }} />
+                        <ShoppingCartIcon sx={{ color: 'secondary.main' }} />
                     }
                 </IconButton>
             </CardActions>
@@ -97,7 +97,7 @@ const BigDisplayCard = props => {
 
 
 const MiniDispayCard = props => {
-    const { array, onDelete } = props;
+    const { array, onDelete, image } = props;
 
     const { user } = useAuth0();
     const { nickname } = user;
@@ -155,8 +155,8 @@ const MiniDispayCard = props => {
                         }>
                             <ListItemButton component={ActionLink} to={`/products/${item.id}`}>
                                 <ListItemAvatar>
-                                    <Avatar>
-                                    </Avatar>
+                                    <Avatar src={image}
+                                        alt={`${image} text`} />
                                 </ListItemAvatar>
                                 <ListItemText
                                     primary={item.name}

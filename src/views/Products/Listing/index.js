@@ -41,6 +41,7 @@ const ProductListing = () => {
     const { user } = useAuth0();
     const { nickname } = user;
 
+
     useEffect(() => {
         const fetchImages = async () => {
             const fileLocation = `/product-images/${state.product.imageID}/`
@@ -56,6 +57,7 @@ const ProductListing = () => {
         };
         loadImages();
     }, [state]);
+
 
     const onDelete = async (e) => {
         const resp = await imgStorage.refFromURL(images.splice(e, 1))

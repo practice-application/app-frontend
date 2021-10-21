@@ -11,6 +11,7 @@ import { DisplayCard } from '../../../components/DisplayCard';
 import Dropdown from '../../../components/Dropdown';
 import SearchBar from '../../../components/SearchBar';
 import { Pager } from '../../../components/TablePager';
+import { imgStorage } from '../../../config';
 import { ProductProvider } from '../context';
 import { useApi } from '../context';
 
@@ -29,6 +30,7 @@ const ProductPage = () => {
     const [query, setQuery] = useState('');
     const [category, setCategory] = useState('');
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
+    const [images, setImages] = useState([]);
 
     useEffect(() => {
         fetchProducts(page);
@@ -46,6 +48,26 @@ const ProductPage = () => {
     const handlePage = () => {
         setPage(prev => ({ ...prev, offset: prev.offset + pageSize }))
     };
+
+    const imagePage = products.data && products.data.map((item) => item.imageID)
+    var items = imagePage
+    console.log(items)
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            const fileLocation = `/product-images/12af8dee-326e-43cb-876e-bccf1a9c07fb`
+            let result = await imgStorage.ref().child(fileLocation).list();
+            let urlPromises = result.items.map((imageRef) =>
+                imageRef.getDownloadURL()
+            );
+            return Promise.all(urlPromises);
+        };
+        const loadImages = async () => {
+            const urls = await fetchImages();
+            setImages(urls);
+        };
+        loadImages();
+    }, []);
 
     return (
         <>
@@ -72,6 +94,7 @@ const ProductPage = () => {
                             : item).map((item, index) =>
                                 <Grid key={index} item xs={3}>
                                     <DisplayCard
+                                        image={images}
                                         dataType="large"
                                         string={item.id}
                                         title={item.name}
@@ -79,8 +102,11 @@ const ProductPage = () => {
                                         price={item.price}
                                         description={item.description} />
                                 </Grid>
+
                             )}
+
                     </Grid>
+
                     <Pager count={products.data.length} total={products.matches}
                         onPage={() => handlePage()}
                     />
