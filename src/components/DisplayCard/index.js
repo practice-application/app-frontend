@@ -9,7 +9,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { CardActionArea, CardHeader, CardActions } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
+// import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -25,8 +25,9 @@ import * as PropTypes from 'prop-types';
 
 import ActionLink from '../ActionLink';
 
-export const DisplayCard = props => {
-    const { title, subtitle, description, price, string, to, image, dataType, array, onDelete } = props
+export const DisplayCard = (props) => {
+    const { title, subtitle, description, price, string, to, image, dataType, array, onDelete, } = props
+
     switch (dataType) {
         case 'large':
             return <BigDisplayCard title={title} subtitle={subtitle} description={description}

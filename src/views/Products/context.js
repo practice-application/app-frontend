@@ -3,8 +3,6 @@ import React, { createContext, useContext, useCallback, useMemo, useReducer } fr
 import { useAuth0 } from "@auth0/auth0-react";
 import cloneDeep from 'lodash.clonedeep';
 
-
-
 import { config } from '../../config';
 
 const reducer = (state, action) => {

@@ -49,25 +49,30 @@ const ProductPage = () => {
         setPage(prev => ({ ...prev, offset: prev.offset + pageSize }))
     };
 
-    const imagePage = products.data && products.data.map((item) => item.imageID)
-    var items = imagePage
-    console.log(items)
+    // const imagePage = products.data && products.data.map((item) => item.imageID)
+    // var items = imagePage
+    // console.log(items)
 
     useEffect(() => {
-        const fetchImages = async () => {
-            const fileLocation = `/product-images/12af8dee-326e-43cb-876e-bccf1a9c07fb`
-            let result = await imgStorage.ref().child(fileLocation).list();
-            let urlPromises = result.items.map((imageRef) =>
-                imageRef.getDownloadURL()
-            );
-            return Promise.all(urlPromises);
+        const fetchImages = () => {
+            // let imgs = [];
+            // products.data.forEach(async (item) => {
+            products.data = products.data.map(async (item) => {
+                let result = await imgStorage.ref().child(`/product-images/${item.imageID}`).list();
+                // console.log(await result.items[0].getDownloadURL())
+                // imgs.push(await result.items[0].getDownloadURL())
+                item.imgUrl = await result.items[0].getDownloadURL();
+                return item;
+            });
+            // console.log(imgs[0])
+            // setImages(imgs)
         };
-        const loadImages = async () => {
-            const urls = await fetchImages();
-            setImages(urls);
-        };
-        loadImages();
-    }, []);
+        // const loadImages = async () => {
+        //     const urls = await fetchImages();
+
+        // };
+        fetchImages();
+    }, [products]);
 
     return (
         <>
@@ -89,12 +94,15 @@ const ProductPage = () => {
             {products.data ?
                 <>
                     <Grid container spacing={1} direction="row" justifyContent="flex-start" >
-                        {products.data.filter(item => query + category
+                        {/* {products.data.filter(item => query + category
                             ? ((item.name) + (item.category) + (item.tags.map((tag) => tag))).toLowerCase().includes(query + category.toLowerCase())
-                            : item).map((item, index) =>
+                            : item).map((item, index) => */}
+                        {products.data.map((item, index) => {
+                            console.log('render', item.imgUrl)
+                            return (
                                 <Grid key={index} item xs={3}>
                                     <DisplayCard
-                                        image={images}
+                                        image={images[0]}
                                         dataType="large"
                                         string={item.id}
                                         title={item.name}
@@ -103,7 +111,8 @@ const ProductPage = () => {
                                         description={item.description} />
                                 </Grid>
 
-                            )}
+                            )
+                        })}
 
                     </Grid>
 
