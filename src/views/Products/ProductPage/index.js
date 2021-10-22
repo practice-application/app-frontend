@@ -83,21 +83,20 @@ const ProductPage = () => {
             {imgProducts ?
                 <>
                     <Grid container spacing={1} direction="row" justifyContent="flex-start" >
-                        {/* {products.data.filter(item => query + category
+                        {products.data.filter(item => query + category
                             ? ((item.name) + (item.category) + (item.tags.map((tag) => tag))).toLowerCase().includes(query + category.toLowerCase())
-                            : item).map((item, index) => */}
-                        {imgProducts.map((p, index) =>
-                            <Grid key={index} item xs={3}>
-                                <DisplayCard
-                                    image={p.imgUrl}
-                                    dataType="large"
-                                    string={p.id}
-                                    title={p.name}
-                                    subtitle={p.category}
-                                    price={p.price}
-                                    description={p.description} />
-                            </Grid>
-                        )}
+                            : item).map((p, index) =>
+                                <Grid key={index} item xs={3}>
+                                    <DisplayCard
+                                        image={p.imgUrl}
+                                        dataType="large"
+                                        string={p.id}
+                                        title={p.name}
+                                        subtitle={p.category}
+                                        price={p.price}
+                                        description={p.description} />
+                                </Grid>
+                            )}
                     </Grid>
                     <Pager count={products.data.length} total={products.matches}
                         onPage={() => handlePage()}
