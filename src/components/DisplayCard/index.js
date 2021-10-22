@@ -9,7 +9,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { CardActionArea, CardHeader, CardActions } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
-// import CardMedia from '@mui/material/CardMedia';
+import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -52,7 +52,7 @@ const BigDisplayCard = props => {
     return (
         <Card sx={{ m: 1 }}>
             <CardActionArea component={ActionLink} to={`/products/${string}` || to} >
-                <img
+                <CardMedia
                     height="200"
                     src={image}
                     alt={`${image} text`}
