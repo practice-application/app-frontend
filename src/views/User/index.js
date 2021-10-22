@@ -28,9 +28,9 @@ import dateFormat from 'dateformat';
 
 import ActionLink from '../../components/ActionLink';
 import { DisplayCard } from '../../components/DisplayCard';
+import { imgStorage } from '../../config';
 import { useApi } from '../Products/context';
 import { ProductProvider } from '../Products/context';
-import { imgStorage } from '../../config';
 
 const tabArray = [
     { label: "Personal Info", icon: <PersonIcon />, value: '1' },
