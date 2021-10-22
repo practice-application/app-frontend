@@ -53,8 +53,9 @@ const BigDisplayCard = props => {
         <Card sx={{ m: 1 }}>
             <CardActionArea component={ActionLink} to={`/products/${string}` || to} >
                 <CardMedia
+                    component="img"
                     height="200"
-                    src={image}
+                    image={image}
                     alt={`${image} text`}
                 />
                 <CardHeader
