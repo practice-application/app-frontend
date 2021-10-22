@@ -30,12 +30,26 @@ const ProductPage = () => {
     const [query, setQuery] = useState('');
     const [category, setCategory] = useState('');
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
-    const [images, setImages] = useState([]);
+    const [imgProducts, setImgProducts] = useState([]);
 
+    // fetch products
     useEffect(() => {
         fetchProducts(page);
     }, [fetchProducts, page]);
 
+    // add images to products
+    useEffect(() => {
+        const addImages = async () => {
+            const promises = products.data.map(async prd => {
+                const res = await imgStorage.ref().child(`/product-images/${prd.imageID}`).list();
+                prd.imgUrl = await res.items[0].getDownloadURL();
+                return prd;
+            });
+
+            setImgProducts(await Promise.all(promises));
+        }
+        addImages();
+    }, [products.data]);
 
     const pageRefresh = () => {
         window.location.reload()
@@ -48,31 +62,6 @@ const ProductPage = () => {
     const handlePage = () => {
         setPage(prev => ({ ...prev, offset: prev.offset + pageSize }))
     };
-
-    // const imagePage = products.data && products.data.map((item) => item.imageID)
-    // var items = imagePage
-    // console.log(items)
-
-    useEffect(() => {
-        const fetchImages = () => {
-            // let imgs = [];
-            // products.data.forEach(async (item) => {
-            products.data = products.data.map(async (item) => {
-                let result = await imgStorage.ref().child(`/product-images/${item.imageID}`).list();
-                // console.log(await result.items[0].getDownloadURL())
-                // imgs.push(await result.items[0].getDownloadURL())
-                item.imgUrl = await result.items[0].getDownloadURL();
-                return item;
-            });
-            // console.log(imgs[0])
-            // setImages(imgs)
-        };
-        // const loadImages = async () => {
-        //     const urls = await fetchImages();
-
-        // };
-        fetchImages();
-    }, [products]);
 
     return (
         <>
@@ -91,31 +80,25 @@ const ProductPage = () => {
                     <Dropdown dataType="productDropdown" value={category} onChange={handleChange} />
                 </Grid>
             </Grid>
-            {products.data ?
+            {imgProducts ?
                 <>
                     <Grid container spacing={1} direction="row" justifyContent="flex-start" >
                         {/* {products.data.filter(item => query + category
                             ? ((item.name) + (item.category) + (item.tags.map((tag) => tag))).toLowerCase().includes(query + category.toLowerCase())
                             : item).map((item, index) => */}
-                        {products.data.map((item, index) => {
-                            console.log('render', item.imgUrl)
-                            return (
-                                <Grid key={index} item xs={3}>
-                                    <DisplayCard
-                                        image={images[0]}
-                                        dataType="large"
-                                        string={item.id}
-                                        title={item.name}
-                                        subtitle={item.category}
-                                        price={item.price}
-                                        description={item.description} />
-                                </Grid>
-
-                            )
-                        })}
-
+                        {imgProducts.map((p, index) =>
+                            <Grid key={index} item xs={3}>
+                                <DisplayCard
+                                    image={p.imgUrl}
+                                    dataType="large"
+                                    string={p.id}
+                                    title={p.name}
+                                    subtitle={p.category}
+                                    price={p.price}
+                                    description={p.description} />
+                            </Grid>
+                        )}
                     </Grid>
-
                     <Pager count={products.data.length} total={products.matches}
                         onPage={() => handlePage()}
                     />
