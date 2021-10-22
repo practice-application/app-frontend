@@ -33,7 +33,7 @@ export const DisplayCard = (props) => {
             return <BigDisplayCard title={title} subtitle={subtitle} description={description}
                 price={price} string={string} to={to} image={image} />
         case 'small':
-            return <MiniDispayCard array={array} image={image} onDelete={onDelete} />
+            return <MiniDispayCard array={array} onDelete={onDelete} />
         default:
             throw new Error('Invalid dataType prop passed to Card');
     }
@@ -97,7 +97,7 @@ const BigDisplayCard = props => {
 
 
 const MiniDispayCard = props => {
-    const { array, onDelete, image } = props;
+    const { array, onDelete } = props;
 
     const { user } = useAuth0();
     const { nickname } = user;
@@ -155,8 +155,8 @@ const MiniDispayCard = props => {
                         }>
                             <ListItemButton component={ActionLink} to={`/products/${item.id}`}>
                                 <ListItemAvatar>
-                                    <Avatar src={image}
-                                        alt={`${image} text`} />
+                                    <Avatar variant="rounded" sx={{ width: 56, height: 56, mr: 1 }} src={item.imgUrl}
+                                        alt={`${item.imgUrl} text`} />
                                 </ListItemAvatar>
                                 <ListItemText
                                     primary={item.name}

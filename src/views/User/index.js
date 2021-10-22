@@ -30,6 +30,7 @@ import ActionLink from '../../components/ActionLink';
 import { DisplayCard } from '../../components/DisplayCard';
 import { useApi } from '../Products/context';
 import { ProductProvider } from '../Products/context';
+import { imgStorage } from '../../config';
 
 const tabArray = [
     { label: "Personal Info", icon: <PersonIcon />, value: '1' },
@@ -50,6 +51,7 @@ const Profile = () => {
     const { name, picture, email, nickname, email_verified, created_at } = user;
     const [{ products }, { deleteProduct, fetchProducts }] = useApi();
     const [value, setValue] = useState('1');
+    const [imgProducts, setImgProducts] = useState([]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -66,6 +68,18 @@ const Profile = () => {
         fetchProducts();
     }, [fetchProducts]);
 
+    useEffect(() => {
+        const addImages = async () => {
+            const promises = products.data.map(async prd => {
+                const res = await imgStorage.ref().child(`/product-images/${prd.imageID}`).list();
+                prd.imgUrl = await res.items[0].getDownloadURL();
+                return prd;
+            });
+
+            setImgProducts(await Promise.all(promises));
+        }
+        addImages();
+    }, [products.data]);
 
 
     const handleDelete = async (id) => {
@@ -148,8 +162,13 @@ const Profile = () => {
                                 Create new Listing
                             </Button>
                         </Stack>
-                        <DisplayCard dataType="small"
-                            array={products.data} onDelete={handleDelete} />
+                        {imgProducts ?
+                            <DisplayCard dataType="small"
+                                array={products.data} onDelete={handleDelete} />
+                            :
+                            <>
+                            </>
+                        }
                     </>
 
                 }</TabPanel>
