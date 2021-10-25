@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
+import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
+import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ShareIcon from '@mui/icons-material/Share';
@@ -43,10 +45,15 @@ export default DisplayCard;
 const BigDisplayCard = props => {
     const { title, subtitle, description, price, string, to, image } = props;
     const [view, setView] = useState(false);
+    const [bookmark, setBookmark] = useState(false);
 
     const handleClick = () => {
         view === false && setView(true);
         view === true && setView(false);
+    }
+    const save = () => {
+        bookmark === false && setBookmark(true);
+        bookmark === true && setBookmark(false);
     }
 
     return (
@@ -70,7 +77,7 @@ const BigDisplayCard = props => {
                     </Typography>
                 </ListItem>
             </CardActionArea>
-            <CardActions >
+            <CardActions disableSpacing  >
                 <Stack
                     direction="column"
                     justifyContent="center"
@@ -84,13 +91,25 @@ const BigDisplayCard = props => {
                         {`$${price}`}
                     </Typography>
                 </Stack>
-                <IconButton onClick={handleClick}>
-                    {view === false ?
-                        <ShoppingCartOutlinedIcon />
-                        :
-                        <ShoppingCartIcon sx={{ color: 'secondary.main' }} />
-                    }
-                </IconButton>
+                <Stack
+                    direction="row"
+                    alignItems="flex-start"
+                >
+                    <IconButton onClick={save}>
+                        {bookmark === false ?
+                            <BookmarkBorderOutlinedIcon />
+                            :
+                            <BookmarkOutlinedIcon sx={{ color: 'secondary.main' }} />
+                        }
+                    </IconButton>
+                    <IconButton onClick={handleClick}>
+                        {view === false ?
+                            <ShoppingCartOutlinedIcon />
+                            :
+                            <ShoppingCartIcon sx={{ color: 'secondary.main' }} />
+                        }
+                    </IconButton>
+                </Stack>
             </CardActions>
         </Card>
     )

@@ -4,8 +4,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
+import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import * as PropTypes from 'prop-types';
 import ImageUploading from 'react-images-uploading';
@@ -65,7 +67,6 @@ export const Form = ({ onAction }) => {
                 product.userPic = picture
                 if (image[0]) {
                     imageUpload()
-
                 }
                 onAction()
                 setSubmitting(false);
@@ -181,6 +182,12 @@ export const Form = ({ onAction }) => {
                                 )}
                             </ImageUploading>
                             {message && <Typography color="error.main">A minimum of 1 image is required before submission</Typography>}
+                            {/* <FormControlLabel
+                                value="start"
+                                control={<Switch color="primary" />}
+                                label="Top"
+                                labelPlacement="start"
+                            /> */}
                         </Grid>
                         <Grid item xs={12}>
                             <Dropdown
