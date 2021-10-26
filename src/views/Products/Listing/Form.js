@@ -4,10 +4,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
-import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import * as PropTypes from 'prop-types';
 import ImageUploading from 'react-images-uploading';
@@ -44,6 +42,7 @@ export const Form = ({ onAction }) => {
             return isValid;
         }
     }
+
 
     const imageUpload = async () => {
         image[0] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[0].file.name}`).put(image[0].file)
@@ -114,6 +113,8 @@ export const Form = ({ onAction }) => {
         });
     }
 
+
+
     return (
         <>
             {product &&
@@ -142,6 +143,14 @@ export const Form = ({ onAction }) => {
                                 dataType="categories"
                                 value={product && product.category}
                                 onChange={handleChange} />
+
+                            {product.category.includes('Clothing') &&
+                                <Dropdown
+                                    dataType="size"
+                                    value={product && product.size}
+                                    onChange={handleChange}
+                                />
+                            }
                         </Grid>
                         <Grid item xs={12}>
                             <TextInput id="description" label="Description"
@@ -149,6 +158,7 @@ export const Form = ({ onAction }) => {
                                 value={product && product.description}
                                 onChange={handleChange}
                             />
+
                         </Grid>
                         <Grid item xs={12}>
                             <ImageUploading
@@ -182,12 +192,6 @@ export const Form = ({ onAction }) => {
                                 )}
                             </ImageUploading>
                             {message && <Typography color="error.main">A minimum of 1 image is required before submission</Typography>}
-                            {/* <FormControlLabel
-                                value="start"
-                                control={<Switch color="primary" />}
-                                label="Top"
-                                labelPlacement="start"
-                            /> */}
                         </Grid>
                         <Grid item xs={12}>
                             <Dropdown

@@ -26,6 +26,8 @@ export const Dropdown = props => {
             return <ProductCategory value={value} onChange={onChange} />
         case 'productDropdown':
             return <CategoryDropdown value={value} onChange={onChange} />
+        case 'size':
+            return <SizeDropdown value={value} onChange={onChange} />
         default:
             throw new Error('Invalid dataType prop passed to Dropdown');
     }
@@ -110,33 +112,50 @@ const CategoryDropdown = props => {
     const options = useMemo(() => ProductCategories, []);
 
     return (
-        <>
-            <FormControl fullWidth>
-                <InputLabel sx={{ m: -1 }} id="demo-simple-select-label">Categories</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    size="small"
-                    value={value}
-                    onChange={onChange}
-                >
-                    <MenuItem value="">
-                        Categories
+        <FormControl id="category" fullWidth>
+            <InputLabel sx={{ m: -1 }} >Categories</InputLabel>
+            <Select
+                size="small"
+                value={value}
+                onChange={onChange}
+            >
+                <MenuItem value="">
+                    Categories
+                </MenuItem>
+                {options.map((item, i) =>
+                    <MenuItem key={i} value={item.label}>
+                        {item.label}
                     </MenuItem>
-                    {options.map((item, i) =>
-                        <MenuItem key={i} value={item.label}>
-                            {item.label}
-                        </MenuItem>
-                    )}
-                </Select>
-            </FormControl>
-        </>
+                )}
+            </Select>
+        </FormControl>
+    )
+}
+
+const SizeDropdown = props => {
+    const { value, onChange } = props
+    const options = useMemo(() => Size, []);
+
+    return (
+        <Autocomplete
+            onChange={(e, val) => onChange({ target: { id: "size", value: val } })}
+            id="size"
+            getOptionLabel={Size.label}
+            value={value}
+            options={options.map((option) => option.label)}
+            isOptionEqualToValue={(option, val) => option === val}
+            renderInput={(params) => <TextInput {...params} id="size" size="small" variant="outlined" fullWidth label="Size" />}
+            renderOption={(props, option, { selected }) => (
+                <MenuItem key={option} {...props}>
+                    {option}{selected && <CheckIcon sx={{ color: 'success.main', pl: 1 }} />}
+                </MenuItem>
+            )}
+        />
     )
 }
 const TextInput = styled(TextField)(({ theme }) => ({
     marginTop: theme.spacing(2),
 }));
-
 
 const ProductCategories = [
     { label: 'Technology & Electronics' },
@@ -161,6 +180,16 @@ const ProductCategories = [
     { label: 'Pet care' },
     { label: 'Jewelery & Accessories' },
     { label: 'Sports & Recreation' },
+]
+
+const Size = [
+    { label: 'xs' },
+    { label: 'sm' },
+    { label: 'md' },
+    { label: 'lg' },
+    { label: 'xl' },
+    { label: 'xxl' },
+
 ]
 
 const Empty = []

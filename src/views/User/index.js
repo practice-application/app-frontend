@@ -82,7 +82,7 @@ const Profile = () => {
     }, [products.data]);
 
 
-    const handleDelete = async (id) => {
+    const handleDelete = (id) => {
         deleteProduct(id);
     };
 
@@ -124,7 +124,7 @@ const Profile = () => {
                                     </ListItemAvatar>
                                 </ListItem>
                                 <ListItem>
-                                    <ListItemText>Name  </ListItemText>{name}
+                                    <ListItemText>Name</ListItemText>{name}
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
