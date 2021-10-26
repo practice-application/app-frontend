@@ -46,14 +46,27 @@ const BigDisplayCard = props => {
     const { title, subtitle, description, price, string, to, image } = props;
     const [view, setView] = useState(false);
     const [bookmark, setBookmark] = useState(false);
+    const [watchlist, setWatchlist] = useState([]);
+    const list = []
 
-    const handleClick = () => {
-        view === false && setView(true);
-        view === true && setView(false);
-    }
     const save = () => {
         bookmark === false && setBookmark(true);
         bookmark === true && setBookmark(false);
+    }
+
+    const addToWatchlist = () => {
+        view === false && setView(true);
+		const newWatchlist = [...watchlist, string];
+		setWatchlist(newWatchlist);
+        
+        const addList = newWatchlist.concat(list);
+        console.log(addList);
+	};
+
+    const removeFromWatchlist = () => {
+        // view === false && setView(true);
+        view === true && setView(false);
+        console.log("UNSAVED", string)
     }
 
     return (
@@ -102,13 +115,17 @@ const BigDisplayCard = props => {
                             <BookmarkOutlinedIcon sx={{ color: 'secondary.main' }} />
                         }
                     </IconButton>
-                    <IconButton onClick={handleClick}>
+                    
                         {view === false ?
+                        <IconButton onClick={addToWatchlist}>
                             <ShoppingCartOutlinedIcon />
+                        </IconButton>
                             :
+                        <IconButton onClick={removeFromWatchlist}>
                             <ShoppingCartIcon sx={{ color: 'secondary.main' }} />
+                        </IconButton>
                         }
-                    </IconButton>
+                    
                 </Stack>
             </CardActions>
         </Card>
