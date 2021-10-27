@@ -175,7 +175,7 @@ const Profile = () => {
                                             image={p.imgUrl}
                                             key={i}
                                             dataType="small"
-                                            onDelete={handleDelete} />
+                                            onDelete={() => handleDelete(p.id)} />
                                     )}
                                 </List>
                                 :

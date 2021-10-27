@@ -173,7 +173,7 @@ const MiniDispayCard = props => {
                                 horizontal: 'left',
                             }}
                         >
-                            <MenuItem onClick={() => { onDelete(); handleClose() }}>
+                            <MenuItem onClick={(id) => { onDelete(id); handleClose() }}>
                                 <ListItemIcon>
                                     <DeleteForeverIcon fontSize="small" />
                                 </ListItemIcon>
