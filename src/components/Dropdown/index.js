@@ -191,6 +191,14 @@ const Size = [
     { label: 'xxl' },
 
 ]
+const SizePants = [
+    { label: '28' },
+    { label: '30' },
+    { label: '32' },
+    { label: '34' },
+    { label: '36' },
+    { label: '38' },
+]
 
 const Empty = []
 

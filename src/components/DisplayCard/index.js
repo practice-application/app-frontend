@@ -146,14 +146,10 @@ const MiniDispayCard = props => {
         setAnchorEl(event.currentTarget);
     };
 
-
-
-
     const handleClose = () => {
         setAnchorEl(null);
     };
     return (
-
 
         <Card sx={{ my: 1 }}>
             {nickname === person &&

@@ -11,6 +11,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Avatar from '@mui/material/Avatar';
+import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -94,13 +95,16 @@ const Profile = () => {
     return (
         <Container maxWidth="md">
             <TabContext value={value}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <TabList onChange={handleChange} >
-                        {tabArray.map((item, i) =>
-                            <Tab key={i} icon={item.icon} label={item.label} value={item.value} />
-                        )}
-                    </TabList>
-                </Box>
+                <TabList onChange={handleChange} >
+                    {tabArray.map((item, i) =>
+                        <Tab key={i} icon={item.icon} label={item.label.includes('My Listings') ?
+                            <Stack direction="row" alignItems="center">
+                                <Typography >{item.label}</Typography> {products.data.length > 0 && <Chip sx={{ ml: 1 }} color="error" size='small' label={products.data.length} />}
+                            </Stack> :
+                            <Typography >{item.label}</Typography>
+                        } value={item.value} />
+                    )}
+                </TabList>
                 <TabPanel value="1">
                     <Stack
                         direction="row"
