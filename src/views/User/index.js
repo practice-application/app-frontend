@@ -161,9 +161,8 @@ const Profile = () => {
                         <Button startIcon={<AddOutlinedIcon />} variant='contained' component={ActionLink} to="/add-product">
                             Create new Listing
                         </Button>
-                    </Stack>{products.data &&
+                    </Stack>{products.data ?
                         <>
-
                             {imgProducts ?
                                 <List>
                                     {products.data.map((p, i) =>
@@ -183,9 +182,11 @@ const Profile = () => {
                                 </>
 
                             }
-                        </>
 
-                    }</TabPanel>
+                        </>
+                        : <Typography>No Listings to show</Typography>
+                    }
+                </TabPanel>
             </TabContext>
         </Container>
 
