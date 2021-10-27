@@ -32,6 +32,7 @@ import { imgStorage } from '../../config';
 import { useApi } from '../Products/context';
 import { ProductProvider } from '../Products/context';
 
+
 const tabArray = [
     { label: "Personal Info", icon: <PersonIcon />, value: '1' },
     { label: "My Cart", icon: <ShoppingCartIcon />, value: '2' },
@@ -149,29 +150,42 @@ const Profile = () => {
                 <TabPanel value="2">
                     <Typography variant="h2" noWrap>Saved Items</Typography>
                 </TabPanel>
-                <TabPanel value="3">{products.data &&
-                    <>
-                        <Stack
-                            direction="row"
-                            justifyContent="space-between"
-                            alignItems="center"
-                            spacing={2}
-                        >
-                            <Typography variant="h2" noWrap>My Listings</Typography>
-                            <Button startIcon={<AddOutlinedIcon />} variant='contained' component={ActionLink} to="/add-product">
-                                Create new Listing
-                            </Button>
-                        </Stack>
-                        {imgProducts ?
-                            <DisplayCard dataType="small"
-                                array={products.data} onDelete={handleDelete} />
-                            :
-                            <>
-                            </>
-                        }
-                    </>
+                <TabPanel value="3">
+                    <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        spacing={2}
+                    >
+                        <Typography variant="h2" noWrap>My Listings</Typography>
+                        <Button startIcon={<AddOutlinedIcon />} variant='contained' component={ActionLink} to="/add-product">
+                            Create new Listing
+                        </Button>
+                    </Stack>{products.data &&
+                        <>
 
-                }</TabPanel>
+                            {imgProducts ?
+                                <List>
+                                    {products.data.map((p, i) =>
+                                        <DisplayCard
+                                            title={p.name}
+                                            subtitle={p.category}
+                                            to={p.id}
+                                            person={p.user}
+                                            image={p.imgUrl}
+                                            key={i}
+                                            dataType="small"
+                                            onDelete={handleDelete} />
+                                    )}
+                                </List>
+                                :
+                                <>
+                                </>
+
+                            }
+                        </>
+
+                    }</TabPanel>
             </TabContext>
         </Container>
 

@@ -13,7 +13,6 @@ import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -28,14 +27,14 @@ import * as PropTypes from 'prop-types';
 import ActionLink from '../ActionLink';
 
 export const DisplayCard = (props) => {
-    const { title, subtitle, description, price, string, to, image, dataType, array, onDelete, } = props
+    const { title, subtitle, description, price, string, to, image, dataType, onDelete, person } = props
 
     switch (dataType) {
         case 'large':
             return <BigDisplayCard title={title} subtitle={subtitle} description={description}
                 price={price} string={string} to={to} image={image} />
         case 'small':
-            return <MiniDispayCard array={array} onDelete={onDelete} />
+            return <MiniDispayCard person={person} title={title} subtitle={subtitle} image={image} to={to} onDelete={onDelete} />
         default:
             throw new Error('Invalid dataType prop passed to Card');
     }
@@ -56,12 +55,12 @@ const BigDisplayCard = props => {
 
     const addToWatchlist = () => {
         view === false && setView(true);
-		const newWatchlist = [...watchlist, string];
-		setWatchlist(newWatchlist);
-        
+        const newWatchlist = [...watchlist, string];
+        setWatchlist(newWatchlist);
+
         const addList = newWatchlist.concat(list);
         console.log(addList);
-	};
+    };
 
     const removeFromWatchlist = () => {
         // view === false && setView(true);
@@ -115,17 +114,17 @@ const BigDisplayCard = props => {
                             <BookmarkOutlinedIcon sx={{ color: 'secondary.main' }} />
                         }
                     </IconButton>
-                    
-                        {view === false ?
+
+                    {view === false ?
                         <IconButton onClick={addToWatchlist}>
                             <ShoppingCartOutlinedIcon />
                         </IconButton>
-                            :
+                        :
                         <IconButton onClick={removeFromWatchlist}>
                             <ShoppingCartIcon sx={{ color: 'secondary.main' }} />
                         </IconButton>
-                        }
-                    
+                    }
+
                 </Stack>
             </CardActions>
         </Card>
@@ -134,7 +133,7 @@ const BigDisplayCard = props => {
 
 
 const MiniDispayCard = props => {
-    const { array, onDelete } = props;
+    const { to, title, subtitle, image, onDelete, person } = props;
 
     const { user } = useAuth0();
     const { nickname } = user;
@@ -154,60 +153,59 @@ const MiniDispayCard = props => {
         setAnchorEl(null);
     };
     return (
-        <List>
-            {array.map((item, index) =>
-                <Card sx={{ my: 1 }} key={index}>
-                    {item.user === nickname &&
-                        <ListItem secondaryAction={
-                            <>
-                                <Popover
-                                    elevation={2}
-                                    anchorEl={anchorEl}
-                                    open={open}
-                                    onClose={handleClose}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'left',
-                                    }}
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'left',
-                                    }}
-                                >
-                                    <MenuItem onClick={() => { onDelete(item.id); handleClose() }}>
-                                        <ListItemIcon>
-                                            <DeleteForeverIcon fontSize="small" />
-                                        </ListItemIcon>
-                                        <Typography variant="body2">Remove listing</Typography>
-                                    </MenuItem>
-                                    <MenuItem>
-                                        <ListItemIcon>
-                                            <ShareIcon fontSize="small" />
-                                        </ListItemIcon>
-                                        <Typography variant="body2">Share</Typography>
-                                    </MenuItem>
-                                </Popover>
-                                <IconButton size="small" onClick={handleClick}>
-                                    <MoreVertIcon fontSize="small" />
-                                </IconButton>
-                            </>
-                        }>
-                            <ListItemButton component={ActionLink} to={`/products/${item.id}`}>
-                                <ListItemAvatar>
-                                    <Avatar variant="rounded" sx={{ width: 56, height: 56, mr: 1 }} src={item.imgUrl}
-                                        alt={`${item.imgUrl} text`} />
-                                </ListItemAvatar>
-                                <ListItemText
-                                    primary={item.name}
-                                    secondary={item.category}
-                                />
-                            </ListItemButton>
-                        </ListItem>
 
-                    }
-                </Card>
-            )}
-        </List>
+
+        <Card sx={{ my: 1 }}>
+            {nickname === person &&
+                <ListItem secondaryAction={
+                    <>
+                        <Popover
+                            elevation={2}
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                        >
+                            <MenuItem onClick={() => { onDelete(); handleClose() }}>
+                                <ListItemIcon>
+                                    <DeleteForeverIcon fontSize="small" />
+                                </ListItemIcon>
+                                <Typography variant="body2">Remove listing</Typography>
+                            </MenuItem>
+                            <MenuItem>
+                                <ListItemIcon>
+                                    <ShareIcon fontSize="small" />
+                                </ListItemIcon>
+                                <Typography variant="body2">Share</Typography>
+                            </MenuItem>
+                        </Popover>
+                        <IconButton size="small" onClick={handleClick}>
+                            <MoreVertIcon fontSize="small" />
+                        </IconButton>
+                    </>
+                }>
+                    <ListItemButton component={ActionLink} to={`/products/${to}`}>
+                        <ListItemAvatar>
+                            <Avatar variant="rounded" sx={{ width: 56, height: 56, mr: 1 }} src={image}
+                                alt={`${image} text`} />
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary={title}
+                            secondary={subtitle}
+                        />
+                    </ListItemButton>
+                </ListItem>
+
+            }
+        </Card>
+
     )
 }
 DisplayCard.propTypes = {
