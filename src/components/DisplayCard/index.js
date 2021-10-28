@@ -27,12 +27,12 @@ import * as PropTypes from 'prop-types';
 import ActionLink from '../ActionLink';
 
 export const DisplayCard = (props) => {
-    const { title, subtitle, description, price, string, to, image, dataType, onDelete, person } = props
+    const { title, subtitle, description, price, string, to, image, dataType, remove, onDelete, person, addToBag } = props
 
     switch (dataType) {
         case 'large':
-            return <BigDisplayCard title={title} subtitle={subtitle} description={description}
-                price={price} string={string} to={to} image={image} />
+            return <BigDisplayCard addToBag={addToBag} title={title} subtitle={subtitle} description={description}
+                price={price} remove={remove} string={string} to={to} image={image} />
         case 'small':
             return <MiniDispayCard person={person} title={title} subtitle={subtitle} image={image} to={to} onDelete={onDelete} />
         default:
@@ -42,31 +42,27 @@ export const DisplayCard = (props) => {
 export default DisplayCard;
 
 const BigDisplayCard = props => {
-    const { title, subtitle, description, price, string, to, image } = props;
+    const { title, subtitle, description, price, string, to, image, addToBag, remove } = props;
     const [view, setView] = useState(false);
     const [bookmark, setBookmark] = useState(false);
-    const [watchlist, setWatchlist] = useState([]);
-    const list = []
 
     const save = () => {
         bookmark === false && setBookmark(true);
         bookmark === true && setBookmark(false);
     }
 
-    const addToWatchlist = () => {
+    const cart = () => {
         view === false && setView(true);
-        const newWatchlist = [...watchlist, string];
-        setWatchlist(newWatchlist);
 
-        const addList = newWatchlist.concat(list);
-        console.log(addList);
+        addToBag();
     };
 
-    const removeFromWatchlist = () => {
-        // view === false && setView(true);
+    const cartFalse = () => {
         view === true && setView(false);
-        console.log("UNSAVED", string)
+        remove();
     }
+
+
 
     return (
         <Card sx={{ m: 1 }}>
@@ -116,14 +112,20 @@ const BigDisplayCard = props => {
                     </IconButton>
 
                     {view === false ?
-                        <IconButton onClick={addToWatchlist}>
+                        <IconButton onClick={cart}>
                             <ShoppingCartOutlinedIcon />
+
+
                         </IconButton>
-                        :
-                        <IconButton onClick={removeFromWatchlist}>
+                        : <IconButton onClick={cartFalse}>
                             <ShoppingCartIcon sx={{ color: 'secondary.main' }} />
                         </IconButton>
                     }
+
+
+
+
+
 
                 </Stack>
             </CardActions>

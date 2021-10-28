@@ -31,6 +31,7 @@ const ProductPage = () => {
     const [category, setCategory] = useState('');
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
     const [imgProducts, setImgProducts] = useState([]);
+    const [basketNumbers, setBasketNumbers] = useState(0);
 
     // fetch products
     useEffect(() => {
@@ -63,8 +64,16 @@ const ProductPage = () => {
         setPage(prev => ({ ...prev, offset: prev.offset + pageSize }))
     };
 
+    const addToBasket = () => {
+        setBasketNumbers(oldBasketNum => oldBasketNum + 1)
+    };
+    const removeBasket = () => {
+        setBasketNumbers(oldBasketNum => oldBasketNum - 1)
+    };
+
     return (
         <>
+            <h1>Current Number In Cart {basketNumbers}</h1>
             <Grid
                 sx={{ pb: 2 }}
                 container
@@ -88,6 +97,8 @@ const ProductPage = () => {
                             : item).map((p, index) =>
                                 <Grid key={index} item xs={3}>
                                     <DisplayCard
+                                        remove={removeBasket}
+                                        addToBag={addToBasket}
                                         image={p.imgUrl}
                                         dataType="large"
                                         string={p.id}

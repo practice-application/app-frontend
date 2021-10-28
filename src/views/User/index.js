@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
 import ListIcon from '@mui/icons-material/List';
 import PersonIcon from '@mui/icons-material/Person';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -13,6 +14,7 @@ import Container from '@mui/material/Container';
 import List from '@mui/material/List';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { useParams } from "react-router-dom";
 
 import ActionLink from '../../components/ActionLink';
 import { DisplayCard } from '../../components/DisplayCard';
@@ -24,7 +26,7 @@ import { ProfileCard } from './ProfileCard'
 
 const tabArray = [
     { label: "My Cart", icon: <ShoppingCartIcon />, value: '1' },
-    { label: "Saved Items", icon: <PersonIcon />, value: '2' },
+    { label: "Saved Items", icon: <BookmarkOutlinedIcon />, value: '2' },
     { label: "My Listings", icon: <ListIcon />, value: '3' },
     { label: "Personal Info", icon: <PersonIcon />, value: '4' },
 ]
@@ -38,6 +40,8 @@ export const User = () => {
 }
 
 const Profile = () => {
+    const { id } = useParams();
+    console.log(id)
     const { user } = useAuth0();
     const { nickname } = user;
     const [{ products }, { deleteProduct, fetchProducts }] = useApi();

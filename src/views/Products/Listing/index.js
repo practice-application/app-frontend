@@ -37,6 +37,7 @@ const ProductListing = () => {
     const [product, setProduct] = useState();
     const [images, setImages] = useState([]);
     const { id } = useParams();
+    console.log(id)
     const maxSteps = images.length;
     const { user } = useAuth0();
     const { nickname } = user;

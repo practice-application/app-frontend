@@ -57,10 +57,13 @@ export const Header = () => {
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
                     onClose={handleClose}>
+                    <MenuItem component={ActionLink} onClick={handleClose} to={`/profile`}>
+                        <ListItemText primary="Cart" />
+                    </MenuItem>
                     <MenuItem component={ActionLink} onClick={handleClose} to="/profile">
                         <ListItemText primary="Personal Details" />
                     </MenuItem>
-                    <Hidden mdUp>
+                    <Hidden smUp>
                         {MenuItems.map((p, index) =>
                             <MenuItem sx={{
                                 color: 'secondary.main', fontSize: '0.875rem', fontWeight: 600,
