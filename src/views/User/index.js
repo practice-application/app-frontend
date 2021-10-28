@@ -80,6 +80,12 @@ const Profile = () => {
         deleteProduct(id);
     };
 
+    const chip = () => {
+        if ((products.data && products.data.map((item) => item.user === nickname).length > 0)) {
+            return <Chip sx={{ ml: 1 }} color="error" size='small' label={products.data.map((item) => item.user === nickname).length} />
+        } return ''
+    }
+
 
     return (
         <Container maxWidth="md">
@@ -87,8 +93,8 @@ const Profile = () => {
                 <ButtonGroup variant="text">
                     {tabArray.map((item, i) =>
                         <Button sx={value === item.value ? { color: 'primary.main' } : { color: 'grey.300' }} key={i} onClick={() => setValue(item.value)} startIcon={item.icon} >
-                            {item.label} {item.value.includes(3) ?
-                                <Chip sx={{ ml: 1 }} color="error" size='small' label={products.data.map((item) => item.user === nickname).length} />
+                            {item.label}  {item.value.includes(3) ?
+                                chip()
                                 : ''
                             }
                         </Button>
