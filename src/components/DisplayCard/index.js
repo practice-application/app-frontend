@@ -110,23 +110,10 @@ const BigDisplayCard = props => {
                             <BookmarkOutlinedIcon sx={{ color: 'secondary.main' }} />
                         }
                     </IconButton>
-
-                    {view === false ?
-                        <IconButton onClick={cart}>
-                            <ShoppingCartOutlinedIcon />
-
-
-                        </IconButton>
-                        : <IconButton onClick={cartFalse}>
-                            <ShoppingCartIcon sx={{ color: 'secondary.main' }} />
-                        </IconButton>
-                    }
-
-
-
-
-
-
+                    <IconButton onClick={view === false ? cart : cartFalse}>
+                        {view === false ? <ShoppingCartOutlinedIcon />
+                            : <ShoppingCartIcon sx={{ color: 'secondary.main' }} />}
+                    </IconButton>
                 </Stack>
             </CardActions>
         </Card>
