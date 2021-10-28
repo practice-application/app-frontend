@@ -73,7 +73,7 @@ const ProductPage = () => {
                 alignItems="center"
                 spacing={1}
             >
-                <Grid item xs={8} md={10}>
+                <Grid item xs={8} md={6}>
                     <SearchBar value={query} onChange={setQuery} />
                 </Grid>
                 <Grid item xs={4} md={2}>

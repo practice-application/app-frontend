@@ -31,9 +31,10 @@ import { ProductProvider } from '../Products/context';
 
 
 const tabArray = [
-    { label: "Personal Info", icon: <PersonIcon />, value: '1' },
-    { label: "My Cart", icon: <ShoppingCartIcon />, value: '2' },
+    { label: "My Cart", icon: <ShoppingCartIcon />, value: '1' },
+    { label: "Saved Items", icon: <PersonIcon />, value: '2' },
     { label: "My Listings", icon: <ListIcon />, value: '3' },
+    { label: "Personal Info", icon: <PersonIcon />, value: '4' },
 ]
 
 export const User = () => {
@@ -48,8 +49,26 @@ const Profile = () => {
     const { user } = useAuth0();
     const { name, picture, email, nickname, email_verified, created_at } = user;
     const [{ products }, { deleteProduct, fetchProducts }] = useApi();
-    const [value, setValue] = useState('1');
     const [imgProducts, setImgProducts] = useState([]);
+    const [value, setValue] = useLocalStorage('1');
+    function useLocalStorage(key) {
+        const [storedValue, setStoredValue] = useState(() => {
+            try {
+                const item = window.localStorage.getItem('1');
+                return item ? JSON.parse(item) : '1';
+            } catch (error) {
+                return '1';
+            }
+        });
+        const setValue = (value) => {
+            try {
+                const valueToStore = value instanceof Function ? value(storedValue) : value;
+                setStoredValue(valueToStore);
+                window.localStorage.setItem(key, JSON.stringify(valueToStore));
+            } catch (error) { }
+        };
+        return [storedValue, setValue];
+    }
 
     var emailVerified;
     if (email_verified === true) {
@@ -101,7 +120,49 @@ const Profile = () => {
                     )}
                 </ButtonGroup>
             </Card>
+
             {value === '1' &&
+                <Typography variant="h2" noWrap>Saved Items</Typography>
+            }
+            {value === '3' &&
+                <>
+                    <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        spacing={2}
+                    >
+                        <Typography variant="h2" noWrap>My Listings</Typography>
+                        <Button startIcon={<AddOutlinedIcon />} variant='contained' component={ActionLink} to="/add-product">
+                            Create new Listing
+                        </Button>
+                    </Stack>
+                    {products.data ?
+                        <>
+                            {imgProducts ?
+                                <List>
+                                    {products.data.map((p, i) =>
+                                        <DisplayCard
+                                            title={p.name}
+                                            subtitle={p.category}
+                                            to={p.id}
+                                            person={p.user}
+                                            image={p.imgUrl}
+                                            key={i}
+                                            dataType="small"
+                                            onDelete={() => handleDelete(p.id)} />
+                                    )}
+                                </List>
+                                :
+                                ''
+                            }
+
+                        </>
+                        : <Typography>No Listings to show</Typography>
+                    }
+                </>
+            }
+            {value === '4' &&
                 <>
                     <Stack
                         direction="row"
@@ -149,50 +210,8 @@ const Profile = () => {
                     </Card>
                 </>
             }
-            {value === '2' &&
-                <Typography variant="h2" noWrap>Saved Items</Typography>
-            }
-            {value === '3' &&
-                <>
-                    <Stack
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        spacing={2}
-                    >
-                        <Typography variant="h2" noWrap>My Listings</Typography>
-                        <Button startIcon={<AddOutlinedIcon />} variant='contained' component={ActionLink} to="/add-product">
-                            Create new Listing
-                        </Button>
-                    </Stack>
-                    {products.data ?
-                        <>
-                            {imgProducts ?
-                                <List>
-                                    {products.data.map((p, i) =>
-                                        <DisplayCard
-                                            title={p.name}
-                                            subtitle={p.category}
-                                            to={p.id}
-                                            person={p.user}
-                                            image={p.imgUrl}
-                                            key={i}
-                                            dataType="small"
-                                            onDelete={() => handleDelete(p.id)} />
-                                    )}
-                                </List>
-                                :
-                                ''
-                            }
-
-                        </>
-                        : <Typography>No Listings to show</Typography>
-                    }
-                </>
-            }
         </Container>
     );
-
 };
 
 export default User;
