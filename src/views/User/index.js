@@ -11,11 +11,10 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Avatar from '@mui/material/Avatar';
-import Chip from '@mui/material/Chip';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import Chip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
@@ -88,10 +87,6 @@ const Profile = () => {
         deleteProduct(id);
     };
 
-
-    console.log(useAuth0())
-
-
     return (
         <Container maxWidth="md">
             <TabContext value={value}>
@@ -99,7 +94,7 @@ const Profile = () => {
                     {tabArray.map((item, i) =>
                         <Tab key={i} icon={item.icon} label={item.label.includes('My Listings') ?
                             <Stack direction="row" alignItems="center">
-                                <Typography >{item.label}</Typography> {products.data.length > 0 && <Chip sx={{ ml: 1 }} color="error" size='small' label={products.data.length} />}
+                                <Typography >{item.label}</Typography> <Chip sx={{ ml: 1 }} color="error" size='small' label={products.data.length} />
                             </Stack> :
                             <Typography >{item.label}</Typography>
                         } value={item.value} />
@@ -165,7 +160,8 @@ const Profile = () => {
                         <Button startIcon={<AddOutlinedIcon />} variant='contained' component={ActionLink} to="/add-product">
                             Create new Listing
                         </Button>
-                    </Stack>{products.data ?
+                    </Stack>
+                    {products.data ?
                         <>
                             {imgProducts ?
                                 <List>
@@ -182,9 +178,7 @@ const Profile = () => {
                                     )}
                                 </List>
                                 :
-                                <>
-                                </>
-
+                                ''
                             }
 
                         </>
