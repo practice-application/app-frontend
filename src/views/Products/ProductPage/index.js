@@ -32,25 +32,7 @@ const ProductPage = () => {
     const [category, setCategory] = useState('');
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
     const [imgProducts, setImgProducts] = useState([]);
-    const [cart, setCart] = useLocalStorage(0);
-    function useLocalStorage(key) {
-        const [storedValue, setStoredValue] = useState(() => {
-            try {
-                const item = window.localStorage.getItem(0);
-                return item ? JSON.parse(item) : 0;
-            } catch (error) {
-                return 0;
-            }
-        });
-        const setValue = (value) => {
-            try {
-                const valueToStore = value instanceof Function ? value(storedValue) : value;
-                setStoredValue(valueToStore);
-                window.localStorage.setItem(key, JSON.stringify(valueToStore));
-            } catch (error) { }
-        };
-        return [storedValue, setValue];
-    }
+    const [cart, setCart] = useState(0);
 
     // fetch products
     useEffect(() => {
