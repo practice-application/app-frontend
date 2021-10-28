@@ -2,32 +2,24 @@ import React, { useEffect, useState } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CreateIcon from '@mui/icons-material/Create';
 import ListIcon from '@mui/icons-material/List';
 import PersonIcon from '@mui/icons-material/Person';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import dateFormat from 'dateformat';
 
 import ActionLink from '../../components/ActionLink';
 import { DisplayCard } from '../../components/DisplayCard';
 import { imgStorage } from '../../config';
 import { useApi } from '../Products/context';
 import { ProductProvider } from '../Products/context';
+import { ProfileCard } from './ProfileCard'
 
 
 const tabArray = [
@@ -47,7 +39,7 @@ export const User = () => {
 
 const Profile = () => {
     const { user } = useAuth0();
-    const { name, picture, email, nickname, email_verified, created_at } = user;
+    const { nickname } = user;
     const [{ products }, { deleteProduct, fetchProducts }] = useApi();
     const [imgProducts, setImgProducts] = useState([]);
     const [value, setValue] = useLocalStorage('1');
@@ -68,13 +60,6 @@ const Profile = () => {
             } catch (error) { }
         };
         return [storedValue, setValue];
-    }
-
-    var emailVerified;
-    if (email_verified === true) {
-        emailVerified = <CheckCircleIcon sx={{ color: 'success.main' }} />
-    } else {
-        emailVerified = "Needs verification"
     }
 
     useEffect(() => {
@@ -163,52 +148,7 @@ const Profile = () => {
                 </>
             }
             {value === '4' &&
-                <>
-                    <Stack
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        spacing={2}
-                    >
-                        <Typography variant="h2" gutterBottom noWrap>Personal Details</Typography>
-                        <Button startIcon={<CreateIcon />} variant='contained' >
-                            Edit Profile
-                        </Button>
-                    </Stack>
-                    <Card elevation={1} sx={{ mb: 1 }}>
-                        <CardContent>
-                            <List sx={{ padding: 2 }}>
-                                <ListItem>
-                                    <ListItemAvatar>
-                                        <Avatar
-                                            src={picture}
-                                            alt="Profile"
-                                        />
-                                    </ListItemAvatar>
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemText>Name</ListItemText>{name}
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText>Username </ListItemText>{nickname}
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText>Email </ListItemText>{email}
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText>Created at</ListItemText>{dateFormat((created_at), "dd/mm/yyyy")}
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText>Verified Email</ListItemText>{emailVerified}
-                                </ListItem>
-                            </List>
-                        </CardContent>
-                    </Card>
-                </>
+                <ProfileCard />
             }
         </Container>
     );
