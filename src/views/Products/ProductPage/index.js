@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Chip from '@mui/material/Chip';
 
 import ActionLink from '../../../components/ActionLink';
 import { DisplayCard } from '../../../components/DisplayCard';
@@ -31,7 +32,7 @@ const ProductPage = () => {
     const [category, setCategory] = useState('');
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
     const [imgProducts, setImgProducts] = useState([]);
-    const [basketNumbers, setBasketNumbers] = useState(0);
+    const [cart, setCart] = useState(0);
 
     // fetch products
     useEffect(() => {
@@ -65,15 +66,15 @@ const ProductPage = () => {
     };
 
     const addToBasket = () => {
-        setBasketNumbers(oldBasketNum => oldBasketNum + 1)
+        setCart(o => o + 1)
     };
     const removeBasket = () => {
-        setBasketNumbers(oldBasketNum => oldBasketNum - 1)
+        setCart(o => o - 1)
     };
 
     return (
         <>
-            <h1>Current Number In Cart {basketNumbers}</h1>
+            {cart > 0 && <Chip color="error" label={cart} />}
             <Grid
                 sx={{ pb: 2 }}
                 container
@@ -98,7 +99,7 @@ const ProductPage = () => {
                                 <Grid key={index} item xs={3}>
                                     <DisplayCard
                                         remove={removeBasket}
-                                        addToBag={addToBasket}
+                                        addToBag={() => addToBasket(p.id)}
                                         image={p.imgUrl}
                                         dataType="large"
                                         string={p.id}
