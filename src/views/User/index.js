@@ -80,6 +80,7 @@ const Profile = () => {
         deleteProduct(id);
     };
 
+
     return (
         <Container maxWidth="md">
             <Card elevation={2} sx={{ mb: 1, py: 2 }}>
@@ -87,7 +88,7 @@ const Profile = () => {
                     {tabArray.map((item, i) =>
                         <Button sx={value === item.value ? { color: 'primary.main' } : { color: 'grey.300' }} key={i} onClick={() => setValue(item.value)} startIcon={item.icon} >
                             {item.label} {item.value.includes(3) ?
-                                <Chip sx={{ ml: 1 }} color="error" size='small' label={products.data.length} />
+                                <Chip sx={{ ml: 1 }} color="error" size='small' label={products.data.map((item) => item.user === nickname).length} />
                                 : ''
                             }
                         </Button>
