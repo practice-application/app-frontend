@@ -20,11 +20,13 @@ export const ProfileCard = () => {
     const { user } = useAuth0();
     const { name, picture, email, nickname, email_verified, created_at } = user;
 
-    var emailVerified;
-    if (email_verified === true) {
-        emailVerified = <CheckCircleIcon sx={{ color: 'success.main' }} />
-    } else {
-        emailVerified = "Needs verification"
+    const emailVerified = () => {
+        if (email_verified === true) {
+            return <Typography sx={{ color: 'success.main' }}><CheckCircleIcon /> Verified</Typography>
+
+        } else {
+            return "Needs verification"
+        }
     }
 
     return (
@@ -68,7 +70,7 @@ export const ProfileCard = () => {
                         </ListItem>
                         <Divider />
                         <ListItem>
-                            <ListItemText>Verified Email</ListItemText>{emailVerified}
+                            <ListItemText>Verified Email</ListItemText>{emailVerified()}
                         </ListItem>
                     </List>
                 </CardContent>

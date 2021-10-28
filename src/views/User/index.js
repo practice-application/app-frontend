@@ -85,8 +85,8 @@ const Profile = () => {
     };
 
     const chip = () => {
-        if ((products.data && products.data.map((item) => item.user === nickname).length > 0)) {
-            return <Chip sx={{ ml: 1 }} color="error" size='small' label={products.data.map((item) => item.user === nickname).length} />
+        if (products.data.map((item) => nickname === item.user).length > 0) {
+            return <Chip sx={{ ml: 1 }} color="error" size='small' label={products.data.filter((item) => nickname === item.user).length} />
         } return ''
     }
 
