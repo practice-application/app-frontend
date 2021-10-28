@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CreateIcon from '@mui/icons-material/Create';
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -22,7 +23,12 @@ export const ProfileCard = () => {
 
     const emailVerified = () => {
         if (email_verified === true) {
-            return <Typography sx={{ color: 'success.main' }}><CheckCircleIcon /> Verified</Typography>
+            return <Box sx={{
+                display: 'flex',
+                alignItems: 'flex-end',
+                typography: 'body1',
+                color: 'success.main',
+            }} ><CheckCircleIcon fontSize="small" /> Verified</Box>
 
         } else {
             return "Needs verification"
