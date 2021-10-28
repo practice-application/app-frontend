@@ -7,11 +7,9 @@ import CreateIcon from '@mui/icons-material/Create';
 import ListIcon from '@mui/icons-material/List';
 import PersonIcon from '@mui/icons-material/Person';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
@@ -22,7 +20,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Stack from '@mui/material/Stack';
-import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import dateFormat from 'dateformat';
 
@@ -53,10 +50,6 @@ const Profile = () => {
     const [{ products }, { deleteProduct, fetchProducts }] = useApi();
     const [value, setValue] = useState('1');
     const [imgProducts, setImgProducts] = useState([]);
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
 
     var emailVerified;
     if (email_verified === true) {
@@ -89,18 +82,20 @@ const Profile = () => {
 
     return (
         <Container maxWidth="md">
-            <TabContext value={value}>
-                <TabList onChange={handleChange} >
+            <Card elevation={2} sx={{ mb: 1, py: 2 }}>
+                <ButtonGroup variant="text">
                     {tabArray.map((item, i) =>
-                        <Tab key={i} icon={item.icon} label={item.label.includes('My Listings') ?
-                            <Stack direction="row" alignItems="center">
-                                <Typography >{item.label}</Typography> <Chip sx={{ ml: 1 }} color="error" size='small' label={products.data.length} />
-                            </Stack> :
-                            <Typography >{item.label}</Typography>
-                        } value={item.value} />
+                        <Button sx={value === item.value ? { color: 'primary.main' } : { color: 'grey.300' }} key={i} onClick={() => setValue(item.value)} startIcon={item.icon} >
+                            {item.label} {item.value.includes(3) ?
+                                <Chip sx={{ ml: 1 }} color="error" size='small' label={products.data.length} />
+                                : ''
+                            }
+                        </Button>
                     )}
-                </TabList>
-                <TabPanel value="1">
+                </ButtonGroup>
+            </Card>
+            {value === '1' &&
+                <>
                     <Stack
                         direction="row"
                         justifyContent="space-between"
@@ -145,11 +140,13 @@ const Profile = () => {
                             </List>
                         </CardContent>
                     </Card>
-                </TabPanel>
-                <TabPanel value="2">
-                    <Typography variant="h2" noWrap>Saved Items</Typography>
-                </TabPanel>
-                <TabPanel value="3">
+                </>
+            }
+            {value === '2' &&
+                <Typography variant="h2" noWrap>Saved Items</Typography>
+            }
+            {value === '3' &&
+                <>
                     <Stack
                         direction="row"
                         justifyContent="space-between"
@@ -184,10 +181,9 @@ const Profile = () => {
                         </>
                         : <Typography>No Listings to show</Typography>
                     }
-                </TabPanel>
-            </TabContext>
+                </>
+            }
         </Container>
-
     );
 
 };
