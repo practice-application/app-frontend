@@ -104,13 +104,18 @@ const ProductListing = () => {
                                 currentPage={product.name} />
                         </Grid>
                         {nickname === product.user &&
-                            <Grid item>
-                                <Button
-                                    variant={view === true ? "contained" : "outlined"}
-                                    endIcon={view === true ? <CreateIcon fontSize="small" /> : <CloseIcon fontSize="small" />}
-                                    onClick={view === true ? change : changeBack}> {view === true ? "Edit Product" : "Cancel"}</Button>
-
-                            </Grid>
+                            <>
+                                <Grid item>
+                                    <Button
+                                        variant={view === true ? "contained" : "outlined"}
+                                        endIcon={view === true ? <CreateIcon fontSize="small" /> : <CloseIcon fontSize="small" />}
+                                        onClick={view === true ? change : changeBack}> {view === true ? "Edit Product" : "Cancel"}
+                                    </Button>
+                                </Grid>
+                                <Grid item>
+                                    Edited {product.edits > 1 ? product.edits + '  times' : product.edits + '  time'}
+                                </Grid>
+                            </>
                         }
                     </Grid>
                     <Container maxWidth={view ? "md" : "sm"} sx={{ paddingTop: 10 }}>
