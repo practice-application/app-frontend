@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import CloseIcon from '@mui/icons-material/Close';
 import CreateIcon from '@mui/icons-material/Create';
+import StarIcon from '@mui/icons-material/Star';
 import { Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
@@ -115,7 +117,13 @@ const ProductListing = () => {
                         {view ? (
                             <>
                                 <Paper sx={{ my: 1, p: 1 }}>
-                                    <CardHeader title={product.name} />
+                                    <CardHeader subheader={product.priority === true ?
+                                        <Box sx={{ typography: 'body2', color: 'warning.main', display: 'flex', alignItems: 'center' }}>
+                                            Premium Listing <StarIcon fontSize="small" sx={{
+                                                color: 'warning.main',
+                                                ml: 1
+                                            }} />
+                                        </Box> : ''} title={product.name} />
                                     {product.description &&
                                         <>
                                             <ListItem>
