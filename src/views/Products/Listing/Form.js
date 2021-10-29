@@ -5,6 +5,7 @@ import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
 import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
@@ -107,18 +108,15 @@ export const Form = ({ onAction }) => {
     }, [state.product]);
 
     const handleChange = (e) => {
-        const c = (e.target.checked)
+        const c = (e.target.checked);
         const key = e.target.id;
         const val = e.target.value;
-        setProduct(prev => {
-            prev[key] = val || c;
+        setProduct((prev) => {
+            prev[key] = val
+            prev[val] = c
             return { ...prev };
         });
     }
-    // function handleSwitchChange(e) {
-    //     setPriority(e.target.checked);
-    // }
-
 
     return (
         <>
@@ -165,13 +163,14 @@ export const Form = ({ onAction }) => {
                             />
 
                         </Grid>
-                        <FormControlLabel
+                        {/* <FormControlLabel
                             value="end"
                             control={<Switch id="priority" checked={product && product.priority} onChange={handleChange} />}
                             label={`${product && product.priority === false ? 'Standard' : 'Priority'} sale selected`}
                             labelPlacement="end"
-                        />
-
+                        /> */}
+                        {console.log(product && product.priority)}
+                        <Checkbox id="priority" onChange={handleChange} checked={product && product.priority ? true && true : false && false} value={product && product.priority ? true && true : false && false} />
                         {console.log(product.priority)}
                         <Grid item xs={12}>
                             <ImageUploading

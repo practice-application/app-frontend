@@ -159,13 +159,20 @@ const ProductListing = () => {
                                     onDelete={(e) => onDelete(e)}
                                     action={nickname === product.user}
                                 />
-                                {product.tags.count > 0 &&
+                                {product.tags.length > 0 &&
                                     <Paper sx={{ my: 1, p: 1 }}>
                                         <ListItem>
                                             <ListItemText>
                                                 Tags
                                             </ListItemText>
-                                            {product.tags.map((item, i) => <Chip sx={{ mx: 0.25 }} key={i} label={<Typography>{item}</Typography>} />)}
+                                            {product.tags.map((item, i) =>
+                                                <div key={i}>
+                                                    {item === '' ?
+                                                        '' :
+                                                        <Chip sx={{ mx: 0.25 }} label={<Typography>{item}</Typography>} />
+                                                    }
+                                                </div>
+                                            )}
                                         </ListItem>
                                     </Paper>
                                 }
