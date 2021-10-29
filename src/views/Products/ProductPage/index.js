@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import StarIcon from '@mui/icons-material/Star';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import ActionLink from '../../../components/ActionLink';
@@ -72,6 +74,7 @@ const ProductPage = () => {
         setCart(o => o - 1)
     };
 
+
     return (
         <>
             {cart > 0 && <Chip color="error" label={cart} />}
@@ -97,6 +100,7 @@ const ProductPage = () => {
                             ? ((item.name) + (item.category) + (item.tags.map((tag) => tag))).toLowerCase().includes(query + category.toLowerCase())
                             : item).map((p, index) =>
                                 <Grid key={index} item xs={3}>
+
                                     <DisplayCard
                                         elevation={p.priority === true ? 1 : 2}
                                         remove={removeBasket}
@@ -104,7 +108,17 @@ const ProductPage = () => {
                                         image={p.imgUrl}
                                         dataType="large"
                                         string={p.id}
-                                        title={p.name}
+                                        title={p.priority === true ?
+                                            <Stack
+                                                direction="row"
+                                                alignItems="center"
+
+                                            ><StarIcon sx={{
+                                                color: 'warning.main',
+                                                fontSize: 22,
+                                                mr: 0.5
+                                            }} />
+                                                {p.name}</Stack> : p.name}
                                         subtitle={p.category}
                                         price={p.price}
                                         description={p.description} />

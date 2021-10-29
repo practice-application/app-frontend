@@ -8,11 +8,13 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ShareIcon from '@mui/icons-material/Share';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import StarIcon from '@mui/icons-material/Star';
 import { CardActionArea, CardHeader, CardActions } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Checkbox from '@mui/material/Checkbox';
+import Fab from '@mui/material/Fab';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
@@ -65,49 +67,52 @@ const BigDisplayCard = props => {
 
 
     return (
-        <Card elevation={elevation} sx={{ m: 1 }}>
-            <CardActionArea component={ActionLink} to={`/products/${string}` || to} >
-                <CardMedia
-                    component="img"
-                    height="200"
-                    image={image}
-                    alt={`${image} text`}
-                />
-                <CardHeader
-                    title={<Typography variant="h5">
-                        {title}
-                    </Typography>}
-                    subheader={subtitle}
-                />
-                <ListItem>
-                    <Typography noWrap variant="body2" color="text.secondary">
-                        {description}
-                    </Typography>
-                </ListItem>
-            </CardActionArea>
-            <CardActions disableSpacing  >
-                <Stack
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="flex-start"
-                    spacing={1}
-                >
-                    <Typography color="text.secondary" variant="caption">
-                        Price
-                    </Typography>
-                    <Typography variant="body1">
-                        {`$${price}`}
-                    </Typography>
-                </Stack>
-                <Stack
-                    direction="row"
-                    alignItems="flex-start"
-                >
-                    <Checkbox onChange={save} icon={<BookmarkBorderOutlinedIcon />} checkedIcon={<BookmarkOutlinedIcon />} />
-                    <Checkbox onChange={view === false ? cart : cartFalse} icon={<ShoppingCartOutlinedIcon />} checkedIcon={<ShoppingCartIcon />} />
-                </Stack>
-            </CardActions>
-        </Card>
+        <>
+
+            <Card elevation={elevation} sx={{ m: 1 }}>
+                <CardActionArea component={ActionLink} to={`/products/${string}` || to} >
+                    <CardMedia
+                        component="img"
+                        height="200"
+                        image={image}
+                        alt={`${image} text`}
+                    />
+                    <CardHeader
+                        title={<Typography variant="h5">
+                            {title}
+                        </Typography>}
+                        subheader={subtitle}
+                    />
+                    <ListItem>
+                        <Typography noWrap variant="body2" color="text.secondary">
+                            {description}
+                        </Typography>
+                    </ListItem>
+                </CardActionArea>
+                <CardActions disableSpacing  >
+                    <Stack
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="flex-start"
+                        spacing={1}
+                    >
+                        <Typography color="text.secondary" variant="caption">
+                            Price
+                        </Typography>
+                        <Typography variant="body1">
+                            {`$${price}`}
+                        </Typography>
+                    </Stack>
+                    <Stack
+                        direction="row"
+                        alignItems="flex-start"
+                    >
+                        <Checkbox onChange={save} icon={<BookmarkBorderOutlinedIcon />} checkedIcon={<BookmarkOutlinedIcon />} />
+                        <Checkbox onChange={view === false ? cart : cartFalse} icon={<ShoppingCartOutlinedIcon />} checkedIcon={<ShoppingCartIcon />} />
+                    </Stack>
+                </CardActions>
+            </Card>
+        </>
     )
 }
 

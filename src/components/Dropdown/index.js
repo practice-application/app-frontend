@@ -54,7 +54,7 @@ const Tags = props => {
             renderInput={(params) => (
                 <TextInput
                     {...params}
-                    id="tags" size="small" variant="outlined" fullWidth label="Tags" helperText="Please create 5 tags"
+                    id="tags" size="small" variant="outlined" fullWidth label="Tags" helperText="Maximum of 5 tags"
                 />
             )}
         />

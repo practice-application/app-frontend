@@ -12,7 +12,7 @@ export const palette = {
         contrastText: '#FFFFFF',
     },
     warning: {
-        main: '#F96E32',
+        main: '#FFBA01',
         contrastText: '#212325',
     },
     info: {
