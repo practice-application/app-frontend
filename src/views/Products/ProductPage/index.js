@@ -97,7 +97,7 @@ const ProductPage = () => {
                 <>
                     <Grid container spacing={1} direction="row" justifyContent="flex-start" >
                         {products.data.filter(item => query + category
-                            ? ((item.name) + (item.category) + (item.tags.map((tag) => tag))).toLowerCase().includes(query + category.toLowerCase())
+                            ? ((item.name) + (item.category) + (item.user) + (item.tags.map((tag) => tag))).toLowerCase().includes(query + category.toLowerCase())
                             : item).sort((a, b) => a.priority > b.priority ? -1 : 1).map((p, index) =>
                                 <Grid key={index} item xs={3}>
                                     <DisplayCard
