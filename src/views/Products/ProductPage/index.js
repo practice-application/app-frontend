@@ -77,7 +77,6 @@ const ProductPage = () => {
 
     return (
         <>
-            {cart > 0 && <Chip color="error" label={cart} />}
             <Grid
                 sx={{ pb: 2 }}
                 container
@@ -89,9 +88,10 @@ const ProductPage = () => {
                 <Grid item xs={8} md={6}>
                     <SearchBar value={query} onChange={setQuery} />
                 </Grid>
-                <Grid item xs={4} md={2}>
+                <Grid item xs={2} md={2}>
                     <Dropdown dataType="productDropdown" value={category} onChange={handleChange} />
                 </Grid>
+                <Grid xs={2} md={2}> {cart > 0 && <Chip color="error" label={cart} />}</Grid>
             </Grid>
             {imgProducts ?
                 <>
