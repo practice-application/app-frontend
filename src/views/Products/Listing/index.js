@@ -123,7 +123,7 @@ const ProductListing = () => {
                                                 color: 'warning.main',
                                                 ml: 1
                                             }} />
-                                        </Box> : ''} title={product.name} />
+                                        </Box> : null} title={product.name} />
                                     {product.description &&
                                         <>
                                             <ListItem>
