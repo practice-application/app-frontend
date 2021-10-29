@@ -5,7 +5,6 @@ import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
@@ -33,7 +32,6 @@ export const Form = ({ onAction }) => {
     const maxNumber = 5
     const { user } = useAuth0();
     const { nickname, picture } = user;
-    const [priority, setPriority] = useState(false);
 
     const validPrice = () => {
         let isValid = true;
@@ -108,12 +106,13 @@ export const Form = ({ onAction }) => {
     }, [state.product]);
 
     const handleChange = (e) => {
-        const c = (e.target.checked);
         const key = e.target.id;
         const val = e.target.value;
+        const t = e.target.name;
+        const c = e.target.checked;
         setProduct((prev) => {
             prev[key] = val
-            prev[val] = c
+            prev[t] = c
             return { ...prev };
         });
     }
@@ -163,15 +162,6 @@ export const Form = ({ onAction }) => {
                             />
 
                         </Grid>
-                        {/* <FormControlLabel
-                            value="end"
-                            control={<Switch id="priority" checked={product && product.priority} onChange={handleChange} />}
-                            label={`${product && product.priority === false ? 'Standard' : 'Priority'} sale selected`}
-                            labelPlacement="end"
-                        /> */}
-                        {console.log(product && product.priority)}
-                        <Checkbox id="priority" onChange={handleChange} checked={product && product.priority ? true && true : false && false} value={product && product.priority ? true && true : false && false} />
-                        {console.log(product.priority)}
                         <Grid item xs={12}>
                             <ImageUploading
                                 accept={'.xlsx,.xls,image/*,.doc,.docx,.txt,.rtf,.pdf'}
@@ -211,6 +201,14 @@ export const Form = ({ onAction }) => {
                                 value={product && product.tags.map((item) => item)}
                                 onChange={handleChange}
                                 tags />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormControlLabel
+                                value="end"
+                                control={<Switch name="priority" checked={product && product.priority === true} onChange={handleChange} />}
+                                label={`${product && product.priority === false ? 'Standard' : 'Priority'} sale selected`}
+                                labelPlacement="end"
+                            />
                         </Grid>
                     </Grid>
                     <Button
