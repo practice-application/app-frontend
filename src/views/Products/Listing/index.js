@@ -137,6 +137,16 @@ const ProductListing = () => {
                                             <Divider />
                                         </>
                                     }
+                                    {product.size &&
+                                        <>
+                                            <ListItem>
+                                                <ListItemText>
+                                                    Size
+                                                </ListItemText>   {product.size}
+                                            </ListItem>
+                                            <Divider />
+                                        </>
+                                    }
                                     <ListItem>
                                         <ListItemText>
                                             Price

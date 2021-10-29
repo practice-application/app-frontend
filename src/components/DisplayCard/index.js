@@ -63,7 +63,6 @@ const BigDisplayCard = props => {
     }
 
 
-
     return (
         <>
 

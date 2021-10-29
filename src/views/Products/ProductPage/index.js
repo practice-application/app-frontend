@@ -98,9 +98,8 @@ const ProductPage = () => {
                     <Grid container spacing={1} direction="row" justifyContent="flex-start" >
                         {products.data.filter(item => query + category
                             ? ((item.name) + (item.category) + (item.tags.map((tag) => tag))).toLowerCase().includes(query + category.toLowerCase())
-                            : item).map((p, index) =>
+                            : item).sort((a, b) => a.priority > b.priority ? -1 : 1).map((p, index) =>
                                 <Grid key={index} item xs={3}>
-
                                     <DisplayCard
                                         elevation={p.priority === true ? 1 : 2}
                                         remove={removeBasket}
@@ -111,14 +110,14 @@ const ProductPage = () => {
                                         title={p.priority === true ?
                                             <Stack
                                                 direction="row"
-                                                alignItems="center"
-
-                                            ><StarIcon sx={{
-                                                color: 'warning.main',
-                                                fontSize: 20,
-                                                mr: 0.5
-                                            }} />
-                                                {p.name}</Stack> : p.name}
+                                                alignItems="center">
+                                                <StarIcon sx={{
+                                                    color: 'warning.main',
+                                                    fontSize: 20,
+                                                    mr: 0.5
+                                                }} />
+                                                {p.name}
+                                            </Stack> : p.name}
                                         subtitle={p.category}
                                         price={p.price}
                                         description={p.description} />
