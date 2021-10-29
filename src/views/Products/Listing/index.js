@@ -37,7 +37,6 @@ const ProductListing = () => {
     const [product, setProduct] = useState();
     const [images, setImages] = useState([]);
     const { id } = useParams();
-    console.log(id)
     const maxSteps = images.length;
     const { user } = useAuth0();
     const { nickname } = user;
@@ -160,16 +159,16 @@ const ProductListing = () => {
                                     onDelete={(e) => onDelete(e)}
                                     action={nickname === product.user}
                                 />
-
-                                <Paper sx={{ my: 1, p: 1 }}>
-                                    <ListItem>
-                                        <ListItemText>
-                                            Tags
-                                        </ListItemText>
-                                        {product.tags.map((item, i) => <Chip sx={{ mx: 0.25 }} key={i} label={<Typography>{item}</Typography>} />)}
-                                    </ListItem>
-                                </Paper>
-
+                                {product.tags.count > 0 &&
+                                    <Paper sx={{ my: 1, p: 1 }}>
+                                        <ListItem>
+                                            <ListItemText>
+                                                Tags
+                                            </ListItemText>
+                                            {product.tags.map((item, i) => <Chip sx={{ mx: 0.25 }} key={i} label={<Typography>{item}</Typography>} />)}
+                                        </ListItem>
+                                    </Paper>
+                                }
                             </>
                         ) : (
                             <Form onAction={(changeBack)} />

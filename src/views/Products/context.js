@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import cloneDeep from 'lodash.clonedeep';
 
 import { config } from '../../config';
+import { bool } from 'prop-types';
 
 const reducer = (state, action) => {
     const newState = cloneDeep(state);
@@ -70,7 +71,8 @@ const initialState = {
         userPic: '',
         size: '',
         tags: [],
-        category: ''
+        category: '',
+        priority: {}
     },
     error: null,
 };

@@ -4,8 +4,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
+import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import * as PropTypes from 'prop-types';
 import ImageUploading from 'react-images-uploading';
@@ -30,6 +32,7 @@ export const Form = ({ onAction }) => {
     const maxNumber = 5
     const { user } = useAuth0();
     const { nickname, picture } = user;
+    const [priority, setPriority] = useState(false);
 
     const validPrice = () => {
         let isValid = true;
@@ -104,15 +107,17 @@ export const Form = ({ onAction }) => {
     }, [state.product]);
 
     const handleChange = (e) => {
+        const c = (e.target.checked)
         const key = e.target.id;
         const val = e.target.value;
-
         setProduct(prev => {
-            prev[key] = val;
+            prev[key] = val || c;
             return { ...prev };
         });
     }
-
+    // function handleSwitchChange(e) {
+    //     setPriority(e.target.checked);
+    // }
 
 
     return (
@@ -160,6 +165,14 @@ export const Form = ({ onAction }) => {
                             />
 
                         </Grid>
+                        <FormControlLabel
+                            value="end"
+                            control={<Switch id="priority" checked={product && product.priority} onChange={handleChange} />}
+                            label={`${product && product.priority === false ? 'Standard' : 'Priority'} sale selected`}
+                            labelPlacement="end"
+                        />
+
+                        {console.log(product.priority)}
                         <Grid item xs={12}>
                             <ImageUploading
                                 accept={'.xlsx,.xls,image/*,.doc,.docx,.txt,.rtf,.pdf'}

@@ -98,6 +98,7 @@ const ProductPage = () => {
                             : item).map((p, index) =>
                                 <Grid key={index} item xs={3}>
                                     <DisplayCard
+                                        elevation={p.priority === true ? 1 : 2}
                                         remove={removeBasket}
                                         addToBag={() => addToBasket(p.id)}
                                         image={p.imgUrl}

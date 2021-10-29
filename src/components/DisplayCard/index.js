@@ -12,6 +12,7 @@ import { CardActionArea, CardHeader, CardActions } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
+import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
@@ -27,11 +28,11 @@ import * as PropTypes from 'prop-types';
 import ActionLink from '../ActionLink';
 
 export const DisplayCard = (props) => {
-    const { title, subtitle, description, price, string, to, image, dataType, remove, onDelete, person, addToBag } = props
+    const { elevation, title, subtitle, description, price, string, to, image, dataType, remove, onDelete, person, addToBag } = props
 
     switch (dataType) {
         case 'large':
-            return <BigDisplayCard addToBag={addToBag} title={title} subtitle={subtitle} description={description}
+            return <BigDisplayCard elevation={elevation} addToBag={addToBag} title={title} subtitle={subtitle} description={description}
                 price={price} remove={remove} string={string} to={to} image={image} />
         case 'small':
             return <MiniDispayCard person={person} title={title} subtitle={subtitle} image={image} to={to} onDelete={onDelete} />
@@ -42,7 +43,7 @@ export const DisplayCard = (props) => {
 export default DisplayCard;
 
 const BigDisplayCard = props => {
-    const { title, subtitle, description, price, string, to, image, addToBag, remove } = props;
+    const { elevation, title, subtitle, description, price, string, to, image, addToBag, remove } = props;
     const [view, setView] = useState(false);
     const [bookmark, setBookmark] = useState(false);
 
@@ -53,7 +54,6 @@ const BigDisplayCard = props => {
 
     const cart = () => {
         view === false && setView(true);
-
         addToBag();
     };
 
@@ -65,7 +65,7 @@ const BigDisplayCard = props => {
 
 
     return (
-        <Card sx={{ m: 1 }}>
+        <Card elevation={elevation} sx={{ m: 1 }}>
             <CardActionArea component={ActionLink} to={`/products/${string}` || to} >
                 <CardMedia
                     component="img"
@@ -103,17 +103,8 @@ const BigDisplayCard = props => {
                     direction="row"
                     alignItems="flex-start"
                 >
-                    <IconButton onClick={save}>
-                        {bookmark === false ?
-                            <BookmarkBorderOutlinedIcon />
-                            :
-                            <BookmarkOutlinedIcon sx={{ color: 'secondary.main' }} />
-                        }
-                    </IconButton>
-                    <IconButton onClick={view === false ? cart : cartFalse}>
-                        {view === false ? <ShoppingCartOutlinedIcon />
-                            : <ShoppingCartIcon sx={{ color: 'secondary.main' }} />}
-                    </IconButton>
+                    <Checkbox onChange={save} icon={<BookmarkBorderOutlinedIcon />} checkedIcon={<BookmarkOutlinedIcon />} />
+                    <Checkbox onChange={view === false ? cart : cartFalse} icon={<ShoppingCartOutlinedIcon />} checkedIcon={<ShoppingCartIcon />} />
                 </Stack>
             </CardActions>
         </Card>
