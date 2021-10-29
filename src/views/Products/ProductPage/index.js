@@ -115,7 +115,7 @@ const ProductPage = () => {
 
                                             ><StarIcon sx={{
                                                 color: 'warning.main',
-                                                fontSize: 22,
+                                                fontSize: 20,
                                                 mr: 0.5
                                             }} />
                                                 {p.name}</Stack> : p.name}
