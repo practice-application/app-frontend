@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 import List from '@mui/material/List';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import ActionLink from '../../components/ActionLink';
 import { DisplayCard } from '../../components/DisplayCard';
@@ -41,7 +41,6 @@ export const User = () => {
 
 const Profile = () => {
     const location = useLocation()
-    console.log(location.state)
     const { user } = useAuth0();
     const { nickname } = user;
     const [{ products }, { deleteProduct, fetchProducts }] = useApi();

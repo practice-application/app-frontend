@@ -2,12 +2,18 @@ import React from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
+import ListIcon from '@mui/icons-material/List';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PersonIcon from '@mui/icons-material/Person';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Hidden from '@mui/material/Hidden';
 import Link from '@mui/material/Link';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
@@ -21,6 +27,13 @@ const MenuItems = [
     { label: 'Products', link: '/products' },
 ];
 
+const profile = [
+    { label: "My Cart", icon: <ShoppingCartIcon color="primary" fontSize="small" />, value: '1' },
+    { label: "Saved Items", icon: <BookmarkOutlinedIcon color="primary" fontSize="small" />, value: '2' },
+    { label: "My Listings", icon: <ListIcon color="primary" fontSize="small" />, value: '3' },
+    { label: "Personal Info", icon: <PersonIcon color="primary" fontSize="small" />, value: '4' },
+];
+
 export const Header = () => {
     const { logout, user } = useAuth0();
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -28,13 +41,6 @@ export const Header = () => {
     const handleClose = () => { setAnchorEl(null); };
     const { picture, nickname } = user;
 
-
-    const profile = [
-        { label: 'My Cart', value: '1' },
-        { label: 'Saved Items', value: '2' },
-        { label: 'My Listings', value: '3' },
-        { label: 'Personal Info', value: '4' }
-    ]
 
     return (
         <AppBar elevation={1} position="static" sx={{ padding: 1 }} color="transparent" data-cy="header">
@@ -71,6 +77,9 @@ export const Header = () => {
                             state: item.value,
 
                         }} >
+                            <ListItemIcon>
+                                {item.icon}
+                            </ListItemIcon>
                             <ListItemText primary={item.label} />
                         </MenuItem>
                     )}
@@ -84,7 +93,11 @@ export const Header = () => {
                         )}
 
                     </Hidden>
+
                     <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
+                        <ListItemIcon>
+                            <LogoutIcon color="primary" fontSize="small" />
+                        </ListItemIcon>
                         <ListItemText primary="Logout" />
                     </MenuItem>
                 </MenuDialog>
