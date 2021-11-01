@@ -116,8 +116,10 @@ const Profile = () => {
                     )}
                 </ButtonGroup>
             </Card>
-
             {state === '1' &&
+                <Typography variant="h2" noWrap>My Cart</Typography>
+            }
+            {state === '2' &&
                 <Typography variant="h2" noWrap>Saved Items</Typography>
             }
             {state === '3' &&
