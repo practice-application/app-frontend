@@ -108,7 +108,7 @@ const Profile = () => {
                 <ButtonGroup variant="text">
                     {tabArray.map((item, i) =>
                         <Button sx={state === item.value ? { color: 'primary.main' } : { color: 'grey.300' }} key={i} onClick={() => (setValue(item.value, location.state = undefined))} startIcon={item.icon} >
-                            {item.label}  {item.value.includes(3) ?
+                            {item.label}  {item.value.includes('3') ?
                                 chip()
                                 : ''
                             }

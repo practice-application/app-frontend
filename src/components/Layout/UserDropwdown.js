@@ -48,7 +48,6 @@ export const UserDropdown = () => {
                     <MenuItem key={i} id={item.id} component={ActionLink} onClick={handleClose} to={{
                         pathname: "/profile",
                         state: item.value,
-
                     }} >
                         <ListItemIcon>
                             {item.icon}

@@ -65,7 +65,6 @@ const BigDisplayCard = props => {
 
     return (
         <>
-
             <Card elevation={elevation} sx={{ m: 1 }}>
                 <CardActionArea component={ActionLink} to={`/products/${string}` || to} >
                     <CardMedia
