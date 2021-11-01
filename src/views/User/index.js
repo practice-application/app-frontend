@@ -101,12 +101,13 @@ const Profile = () => {
         state = value && location.state
     }
 
+
     return (
         <Container maxWidth="md">
             <Card elevation={2} sx={{ mb: 1, py: 2 }}>
                 <ButtonGroup variant="text">
                     {tabArray.map((item, i) =>
-                        <Button sx={state === item.value ? { color: 'primary.main' } : { color: 'grey.300' }} key={i} onClick={() => (setValue(item.value))} startIcon={item.icon} >
+                        <Button sx={state === item.value ? { color: 'primary.main' } : { color: 'grey.300' }} key={i} onClick={() => (setValue(item.value, location.state = undefined))} startIcon={item.icon} >
                             {item.label}  {item.value.includes(3) ?
                                 chip()
                                 : ''
