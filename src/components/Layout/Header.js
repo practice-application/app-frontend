@@ -28,6 +28,14 @@ export const Header = () => {
     const handleClose = () => { setAnchorEl(null); };
     const { picture, nickname } = user;
 
+
+    const profile = [
+        { label: 'My Cart', value: '1' },
+        { label: 'Saved Items', value: '2' },
+        { label: 'My Listings', value: '3' },
+        { label: 'Personal Info', value: '4' }
+    ]
+
     return (
         <AppBar elevation={1} position="static" sx={{ padding: 1 }} color="transparent" data-cy="header">
             <Toolbar sx={{
@@ -57,12 +65,15 @@ export const Header = () => {
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
                     onClose={handleClose}>
-                    <MenuItem component={ActionLink} onClick={handleClose} to={`/profile`}>
-                        <ListItemText primary="Cart" />
-                    </MenuItem>
-                    <MenuItem component={ActionLink} onClick={handleClose} to="/profile">
-                        <ListItemText primary="Personal Details" />
-                    </MenuItem>
+                    {profile.map((item, i) =>
+                        <MenuItem key={i} id={item.id} component={ActionLink} onClick={handleClose} to={{
+                            pathname: "/profile",
+                            state: item.value,
+
+                        }} >
+                            <ListItemText primary={item.label} />
+                        </MenuItem>
+                    )}
                     <Hidden smUp>
                         {MenuItems.map((p, index) =>
                             <MenuItem sx={{
@@ -78,7 +89,7 @@ export const Header = () => {
                     </MenuItem>
                 </MenuDialog>
             </Toolbar>
-        </AppBar>
+        </AppBar >
 
     );
 };

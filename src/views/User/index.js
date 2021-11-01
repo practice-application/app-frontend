@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 import List from '@mui/material/List';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 import ActionLink from '../../components/ActionLink';
 import { DisplayCard } from '../../components/DisplayCard';
@@ -40,8 +40,8 @@ export const User = () => {
 }
 
 const Profile = () => {
-    const { id } = useParams();
-    console.log(id)
+    const location = useLocation()
+    console.log(location.state)
     const { user } = useAuth0();
     const { nickname } = user;
     const [{ products }, { deleteProduct, fetchProducts }] = useApi();
@@ -94,13 +94,20 @@ const Profile = () => {
         } return ''
     }
 
+    var state
+    if (location.state === undefined) {
+        state = value
+    }
+    else {
+        state = value && location.state
+    }
 
     return (
         <Container maxWidth="md">
             <Card elevation={2} sx={{ mb: 1, py: 2 }}>
                 <ButtonGroup variant="text">
                     {tabArray.map((item, i) =>
-                        <Button sx={value === item.value ? { color: 'primary.main' } : { color: 'grey.300' }} key={i} onClick={() => setValue(item.value)} startIcon={item.icon} >
+                        <Button sx={state === item.value ? { color: 'primary.main' } : { color: 'grey.300' }} key={i} onClick={() => (setValue(item.value))} startIcon={item.icon} >
                             {item.label}  {item.value.includes(3) ?
                                 chip()
                                 : ''
@@ -110,10 +117,10 @@ const Profile = () => {
                 </ButtonGroup>
             </Card>
 
-            {value === '1' &&
+            {state === '1' &&
                 <Typography variant="h2" noWrap>Saved Items</Typography>
             }
-            {value === '3' &&
+            {state === '3' &&
                 <>
                     <Stack
                         direction="row"
@@ -151,7 +158,7 @@ const Profile = () => {
                     }
                 </>
             }
-            {value === '4' &&
+            {state === '4' &&
                 <ProfileCard />
             }
         </Container>

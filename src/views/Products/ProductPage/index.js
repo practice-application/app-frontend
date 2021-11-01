@@ -36,12 +36,10 @@ const ProductPage = () => {
     const [imgProducts, setImgProducts] = useState([]);
     const [cart, setCart] = useState(0);
 
-    // fetch products
     useEffect(() => {
         fetchProducts(page);
     }, [fetchProducts, page]);
 
-    // add images to products
     useEffect(() => {
         const addImages = async () => {
             const promises = products.data.map(async prd => {
@@ -91,7 +89,7 @@ const ProductPage = () => {
                 <Grid item xs={2} md={2}>
                     <Dropdown dataType="productDropdown" value={category} onChange={handleChange} />
                 </Grid>
-                <Grid xs={2} md={2}> {cart > 0 && <Chip color="error" label={cart} />}</Grid>
+                <Grid item xs={2} md={2}> {cart > 0 && <Chip color="error" label={cart} />}</Grid>
             </Grid>
             {imgProducts ?
                 <>
