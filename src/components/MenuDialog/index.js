@@ -1,18 +1,20 @@
 import React from 'react';
+
 import Menu from '@mui/material/Menu';
 
 const MenuDialog = props => {
+    const { id, children, anchorEl, onClose, open } = props
     return (
         <Menu
             anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
             transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-            id="simple-menu"
+            id={id}
             getcontentanchorel={null}
-            anchorEl={props.anchorEl}
+            anchorEl={anchorEl}
             keepMounted
-            open={props.open}
-            onClose={props.onClose}>
-            {props.children}
+            open={open}
+            onClose={onClose}>
+            {children}
         </Menu>
     )
 }

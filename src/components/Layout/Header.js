@@ -1,25 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { useAuth0 } from "@auth0/auth0-react";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
-import ListIcon from '@mui/icons-material/List';
-import LogoutIcon from '@mui/icons-material/Logout';
-import PersonIcon from '@mui/icons-material/Person';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Hidden from '@mui/material/Hidden';
+import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import { Link as ActionLink } from 'react-router-dom';
 
 import MenuDialog from '../MenuDialog'
+import { UserDropdown } from './UserDropwdown';
 
 const MenuItems = [
     { label: 'Customers', link: '/customers' },
@@ -27,19 +21,10 @@ const MenuItems = [
     { label: 'Products', link: '/products' },
 ];
 
-const profile = [
-    { label: "My Cart", icon: <ShoppingCartIcon color="primary" fontSize="small" />, value: '1' },
-    { label: "Saved Items", icon: <BookmarkOutlinedIcon color="primary" fontSize="small" />, value: '2' },
-    { label: "My Listings", icon: <ListIcon color="primary" fontSize="small" />, value: '3' },
-    { label: "Personal Info", icon: <PersonIcon color="primary" fontSize="small" />, value: '4' },
-];
-
 export const Header = () => {
-    const { logout, user } = useAuth0();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const handleClick = (event) => { setAnchorEl(event.currentTarget); };
+    const [anchorEl, setAnchorEl] = useState(null);
+    const handleClick = (e) => { setAnchorEl(e.currentTarget); };
     const handleClose = () => { setAnchorEl(null); };
-    const { picture, nickname } = user;
 
 
     return (
@@ -60,30 +45,18 @@ export const Header = () => {
 
                     </Hidden>
                 </Box>
-                <Button startIcon={picture ? <Avatar
-                    sx={{ width: 24, height: 24 }}
-                    src={picture}
-                    alt="Profile"
-                /> : <AccountCircleIcon />} color={anchorEl ? "secondary" : "primary"} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                    {nickname}
-                </Button>
-                <MenuDialog
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}>
-                    {profile.map((item, i) =>
-                        <MenuItem key={i} id={item.id} component={ActionLink} onClick={handleClose} to={{
-                            pathname: "/profile",
-                            state: item.value,
+                <UserDropdown />
+                <Hidden smUp>
+                    <IconButton
+                        onClick={handleClick}>
+                        <MenuIcon />
+                    </IconButton>
+                    <MenuDialog
+                        id="iconMenu"
+                        anchorEl={anchorEl}
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}>
 
-                        }} >
-                            <ListItemIcon>
-                                {item.icon}
-                            </ListItemIcon>
-                            <ListItemText primary={item.label} />
-                        </MenuItem>
-                    )}
-                    <Hidden smUp>
                         {MenuItems.map((p, index) =>
                             <MenuItem sx={{
                                 color: 'secondary.main', fontSize: '0.875rem', fontWeight: 600,
@@ -91,18 +64,11 @@ export const Header = () => {
                                 key={index} component={ActionLink} onClick={handleClose} to={p.link}>
                                 <ListItemText primary={p.label} /> </MenuItem>
                         )}
-
-                    </Hidden>
-
-                    <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
-                        <ListItemIcon>
-                            <LogoutIcon color="primary" fontSize="small" />
-                        </ListItemIcon>
-                        <ListItemText primary="Logout" />
-                    </MenuItem>
-                </MenuDialog>
+                    </MenuDialog>
+                </Hidden>
             </Toolbar>
-        </AppBar >
+        </AppBar>
 
     );
 };
+export default Header

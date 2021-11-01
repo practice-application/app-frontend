@@ -5,7 +5,7 @@ import Container from '@mui/material/Container';
 import { styled } from '@mui/system';
 
 import { Footer } from './Footer';
-import { Header } from './Header';
+import Header from './Header';
 
 const CustomBox = styled(Box)(({ theme }) => ({
     flexGrow: 1,
