@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AddIcon from '@mui/icons-material/Add';
 import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
 import ListIcon from '@mui/icons-material/List';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -9,7 +10,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
@@ -46,14 +46,14 @@ const User = () => {
         fetchPeople();
     }, [fetchPeople]);
 
-
+    const filtered = people.data.filter(item => item.auth0id === sub).map((item, i) =>
+        item.auth0id.includes(sub)
+    );
 
     return (
         <>
             {people.data &&
                 <>
-
-
                     <Button startIcon={picture ? <Avatar
                         sx={{ width: 24, height: 24 }}
                         src={picture}
@@ -67,6 +67,7 @@ const User = () => {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}>
                         {people.data.filter(item => item.auth0id === sub).map((item, i) =>
+
                             <div key={i}>
                                 {profile.map((tab, k) =>
                                     <MenuItem key={k} id={tab.id} component={ActionLink} onClick={handleClose} to={{
@@ -79,14 +80,28 @@ const User = () => {
                                         <ListItemText primary={tab.label} />
                                     </MenuItem>
                                 )}
+
                             </div>
                         )}
+                        {filtered.length > 0 ?
+                            filtered.map(() =>
+                                ''
+                            )
+                            :
+                            <MenuItem selected component={ActionLink} to="onboarding">
+                                <ListItemIcon>
+                                    <AddIcon color="primary" fontSize="small" />
+                                </ListItemIcon>
+                                <ListItemText primary="Add your Details" />
+                            </MenuItem>
+                        }
                         <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
                             <ListItemIcon>
                                 <LogoutIcon color="primary" fontSize="small" />
                             </ListItemIcon>
                             <ListItemText primary="Logout" />
                         </MenuItem>
+
                     </MenuDialog>
                 </>
 
