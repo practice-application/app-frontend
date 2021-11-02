@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CloseIcon from '@mui/icons-material/Close';
 import CreateIcon from '@mui/icons-material/Create';
 import ListIcon from '@mui/icons-material/List';
@@ -146,14 +147,12 @@ const Customer = () => {
                                             )}
                                         </ButtonGroup>
                                     </Card>
-
                                 }
                                 {!tab &&
-
                                     <UserInfo
                                         avatar={person.avatar}
                                         date={person.date}
-                                        name={`${person.firstName} ${person.lastName}`}
+                                        name={`${person.firstName} ${person.lastName}` + person.verified === true && <CheckCircleIcon color="success" fontSize="small" />}
                                         userName={person.userName}
                                         emailAddress={person.email}
                                         birthDate={person.birthDate} />

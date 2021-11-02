@@ -24,7 +24,7 @@ const steps = ['Basic Info', 'Address'];
 export const Form = ({ onAction }) => {
     const [state, { update, create }] = useApi();
     const { user } = useAuth0();
-    const { email, nickname, picture, sub } = user;
+    const { email, nickname, picture, sub, email_verified } = user;
     const [person, setPerson] = useState();
     const [errorMsg, setErrorMsg] = useState(false);
     const [submitting, setSubmitting] = useState();
@@ -69,8 +69,10 @@ export const Form = ({ onAction }) => {
             if (person.id) {
                 update(person)
                 person.avatar = picture
+                person.verified = email_verified
             } else {
                 create(person)
+                person.verified = email_verified
                 person.avatar = picture
                 person.auth0id = sub
             }

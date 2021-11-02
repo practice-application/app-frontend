@@ -16,9 +16,9 @@ import MenuDialog from '../MenuDialog'
 import { UserDropdown } from './UserDropwdown';
 
 const MenuItems = [
-    { label: 'Customers', link: '/customers' },
-    { label: 'Organisation', link: '/organisation' },
     { label: 'Products', link: '/' },
+    { label: 'Organisation', link: '/organisation' },
+    { label: 'Users', link: '/customers' },
 ];
 
 export const Header = () => {
