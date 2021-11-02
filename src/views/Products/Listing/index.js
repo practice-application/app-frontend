@@ -41,7 +41,7 @@ const ProductListing = () => {
     const { id } = useParams();
     const maxSteps = images.length;
     const { user } = useAuth0();
-    const { nickname } = user;
+    const { nickname, sub } = user;
 
 
     useEffect(() => {
@@ -83,7 +83,7 @@ const ProductListing = () => {
     };
 
     const customName = () => {
-        if (nickname === product.user) {
+        if (sub === product.auth0id) {
             return "Me"
         }
         return (product.user)

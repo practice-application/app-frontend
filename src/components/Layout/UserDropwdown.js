@@ -41,7 +41,6 @@ const User = () => {
     const handleClick = (e) => { setAnchorEl(e.currentTarget); };
     const handleClose = () => { setAnchorEl(null); };
 
-
     useEffect(() => {
         fetchPeople();
     }, [fetchPeople]);

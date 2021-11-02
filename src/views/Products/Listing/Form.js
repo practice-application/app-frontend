@@ -31,7 +31,7 @@ export const Form = ({ onAction }) => {
     const maxSteps = image.length;
     const maxNumber = 5
     const { user } = useAuth0();
-    const { nickname, picture } = user;
+    const { nickname, picture, sub } = user;
 
     const validPrice = () => {
         let isValid = true;
@@ -44,7 +44,6 @@ export const Form = ({ onAction }) => {
             return isValid;
         }
     }
-
 
     const imageUpload = async () => {
         image[0] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[0].file.name}`).put(image[0].file)
@@ -65,6 +64,7 @@ export const Form = ({ onAction }) => {
             setSubmitting(true);
             if (product.id) {
                 update(product)
+                product.auth0id = sub
                 product.userPic = picture
                 if (image[0]) {
                     imageUpload()
@@ -74,6 +74,7 @@ export const Form = ({ onAction }) => {
                 window.location.reload()
             } else {
                 if (image[0]) {
+                    product.auth0id = sub
                     product.imageID = setID
                     product.userPic = picture
                     product.user = nickname

@@ -69,6 +69,7 @@ const initialState = {
         imageID: '',
         user: '',
         userPic: '',
+        auth0id: '',
         size: '',
         tags: [],
         category: '',
