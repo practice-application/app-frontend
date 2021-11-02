@@ -9,6 +9,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
@@ -45,10 +46,14 @@ const User = () => {
         fetchPeople();
     }, [fetchPeople]);
 
+
+
     return (
         <>
-            {people.data ?
+            {people.data &&
                 <>
+
+
                     <Button startIcon={picture ? <Avatar
                         sx={{ width: 24, height: 24 }}
                         src={picture}
@@ -56,35 +61,35 @@ const User = () => {
                     /> : <AccountCircleIcon />} color={anchorEl ? "secondary" : "primary"} onClick={handleClick}>
                         {nickname}
                     </Button>
-                    {people.data.filter(item => item.auth0id === sub).map((item, i) =>
-                        <MenuDialog
-                            key={i}
-                            id="customerMenu"
-                            anchorEl={anchorEl}
-                            open={Boolean(anchorEl)}
-                            onClose={handleClose}>
-
-                            {profile.map((tab, k) =>
-                                <MenuItem key={k} id={tab.id} component={ActionLink} onClick={handleClose} to={{
-                                    pathname: `customers/${item.id}`,
-                                    state: tab.value,
-                                }} >
-                                    <ListItemIcon>
-                                        {tab.icon}
-                                    </ListItemIcon>
-                                    <ListItemText primary={tab.label} />
-                                </MenuItem>
-                            )}
-                            <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
-                                <ListItemIcon>
-                                    <LogoutIcon color="primary" fontSize="small" />
-                                </ListItemIcon>
-                                <ListItemText primary="Logout" />
-                            </MenuItem>
-                        </MenuDialog>
-                    )}
+                    <MenuDialog
+                        id="customerMenu"
+                        anchorEl={anchorEl}
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}>
+                        {people.data.filter(item => item.auth0id === sub).map((item, i) =>
+                            <div key={i}>
+                                {profile.map((tab, k) =>
+                                    <MenuItem key={k} id={tab.id} component={ActionLink} onClick={handleClose} to={{
+                                        pathname: `customers/${item.id}`,
+                                        state: tab.value,
+                                    }} >
+                                        <ListItemIcon>
+                                            {tab.icon}
+                                        </ListItemIcon>
+                                        <ListItemText primary={tab.label} />
+                                    </MenuItem>
+                                )}
+                            </div>
+                        )}
+                        <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
+                            <ListItemIcon>
+                                <LogoutIcon color="primary" fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText primary="Logout" />
+                        </MenuItem>
+                    </MenuDialog>
                 </>
-                : ''
+
             }
         </>
     )
