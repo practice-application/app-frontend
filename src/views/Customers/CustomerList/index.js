@@ -132,8 +132,8 @@ const CustomerList = () => {
                                 alignItems="center"
                                 spacing={2}
                             >
-                                <Typography sx={{ pt: 2 }}>You currently haven't set up your profile <br />
-
+                                <Typography sx={{ pt: 2 }} variant="h2">You currently haven't set up your profile </Typography>
+                                <Typography>    in order to view other customers, please create your profile
                                 </Typography>
 
                                 <Button variant='contained' sx={{ mr: 0.5 }} component={ActionLink} to="/onboarding">Create profile</Button>
