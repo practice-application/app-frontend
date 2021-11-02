@@ -98,7 +98,6 @@ const User = () => {
                             </ListItemIcon>
                             <ListItemText primary="Logout" />
                         </MenuItem>
-
                     </MenuDialog>
                 </>
 
