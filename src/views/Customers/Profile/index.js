@@ -120,23 +120,35 @@ const Customer = () => {
                         }
                     </Grid>
                     <Container maxWidth={view ? "sm" : "md"}>
-                        {person.auth0id === sub &&
-                            <ButtonGroup variant="text">
-                                {tabArray.map((item, i) =>
-                                    <Button sx={tab === item.value ? { color: 'primary.main' } : { color: 'grey.300' }} key={i} onClick={() => (setValue(item.value, location.state = undefined))} startIcon={item.icon} >
-                                        {item.label}  {item.value.includes('3') ?
-                                            "test"
-                                            : ''
-                                        }
-                                    </Button>
-                                )}
-                            </ButtonGroup>
-                        }
                         {view ? (
                             <Stack
                                 direction="column"
                                 spacing={2}
                             >
+                                {person.auth0id === sub &&
+                                    <Card elevation={2} sx={{ mb: 1, py: 2 }}>
+                                        <ButtonGroup variant="text">
+                                            {tabArray.map((item, i) =>
+                                                <Button sx={tab === item.value ? { color: 'primary.main' } : { color: 'grey.300' }} key={i} onClick={() => (setValue(item.value, location.state = undefined))} startIcon={item.icon} >
+                                                    {item.label}  {item.value.includes('3') ?
+                                                        "test"
+                                                        : ''
+                                                    }
+                                                </Button>
+                                            )}
+                                        </ButtonGroup>
+                                    </Card>
+                                }
+                                {!tab &&
+                                    <>
+                                        <UserInfo
+                                            date={person.date}
+                                            name={`${person.firstName} ${person.lastName}`}
+                                            userName={person.userName}
+                                            emailAddress={person.email}
+                                            birthDate={person.birthDate} />
+                                    </>
+                                }
                                 {tab === '1' &&
                                     <Typography variant="h2" noWrap>My Cart</Typography>
                                 }

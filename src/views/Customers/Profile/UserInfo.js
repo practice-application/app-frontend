@@ -14,19 +14,8 @@ import ListItemText from '@mui/material/ListItemText';
 import { format, parseISO } from 'date-fns';
 import Moment from 'react-moment';
 
-import { CustomerProvider } from '../context';
-
 export const UserInfo = (props) => {
-    const { name, userName, birthDate, date } = props
-    return (
-        <CustomerProvider>
-            <Customer name={name} date={date} userName={userName} birthDate={birthDate} />
-        </CustomerProvider>
-    );
-}
-
-const Customer = (props) => {
-    const { name, userName, birthDate, date } = props
+    const { name, userName, birthDate, date, emailAddress } = props
     const { user } = useAuth0();
     const { picture, email, nickname, email_verified } = user;
 
@@ -66,7 +55,7 @@ const Customer = (props) => {
                     </ListItem>
                     <Divider />
                     <ListItem>
-                        <ListItemText>Email </ListItemText>{email}
+                        <ListItemText>Email </ListItemText>{emailAddress === undefined ? email : emailAddress}
                     </ListItem>
                     <Divider />
                     <ListItem>

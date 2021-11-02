@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -14,6 +14,7 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import { Link as ActionLink } from 'react-router-dom';
 
+import { useApi, CustomerProvider } from '../../views/Customers/context';
 import MenuDialog from '../MenuDialog'
 
 const profile = [
@@ -24,44 +25,67 @@ const profile = [
 ];
 
 export const UserDropdown = () => {
+    return (
+        <CustomerProvider>
+            <User />
+        </CustomerProvider>
+    );
+}
+
+const User = () => {
+    const [{ people }, { fetchPeople }] = useApi();
     const { logout, user } = useAuth0();
-    const { picture, nickname } = user;
+    const { picture, nickname, sub } = user;
     const [anchorEl, setAnchorEl] = useState(null);
     const handleClick = (e) => { setAnchorEl(e.currentTarget); };
     const handleClose = () => { setAnchorEl(null); };
 
+
+    useEffect(() => {
+        fetchPeople();
+    }, [fetchPeople]);
+
     return (
         <>
-            <Button startIcon={picture ? <Avatar
-                sx={{ width: 24, height: 24 }}
-                src={picture}
-                alt="Profile"
-            /> : <AccountCircleIcon />} color={anchorEl ? "secondary" : "primary"} onClick={handleClick}>
-                {nickname}
-            </Button>
-            <MenuDialog
-                id="customerMenu"
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}>
-                {profile.map((item, i) =>
-                    <MenuItem key={i} id={item.id} component={ActionLink} onClick={handleClose} to={{
-                        pathname: "/profile",
-                        state: item.value,
-                    }} >
-                        <ListItemIcon>
-                            {item.icon}
-                        </ListItemIcon>
-                        <ListItemText primary={item.label} />
-                    </MenuItem>
-                )}
-                <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
-                    <ListItemIcon>
-                        <LogoutIcon color="primary" fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Logout" />
-                </MenuItem>
-            </MenuDialog>
+            {people.data ?
+                <>
+                    <Button startIcon={picture ? <Avatar
+                        sx={{ width: 24, height: 24 }}
+                        src={picture}
+                        alt="Profile"
+                    /> : <AccountCircleIcon />} color={anchorEl ? "secondary" : "primary"} onClick={handleClick}>
+                        {nickname}
+                    </Button>
+                    <MenuDialog
+                        id="customerMenu"
+                        anchorEl={anchorEl}
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}>
+                        {people.data.filter(item => item.auth0id === sub).map((item, i) =>
+                            <>
+                                {profile.map((tab, i) =>
+                                    <MenuItem key={i} id={tab.id} component={ActionLink} onClick={handleClose} to={{
+                                        pathname: `customers/${item.id}`,
+                                        state: tab.value,
+                                    }} >
+                                        <ListItemIcon>
+                                            {tab.icon}
+                                        </ListItemIcon>
+                                        <ListItemText primary={tab.label} />
+                                    </MenuItem>
+                                )}
+                            </>
+                        )}
+                        <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
+                            <ListItemIcon>
+                                <LogoutIcon color="primary" fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText primary="Logout" />
+                        </MenuItem>
+                    </MenuDialog>
+                </>
+                : ''
+            }
         </>
     )
 }
