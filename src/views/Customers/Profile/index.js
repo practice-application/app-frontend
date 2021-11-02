@@ -153,6 +153,7 @@ const Customer = () => {
                                         avatar={person.avatar}
                                         date={person.date}
                                         name={`${person.firstName} ${person.lastName}`}
+                                        tick={person.verified === true && <CheckCircleIcon sx={{ ml: 0.25 }} color="success" fontSize="small" />}
                                         userName={person.userName}
                                         emailAddress={person.email}
                                         birthDate={person.birthDate} />
@@ -169,10 +170,13 @@ const Customer = () => {
                                 {tab === '4' &&
                                     <>
                                         <UserInfo
+                                            avatar={person.avatar}
                                             date={person.date}
                                             name={`${person.firstName} ${person.lastName}`}
                                             userName={person.userName}
-                                            birthDate={person.birthDate} />
+                                            birthDate={person.birthDate}
+                                            tick={person.verified === true && <CheckCircleIcon sx={{ ml: 0.25 }} color="success" fontSize="small" />}
+                                        />
                                         <Card sx={{ p: 1 }}>
                                             <CardHeader title="Address" />
                                             <ListItem>
@@ -197,7 +201,6 @@ const Customer = () => {
                         )}
 
                     </Container>
-
                 </>
             }
         </>
