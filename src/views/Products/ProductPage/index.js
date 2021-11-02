@@ -97,7 +97,7 @@ const ProductPage = () => {
                         {products.data.filter(item => query + category
                             ? ((item.name) + (item.category) + (item.user) + (item.tags.map((tag) => tag))).toLowerCase().includes(query + category.toLowerCase())
                             : item).sort((a, b) => a.priority > b.priority ? -1 : 1).map((p, index) =>
-                                <Grid key={index} item xs={3}>
+                                <Grid key={index} item xs={6} sm={4} md={3}>
                                     <DisplayCard
                                         elevation={p.priority === true ? 1 : 2}
                                         remove={removeBasket}
