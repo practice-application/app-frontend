@@ -56,33 +56,33 @@ const User = () => {
                     /> : <AccountCircleIcon />} color={anchorEl ? "secondary" : "primary"} onClick={handleClick}>
                         {nickname}
                     </Button>
-                    <MenuDialog
-                        id="customerMenu"
-                        anchorEl={anchorEl}
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}>
-                        {people.data.filter(item => item.auth0id === sub).map((item, i) =>
-                            <>
-                                {profile.map((tab, i) =>
-                                    <MenuItem key={i} id={tab.id} component={ActionLink} onClick={handleClose} to={{
-                                        pathname: `customers/${item.id}`,
-                                        state: tab.value,
-                                    }} >
-                                        <ListItemIcon>
-                                            {tab.icon}
-                                        </ListItemIcon>
-                                        <ListItemText primary={tab.label} />
-                                    </MenuItem>
-                                )}
-                            </>
-                        )}
-                        <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
-                            <ListItemIcon>
-                                <LogoutIcon color="primary" fontSize="small" />
-                            </ListItemIcon>
-                            <ListItemText primary="Logout" />
-                        </MenuItem>
-                    </MenuDialog>
+                    {people.data.filter(item => item.auth0id === sub).map((item, i) =>
+                        <MenuDialog
+                            key={i}
+                            id="customerMenu"
+                            anchorEl={anchorEl}
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}>
+
+                            {profile.map((tab, k) =>
+                                <MenuItem key={k} id={tab.id} component={ActionLink} onClick={handleClose} to={{
+                                    pathname: `customers/${item.id}`,
+                                    state: tab.value,
+                                }} >
+                                    <ListItemIcon>
+                                        {tab.icon}
+                                    </ListItemIcon>
+                                    <ListItemText primary={tab.label} />
+                                </MenuItem>
+                            )}
+                            <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
+                                <ListItemIcon>
+                                    <LogoutIcon color="primary" fontSize="small" />
+                                </ListItemIcon>
+                                <ListItemText primary="Logout" />
+                            </MenuItem>
+                        </MenuDialog>
+                    )}
                 </>
                 : ''
             }

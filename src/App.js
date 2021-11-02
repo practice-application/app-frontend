@@ -12,7 +12,6 @@ import { custom } from './theme';
 const Profile = lazy(() => import('./views/Customers/Profile'));
 const Create = lazy(() => import('./views/Customers/Profile/Create'));
 const CustomerList = lazy(() => import('./views/Customers/CustomerList'));
-const User = lazy(() => import('./views/User'));
 
 const Listing = lazy(() => import('./views/Products/Listing'));
 const ProductPage = lazy(() => import('./views/Products/ProductPage'));
@@ -35,7 +34,6 @@ const App = withAuthenticationRequired(() => {
               <Route exact path="/customers/:id" component={Profile} />
               <Route exact path="/add-customer" component={Create} />
               <Route exact path="/customers" component={CustomerList} />
-              <Route exact path="/profile" component={User} />
             </Switch>
           </Suspense>
         </Layout>

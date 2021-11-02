@@ -110,14 +110,6 @@ const Customer = () => {
                             <Trail pageName="Customers" returningPage="/customers"
                                 currentPage={person.firstName + ' ' + person.lastName} />
                         </Grid>
-                        {person.auth0id === sub &&
-                            <Grid item>
-                                <Button
-                                    variant={view === true ? "contained" : "outlined"}
-                                    endIcon={view === true ? <CreateIcon fontSize="small" /> : <CloseIcon fontSize="small" />}
-                                    onClick={view === true ? change : changeBack}> {view === true ? "Edit Profile" : "Cancel"}</Button>
-                            </Grid>
-                        }
                     </Grid>
                     <Container maxWidth={view ? "sm" : "md"}>
                         {view ? (
@@ -140,14 +132,13 @@ const Customer = () => {
                                     </Card>
                                 }
                                 {!tab &&
-                                    <>
-                                        <UserInfo
-                                            date={person.date}
-                                            name={`${person.firstName} ${person.lastName}`}
-                                            userName={person.userName}
-                                            emailAddress={person.email}
-                                            birthDate={person.birthDate} />
-                                    </>
+
+                                    <UserInfo
+                                        date={person.date}
+                                        name={`${person.firstName} ${person.lastName}`}
+                                        userName={person.userName}
+                                        emailAddress={person.email}
+                                        birthDate={person.birthDate} />
                                 }
                                 {tab === '1' &&
                                     <Typography variant="h2" noWrap>My Cart</Typography>
@@ -160,6 +151,12 @@ const Customer = () => {
                                 }
                                 {tab === '4' &&
                                     <>
+                                        <Grid item>
+                                            <Button
+                                                variant={view === true ? "contained" : "outlined"}
+                                                endIcon={view === true ? <CreateIcon fontSize="small" /> : <CloseIcon fontSize="small" />}
+                                                onClick={view === true ? change : changeBack}> {view === true ? "Edit Profile" : "Cancel"}</Button>
+                                        </Grid>
                                         <UserInfo date={person.date} name={`${person.firstName} ${person.lastName}`} userName={person.userName} birthDate={person.birthDate} />
                                         <Card sx={{ p: 1 }}>
                                             <CardHeader title="Address" />
