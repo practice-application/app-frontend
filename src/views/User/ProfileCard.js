@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CloseIcon from '@mui/icons-material/Close';
 import CreateIcon from '@mui/icons-material/Create';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -17,9 +18,32 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import dateFormat from 'dateformat';
 
+import { CustomerProvider } from '../Customers/context';
+
 export const ProfileCard = () => {
+    return (
+        <CustomerProvider>
+            <Customer />
+        </CustomerProvider>
+    );
+}
+
+const Customer = () => {
     const { user } = useAuth0();
-    const { name, picture, email, nickname, email_verified, created_at } = user;
+    const { picture, email, nickname, email_verified, created_at } = user;
+    const [view, setView] = useState(true)
+    // const [{ people }, { fetchPeople }] = useApi();
+
+
+
+    const change = () => {
+        setView(false);
+    };
+    const changeBack = () => {
+        setView(true);
+
+    };
+
 
     const emailVerified = () => {
         if (email_verified === true) {
@@ -35,6 +59,7 @@ export const ProfileCard = () => {
         }
     }
 
+
     return (
         <>
             <Stack
@@ -44,12 +69,13 @@ export const ProfileCard = () => {
                 spacing={2}
             >
                 <Typography variant="h2" gutterBottom noWrap>Personal Details</Typography>
-                <Button startIcon={<CreateIcon />} variant='contained' >
-                    Edit Profile
-                </Button>
+                <Button
+                    variant={view === true ? "contained" : "outlined"}
+                    endIcon={view === true ? <CreateIcon fontSize="small" /> : <CloseIcon fontSize="small" />}
+                    onClick={view === true ? change : changeBack}> {view === true ? "Edit Profile" : "Cancel"}</Button>
             </Stack>
             <Card elevation={1} sx={{ mb: 1 }}>
-                <CardContent>
+                <CardContent >
                     <List sx={{ padding: 2 }}>
                         <ListItem>
                             <ListItemAvatar>
@@ -59,9 +85,11 @@ export const ProfileCard = () => {
                                 />
                             </ListItemAvatar>
                         </ListItem>
+
                         <ListItem>
-                            <ListItemText>Name</ListItemText>{name}
+                            <ListItemText>Name</ListItemText>
                         </ListItem>
+
                         <Divider />
                         <ListItem>
                             <ListItemText>Username </ListItemText>{nickname}

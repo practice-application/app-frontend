@@ -56,6 +56,7 @@ const reducer = (state, action) => {
 };
 
 const initialState = {
+
     pending: false,
     products: {
         data: [],

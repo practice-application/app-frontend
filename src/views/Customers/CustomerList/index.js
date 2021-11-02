@@ -47,7 +47,6 @@ const CustomerList = () => {
     };
 
     const handlePage = () => {
-
         setPage(prev => ({ ...prev, offset: prev.offset + pageSize }))
     };
     const change = () => {
@@ -56,6 +55,8 @@ const CustomerList = () => {
     const changeBack = () => {
         setView(true);
     };
+
+
 
     return (
         <>

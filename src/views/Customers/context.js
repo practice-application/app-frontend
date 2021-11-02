@@ -62,6 +62,9 @@ const initialState = {
         matches: 0
     },
     person: {
+        auth0id: '',
+        userName: '',
+        avatar: '',
         firstName: '',
         lastName: '',
         birthDate: '',

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { useAuth0 } from "@auth0/auth0-react";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DatePicker from '@mui/lab/DatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -22,6 +23,8 @@ const steps = ['Basic Info', 'Address'];
 
 export const Form = ({ onAction }) => {
     const [state, { update, create }] = useApi();
+    const { user } = useAuth0();
+    const { email, nickname, picture, sub } = user;
     const [person, setPerson] = useState();
     const [errorMsg, setErrorMsg] = useState(false);
     const [submitting, setSubmitting] = useState();
@@ -65,8 +68,11 @@ export const Form = ({ onAction }) => {
             setSubmitting(true);
             if (person.id) {
                 update(person)
+                person.avatar = picture
             } else {
                 create(person)
+                person.avatar = picture
+                person.auth0id = sub
             }
             onAction()
             setSubmitting(false);
@@ -143,9 +149,15 @@ export const Form = ({ onAction }) => {
                                             value={person && person.lastName}
                                             onChange={handleChange}
                                         />
-
                                     </Grid>
                                 </Grid>
+
+                                <TextInput id="userName" label="User Name"
+                                    size="small" variant="outlined" fullWidth
+                                    value={person.userName = nickname}
+                                    onChange={handleChange}
+                                />
+
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DatePicker
                                         id="birthDate"
@@ -159,7 +171,7 @@ export const Form = ({ onAction }) => {
                                 </LocalizationProvider>
                                 <TextInput id="email" label="Email Address"
                                     size="small" variant="outlined" fullWidth
-                                    value={person && person.email}
+                                    value={person.email = email}
                                     onChange={handleChange}
                                     error={Boolean(errorMsg)}
                                     helperText={errorMsg}
