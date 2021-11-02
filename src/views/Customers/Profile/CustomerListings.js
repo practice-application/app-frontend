@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { useAuth0 } from "@auth0/auth0-react";
 import List from '@mui/material/List';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -19,7 +20,8 @@ export const CustomerListings = () => {
 const Products = () => {
     const [{ products }, { deleteProduct, fetchProducts }] = useApi();
     const [imgProducts, setImgProducts] = useState([]);
-
+    const { user } = useAuth0();
+    const { sub } = user;
     useEffect(() => {
         fetchProducts();
     }, [fetchProducts]);
@@ -57,16 +59,20 @@ const Products = () => {
                     {imgProducts ?
                         <List>
                             {products.data.map((p, i) =>
-                                <DisplayCard
-                                    title={p.name}
-                                    subtitle={p.category}
-                                    to={p.id}
-                                    person={p.auth0id}
-                                    image={p.imgUrl}
-                                    key={i}
-                                    dataType="small"
-                                    onDelete={() => handleDelete(p.id)}
-                                />
+                                <div key={i}>
+                                    {sub === p.auth0id &&
+                                        <DisplayCard
+                                            title={p.name}
+                                            subtitle={p.category}
+                                            to={`/products/${p.id}`}
+                                            image={p.imgUrl}
+                                            key={i}
+                                            dataType="small"
+                                            onDelete={() => handleDelete(p.id)}
+                                            variable="product"
+                                        />
+                                    }
+                                </div>
                             )}
                         </List>
                         :

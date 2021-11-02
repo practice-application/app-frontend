@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { useAuth0 } from "@auth0/auth0-react";
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -28,14 +27,14 @@ import * as PropTypes from 'prop-types';
 import ActionLink from '../ActionLink';
 
 export const DisplayCard = (props) => {
-    const { elevation, title, subtitle, description, price, string, to, image, dataType, remove, onDelete, person, addToBag } = props
+    const { elevation, title, subtitle, description, price, string, to, image, dataType, remove, onDelete, variable, addToBag } = props
 
     switch (dataType) {
         case 'large':
             return <BigDisplayCard elevation={elevation} addToBag={addToBag} title={title} subtitle={subtitle} description={description}
                 price={price} remove={remove} string={string} to={to} image={image} />
         case 'small':
-            return <MiniDispayCard person={person} title={title} subtitle={subtitle} image={image} to={to} onDelete={onDelete} />
+            return <MiniDispayCard variable={variable} title={title} subtitle={subtitle} image={image} to={to} onDelete={onDelete} />
         default:
             throw new Error('Invalid dataType prop passed to Card');
     }
@@ -114,10 +113,7 @@ const BigDisplayCard = props => {
 
 
 const MiniDispayCard = props => {
-    const { to, title, subtitle, image, onDelete, person } = props;
-
-    const { user } = useAuth0();
-    const { sub } = user;
+    const { to, title, subtitle, image, onDelete, variable } = props;
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -133,54 +129,54 @@ const MiniDispayCard = props => {
     return (
 
         <Card sx={{ my: 1 }}>
-            {sub === person &&
-                <ListItem secondaryAction={
-                    <>
-                        <Popover
-                            elevation={2}
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleClose}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                        >
-                            <MenuItem onClick={(id) => { onDelete(id); handleClose() }}>
-                                <ListItemIcon>
-                                    <DeleteForeverIcon fontSize="small" />
-                                </ListItemIcon>
-                                <Typography variant="body2">Remove listing</Typography>
-                            </MenuItem>
-                            <MenuItem>
-                                <ListItemIcon>
-                                    <ShareIcon fontSize="small" />
-                                </ListItemIcon>
-                                <Typography variant="body2">Share</Typography>
-                            </MenuItem>
-                        </Popover>
-                        <IconButton size="small" onClick={handleClick}>
-                            <MoreVertIcon fontSize="small" />
-                        </IconButton>
-                    </>
-                }>
-                    <ListItemButton component={ActionLink} to={`/products/${to}`}>
-                        <ListItemAvatar>
-                            <Avatar variant="rounded" sx={{ width: 56, height: 56, mr: 1 }} src={image}
-                                alt={`${image} text`} />
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary={title}
-                            secondary={subtitle}
-                        />
-                    </ListItemButton>
-                </ListItem>
+            {/* {sub === person && */}
+            <ListItem secondaryAction={
+                <>
+                    <Popover
+                        elevation={2}
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                    >
+                        <MenuItem onClick={(id) => { onDelete(id); handleClose() }}>
+                            <ListItemIcon>
+                                <DeleteForeverIcon fontSize="small" />
+                            </ListItemIcon>
+                            <Typography variant="body2">Remove {variable}</Typography>
+                        </MenuItem>
+                        <MenuItem>
+                            <ListItemIcon>
+                                <ShareIcon fontSize="small" />
+                            </ListItemIcon>
+                            <Typography variant="body2">Share</Typography>
+                        </MenuItem>
+                    </Popover>
+                    <IconButton size="small" onClick={handleClick}>
+                        <MoreVertIcon fontSize="small" />
+                    </IconButton>
+                </>
+            }>
+                <ListItemButton component={ActionLink} to={to}>
+                    <ListItemAvatar>
+                        <Avatar variant="rounded" sx={{ width: 56, height: 56, mr: 1 }} src={image}
+                            alt={`${image} text`} />
+                    </ListItemAvatar>
+                    <ListItemText
+                        primary={title}
+                        secondary={subtitle}
+                    />
+                </ListItemButton>
+            </ListItem>
 
-            }
+            {/* } */}
         </Card>
 
     )
