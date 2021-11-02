@@ -41,7 +41,7 @@ const ProductListing = () => {
     const { id } = useParams();
     const maxSteps = images.length;
     const { user } = useAuth0();
-    const { nickname, sub } = user;
+    const { sub } = user;
 
 
     useEffect(() => {
@@ -180,7 +180,7 @@ const ProductListing = () => {
                                     view
                                     title={`Photos of ${product.name}`}
                                     onDelete={(e) => onDelete(e)}
-                                    action={nickname === product.user}
+                                    action={sub === product.auth0id}
                                 />
                                 {product.tags.length > 0 &&
                                     <Paper sx={{ my: 1, p: 1 }}>
