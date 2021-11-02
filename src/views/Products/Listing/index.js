@@ -100,7 +100,7 @@ const ProductListing = () => {
                         spacing={2}
                     >
                         <Grid item>
-                            <Trail pageName="Products" returningPage="/products"
+                            <Trail pageName="Products" returningPage="/"
                                 currentPage={product.name} />
                         </Grid>
                         {nickname === product.user &&

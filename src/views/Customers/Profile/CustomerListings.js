@@ -61,7 +61,7 @@ const Products = () => {
                                     title={p.name}
                                     subtitle={p.category}
                                     to={p.id}
-                                    person={p.user}
+                                    person={p.auth0id}
                                     image={p.imgUrl}
                                     key={i}
                                     dataType="small"

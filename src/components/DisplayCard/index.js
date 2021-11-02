@@ -117,7 +117,7 @@ const MiniDispayCard = props => {
     const { to, title, subtitle, image, onDelete, person } = props;
 
     const { user } = useAuth0();
-    const { nickname } = user;
+    const { sub } = user;
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -133,7 +133,7 @@ const MiniDispayCard = props => {
     return (
 
         <Card sx={{ my: 1 }}>
-            {nickname === person &&
+            {sub === person &&
                 <ListItem secondaryAction={
                     <>
                         <Popover
