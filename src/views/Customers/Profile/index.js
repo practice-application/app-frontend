@@ -152,7 +152,7 @@ const Customer = () => {
                                     <UserInfo
                                         avatar={person.avatar}
                                         date={person.date}
-                                        name={`${person.firstName} ${person.lastName}` + person.verified === true && <CheckCircleIcon color="success" fontSize="small" />}
+                                        name={`${person.firstName} ${person.lastName}`}
                                         userName={person.userName}
                                         emailAddress={person.email}
                                         birthDate={person.birthDate} />
@@ -168,7 +168,11 @@ const Customer = () => {
                                 }
                                 {tab === '4' &&
                                     <>
-                                        <UserInfo date={person.date} name={`${person.firstName} ${person.lastName}`} userName={person.userName} birthDate={person.birthDate} />
+                                        <UserInfo
+                                            date={person.date}
+                                            name={`${person.firstName} ${person.lastName}`}
+                                            userName={person.userName}
+                                            birthDate={person.birthDate} />
                                         <Card sx={{ p: 1 }}>
                                             <CardHeader title="Address" />
                                             <ListItem>
