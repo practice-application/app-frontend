@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 import CreateIcon from '@mui/icons-material/Create';
@@ -18,6 +19,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useParams, useLocation } from "react-router-dom";
 
+import ActionLink from '../../../components/ActionLink';
 import { Trail } from '../../../components/Trail';
 import { CustomerProvider, useApi } from '../context';
 import { CustomerListings } from './CustomerListings';
@@ -110,6 +112,20 @@ const Customer = () => {
                             <Trail pageName="Customers" returningPage="/customers"
                                 currentPage={person.firstName + ' ' + person.lastName} />
                         </Grid>
+                        {person.auth0id === sub &&
+                            <Grid item>
+                                {tab === '4' &&
+                                    <Button
+                                        variant={view === true ? "contained" : "outlined"}
+                                        endIcon={view === true ? <CreateIcon fontSize="small" /> : <CloseIcon fontSize="small" />}
+                                        onClick={view === true ? change : changeBack}> {view === true ? "Edit Profile" : "Cancel"}</Button>
+                                }
+                                {tab === '3' &&
+                                    <Button startIcon={<AddOutlinedIcon />} variant='contained' component={ActionLink} to="/add-product">
+                                        Create new Listing
+                                    </Button>}
+                            </Grid>
+                        }
                     </Grid>
                     <Container maxWidth={view ? "sm" : "md"}>
                         {view ? (
@@ -130,10 +146,12 @@ const Customer = () => {
                                             )}
                                         </ButtonGroup>
                                     </Card>
+
                                 }
                                 {!tab &&
 
                                     <UserInfo
+                                        avatar={person.avatar}
                                         date={person.date}
                                         name={`${person.firstName} ${person.lastName}`}
                                         userName={person.userName}
@@ -151,12 +169,6 @@ const Customer = () => {
                                 }
                                 {tab === '4' &&
                                     <>
-                                        <Grid item>
-                                            <Button
-                                                variant={view === true ? "contained" : "outlined"}
-                                                endIcon={view === true ? <CreateIcon fontSize="small" /> : <CloseIcon fontSize="small" />}
-                                                onClick={view === true ? change : changeBack}> {view === true ? "Edit Profile" : "Cancel"}</Button>
-                                        </Grid>
                                         <UserInfo date={person.date} name={`${person.firstName} ${person.lastName}`} userName={person.userName} birthDate={person.birthDate} />
                                         <Card sx={{ p: 1 }}>
                                             <CardHeader title="Address" />

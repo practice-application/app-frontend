@@ -15,7 +15,7 @@ import { format, parseISO } from 'date-fns';
 import Moment from 'react-moment';
 
 export const UserInfo = (props) => {
-    const { name, userName, birthDate, date, emailAddress } = props
+    const { name, userName, birthDate, date, emailAddress, avatar } = props
     const { user } = useAuth0();
     const { picture, email, nickname, email_verified } = user;
 
@@ -41,7 +41,7 @@ export const UserInfo = (props) => {
                     <ListItem>
                         <ListItemAvatar>
                             <Avatar
-                                src={picture}
+                                src={avatar === undefined ? picture : avatar}
                                 alt="Profile"
                             />
                         </ListItemAvatar>

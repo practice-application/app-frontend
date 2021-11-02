@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import ActionLink from '../../../components/ActionLink';
 import { DisplayCard } from '../../../components/DisplayCard';
 import { imgStorage } from '../../../config';
 import { useApi, ProductProvider } from '../../Products/context';
@@ -53,9 +50,7 @@ const Products = () => {
                 spacing={2}
             >
                 <Typography variant="h2" noWrap>My Listings</Typography>
-                <Button startIcon={<AddOutlinedIcon />} variant='contained' component={ActionLink} to="/add-product">
-                    Create new Listing
-                </Button>
+
             </Stack>
             {products.data ?
                 <>
