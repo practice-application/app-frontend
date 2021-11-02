@@ -64,9 +64,9 @@ const User = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}>
                 {filtered.length > 0 ?
-                    filtered.map((i, item) =>
+                    people.data && filtered.map((i, item) =>
                         <div key={i}>
-                            {people.data && profile.map((tab, k) =>
+                            {profile.map((tab, k) =>
                                 <MenuItem key={k} id={tab.id} component={ActionLink} onClick={handleClose} to={{
                                     pathname: `customers/${item.id}`,
                                     state: tab.value,
