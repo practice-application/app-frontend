@@ -28,9 +28,9 @@ const App = withAuthenticationRequired(() => {
         <Layout>
           <Suspense fallback={<WaitSkeleton visible={true} />}>
             <Switch>
+              <Route exact path="/" component={ProductPage} />
               <Route exact path="/products/:id" component={Listing} />
               <Route exact path="/add-product" component={CreateProduct} />
-              <Route exact path="/products" component={ProductPage} />
               <Route exact path="/customers/:id" component={Profile} />
               <Route exact path="/add-customer" component={Create} />
               <Route exact path="/customers" component={CustomerList} />

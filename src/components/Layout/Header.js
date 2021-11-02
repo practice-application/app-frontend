@@ -18,7 +18,7 @@ import { UserDropdown } from './UserDropwdown';
 const MenuItems = [
     { label: 'Customers', link: '/customers' },
     { label: 'Organisation', link: '/organisation' },
-    { label: 'Products', link: '/products' },
+    { label: 'Products', link: '/' },
 ];
 
 export const Header = () => {
