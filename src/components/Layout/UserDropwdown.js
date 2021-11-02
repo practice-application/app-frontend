@@ -51,56 +51,48 @@ const User = () => {
 
     return (
         <>
-            {people.data &&
-                <>
-                    <Button startIcon={picture ? <Avatar
-                        sx={{ width: 24, height: 24 }}
-                        src={picture}
-                        alt="Profile"
-                    /> : <AccountCircleIcon />} color={anchorEl ? "secondary" : "primary"} onClick={handleClick}>
-                        {nickname}
-                    </Button>
-                    <MenuDialog
-                        id="customerMenu"
-                        anchorEl={anchorEl}
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}>
-                        {people.data.filter(item => item.auth0id === sub).map((item, i) =>
-                            <div key={i}>
-                                {profile.map((tab, k) =>
-                                    <MenuItem key={k} id={tab.id} component={ActionLink} onClick={handleClose} to={{
-                                        pathname: `customers/${item.id}`,
-                                        state: tab.value,
-                                    }} >
-                                        <ListItemIcon>
-                                            {tab.icon}
-                                        </ListItemIcon>
-                                        <ListItemText primary={tab.label} />
-                                    </MenuItem>
-                                )}
-                            </div>
-                        )}
-                        {filtered.length > 0 ?
-                            filtered.map(() =>
-                                '')
-                            :
-                            <MenuItem selected component={ActionLink} to="onboarding">
-                                <ListItemIcon>
-                                    <AddIcon color="primary" fontSize="small" />
-                                </ListItemIcon>
-                                <ListItemText primary="Add your Details" />
-                            </MenuItem>
-                        }
-                        <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
-                            <ListItemIcon>
-                                <LogoutIcon color="primary" fontSize="small" />
-                            </ListItemIcon>
-                            <ListItemText primary="Logout" />
-                        </MenuItem>
-                    </MenuDialog>
-                </>
-
-            }
+            <Button startIcon={picture ? <Avatar
+                sx={{ width: 24, height: 24 }}
+                src={picture}
+                alt="Profile"
+            /> : <AccountCircleIcon />} color={anchorEl ? "secondary" : "primary"} onClick={handleClick}>
+                {nickname}
+            </Button>
+            <MenuDialog
+                id="customerMenu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}>
+                {filtered.length > 0 ?
+                    filtered.map((i, item) =>
+                        <div key={i}>
+                            {people.data && profile.map((tab, k) =>
+                                <MenuItem key={k} id={tab.id} component={ActionLink} onClick={handleClose} to={{
+                                    pathname: `customers/${item.id}`,
+                                    state: tab.value,
+                                }} >
+                                    <ListItemIcon>
+                                        {tab.icon}
+                                    </ListItemIcon>
+                                    <ListItemText primary={tab.label} />
+                                </MenuItem>
+                            )}
+                        </div>)
+                    :
+                    <MenuItem selected component={ActionLink} to="onboarding">
+                        <ListItemIcon>
+                            <AddIcon color="primary" fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText primary="Add your Details" />
+                    </MenuItem>
+                }
+                <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
+                    <ListItemIcon>
+                        <LogoutIcon color="primary" fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText primary="Logout" />
+                </MenuItem>
+            </MenuDialog>
         </>
     )
 }

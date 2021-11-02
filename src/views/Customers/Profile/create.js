@@ -22,7 +22,7 @@ export const Create = () => {
                     ?
                     <Form onAction={handleSubmit} />
                     :
-                    <SuccessMessage to="/customers" category="Customer" />
+                    <SuccessMessage to="/customers" category="Your profile" />
                 }
             </Container>
         </CustomerProvider>
