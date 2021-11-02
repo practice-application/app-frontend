@@ -103,7 +103,7 @@ const ProductListing = () => {
                             <Trail pageName="Products" returningPage="/"
                                 currentPage={product.name} />
                         </Grid>
-                        {nickname === product.user &&
+                        {sub === product.auth0id &&
                             <>
                                 <Grid item>
                                     <Button
