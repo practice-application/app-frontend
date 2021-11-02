@@ -41,6 +41,7 @@ const User = () => {
     const handleClick = (e) => { setAnchorEl(e.currentTarget); };
     const handleClose = () => { setAnchorEl(null); };
 
+
     useEffect(() => {
         fetchPeople();
     }, [fetchPeople]);
@@ -63,19 +64,23 @@ const User = () => {
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}>
-                {filtered.length > 0 ?
-                    people.data && filtered.map((i, item) =>
+                {people.data && filtered.length > 0 ?
+                    filtered.map((i) =>
                         <div key={i}>
-                            {profile.map((tab, k) =>
-                                <MenuItem key={k} id={tab.id} component={ActionLink} onClick={handleClose} to={{
-                                    pathname: `customers/${item.id}`,
-                                    state: tab.value,
-                                }} >
-                                    <ListItemIcon>
-                                        {tab.icon}
-                                    </ListItemIcon>
-                                    <ListItemText primary={tab.label} />
-                                </MenuItem>
+                            {people.data.filter(item => item.auth0id === sub).map((item, i) =>
+                                <div key={i}>
+                                    {profile.map((tab, k) =>
+                                        <MenuItem key={k} id={tab.id} component={ActionLink} onClick={handleClose} to={{
+                                            pathname: `customers/${item.id}`,
+                                            state: tab.value,
+                                        }} >
+                                            <ListItemIcon>
+                                                {tab.icon}
+                                            </ListItemIcon>
+                                            <ListItemText primary={tab.label} />
+                                        </MenuItem>
+                                    )}
+                                </div>
                             )}
                         </div>)
                     :
