@@ -70,9 +70,6 @@ const CustomerList = () => {
                                 onClick={view === true ? change : changeBack}> {view === true ? "Close" : "Edit"}</Button>
 
                         </Box>
-                        <Box sx={{ display: 'flex', my: 1, padding: 0.5 }}>
-                            <Button variant='contained' component={ActionLink} to="/onboarding">Add User</Button>
-                        </Box>
                     </Grid>
                     <TableContainer sx={{
                         '& [class*="MuiTableCell-head"]': {

@@ -67,7 +67,6 @@ const User = () => {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}>
                         {people.data.filter(item => item.auth0id === sub).map((item, i) =>
-
                             <div key={i}>
                                 {profile.map((tab, k) =>
                                     <MenuItem key={k} id={tab.id} component={ActionLink} onClick={handleClose} to={{
@@ -80,13 +79,11 @@ const User = () => {
                                         <ListItemText primary={tab.label} />
                                     </MenuItem>
                                 )}
-
                             </div>
                         )}
                         {filtered.length > 0 ?
                             filtered.map(() =>
-                                ''
-                            )
+                                '')
                             :
                             <MenuItem selected component={ActionLink} to="onboarding">
                                 <ListItemIcon>
