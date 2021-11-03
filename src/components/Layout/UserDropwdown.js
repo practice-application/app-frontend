@@ -50,6 +50,8 @@ const User = () => {
         item.auth0id.includes(sub)
     );
 
+
+
     return (
         <>
             <Button startIcon={picture ? <Avatar
@@ -71,7 +73,7 @@ const User = () => {
                                 <div key={i}>
                                     {profile.map((tab, k) =>
                                         <MenuItem key={k} id={tab.id} component={ActionLink} onClick={handleClose} to={{
-                                            pathname: `customers/${item.id}`,
+                                            pathname: `${window.location.pathname.includes(`customers/${item.id}`) ? '' : 'customers/'}${item.id}`,
                                             state: tab.value,
                                         }} >
                                             <ListItemIcon>

@@ -12,6 +12,7 @@ import { DisplayCard } from '../../../components/DisplayCard';
 import { TablePager } from '../../../components/TablePager';
 import { useApi } from '../context';
 import { CustomerProvider } from '../context';
+import { Container } from '@mui/material';
 
 const pageSize = 10;
 
@@ -51,7 +52,7 @@ const CustomerList = () => {
                 <>
                     {filtered.length > 0 ?
                         filtered.map((i) =>
-                            <div key={i}>
+                            <Container maxWidth="md" key={i}>
                                 {people.data.map((item, i) =>
                                     <DisplayCard
                                         title={item.firstName + item.lastName}
@@ -69,7 +70,7 @@ const CustomerList = () => {
                                         colSpan={3} onPage={() => handlePage()}
                                     />
                                 </Table>
-                            </div>
+                            </Container>
                         )
                         :
                         <Stack
