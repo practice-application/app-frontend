@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { useAuth0 } from "@auth0/auth0-react";
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -27,12 +28,20 @@ import * as PropTypes from 'prop-types';
 import ActionLink from '../ActionLink';
 
 export const DisplayCard = (props) => {
-    const { elevation, title, subtitle, description, price, string, to, image, dataType, remove, onDelete, variable, addToBag } = props
+    const { elevation, title, subtitle, functions, description, price, string, to, image, dataType, remove, onDelete, variable, addToBag } = props
 
     switch (dataType) {
         case 'large':
-            return <BigDisplayCard elevation={elevation} addToBag={addToBag} title={title} subtitle={subtitle} description={description}
-                price={price} remove={remove} string={string} to={to} image={image} />
+            return <BigDisplayCard
+                elevation={elevation}
+                addToBag={addToBag}
+                title={title}
+                subtitle={subtitle}
+                description={description}
+                price={price}
+                functions={functions}
+                remove={remove} string={string}
+                to={to} image={image} />
         case 'small':
             return <MiniDispayCard variable={variable} title={title} subtitle={subtitle} image={image} to={to} onDelete={onDelete} />
         default:
@@ -42,7 +51,9 @@ export const DisplayCard = (props) => {
 export default DisplayCard;
 
 const BigDisplayCard = props => {
-    const { elevation, title, subtitle, description, price, string, to, image, addToBag, remove } = props;
+    const { elevation, title, functions, subtitle, description, price, string, to, image, addToBag, remove } = props;
+    const { user } = useAuth0();
+    const { sub } = user;
     const [view, setView] = useState(false);
     const [bookmark, setBookmark] = useState(false);
 
@@ -98,13 +109,15 @@ const BigDisplayCard = props => {
                             {`$${price}`}
                         </Typography>
                     </Stack>
-                    <Stack
-                        direction="row"
-                        alignItems="flex-start"
-                    >
-                        <Checkbox onChange={save} icon={<BookmarkBorderOutlinedIcon />} checkedIcon={<BookmarkOutlinedIcon />} />
-                        <Checkbox onChange={view === false ? cart : cartFalse} icon={<ShoppingCartOutlinedIcon />} checkedIcon={<ShoppingCartIcon />} />
-                    </Stack>
+                    {sub !== functions &&
+                        <Stack
+                            direction="row"
+                            alignItems="flex-start"
+                        >
+                            <Checkbox onChange={save} icon={<BookmarkBorderOutlinedIcon />} checkedIcon={<BookmarkOutlinedIcon />} />
+                            <Checkbox onChange={view === false ? cart : cartFalse} icon={<ShoppingCartOutlinedIcon />} checkedIcon={<ShoppingCartIcon />} />
+                        </Stack>
+                    }
                 </CardActions>
             </Card>
         </>

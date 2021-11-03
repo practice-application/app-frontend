@@ -99,6 +99,7 @@ const ProductPage = () => {
                             : item).sort((a, b) => a.priority > b.priority ? -1 : 1).map((p, index) =>
                                 <Grid key={index} item xs={6} sm={4} md={3}>
                                     <DisplayCard
+                                        functions={p.auth0id}
                                         elevation={p.priority === true ? 1 : 2}
                                         remove={removeBasket}
                                         addToBag={() => addToBasket(p.id)}

@@ -150,6 +150,7 @@ const Customer = () => {
                                 }
                                 {!tab &&
                                     <UserInfo
+                                        f
                                         avatar={person.avatar}
                                         date={person.date}
                                         name={`${person.firstName} ${person.lastName}`}
