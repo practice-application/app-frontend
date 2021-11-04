@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useCallback, useMemo, useReducer } from 'react';
+import React, { createContext, useContext, useCallback, useMemo, useReducer, useState } from 'react';
 
 import { useAuth0 } from "@auth0/auth0-react";
 import cloneDeep from 'lodash.clonedeep';
@@ -91,6 +91,13 @@ export const ProductProvider = props => {
 export const useApi = () => {
     const { getAccessTokenSilently } = useAuth0();
     const { state, dispatch } = useContext(ProductContext);
+    const [count, setCount] = useState(0);
+
+    const addToCart = (id, cart) => {
+        var cart = setCount(count + 1);
+        console.log("****", id, cart)
+        return id, cart
+    };
 
     const searchProducts = useCallback(async (query, category, page = { limit: 10 }) => {
         const reqInit = {
@@ -205,7 +212,7 @@ export const useApi = () => {
 
 
     const actions = useMemo(() => {
-        return { searchProducts, fetchProducts, fetchProduct, update, create, deleteProduct }
+        return { addToCart, searchProducts, fetchProducts, fetchProduct, update, create, deleteProduct }
     }, [searchProducts, fetchProducts, fetchProduct, update, create, deleteProduct]);
 
     return [state, actions];

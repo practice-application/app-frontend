@@ -26,6 +26,7 @@ import { CustomerProvider, useApi } from '../context';
 import { CustomerListings } from './CustomerListings';
 import Form from './Form'
 import { UserInfo } from './UserInfo';
+import Cart from '../../../components/Cart';
 
 export const Profile = () => {
     return (
@@ -160,7 +161,11 @@ const Customer = () => {
                                         birthDate={person.birthDate} />
                                 }
                                 {tab === '1' &&
+                                     <>
                                     <Typography variant="h2" noWrap>My Cart</Typography>
+                                   
+                                    <Cart />
+                                    </>
                                 }
                                 {tab === '2' &&
                                     <Typography variant="h2" noWrap>Saved Items</Typography>

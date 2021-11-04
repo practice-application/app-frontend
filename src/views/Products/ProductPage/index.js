@@ -29,7 +29,7 @@ export const ProductPageExt = () => {
 }
 
 const ProductPage = () => {
-    const [{ products }, { fetchProducts }] = useApi();
+    const [{ products }, { fetchProducts, addToCart }] = useApi();
     const [query, setQuery] = useState('');
     const [category, setCategory] = useState('');
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
@@ -65,11 +65,13 @@ const ProductPage = () => {
         setPage(prev => ({ ...prev, offset: prev.offset + pageSize }))
     };
 
-    const addToBasket = () => {
-        setCart(o => o + 1)
+    const addToBasket = (id, cart) => {
+       setCart(o => o + 1)
+       addToCart(id, cart)
     };
     const removeBasket = () => {
         setCart(o => o - 1)
+        addToCart()
     };
 
 
