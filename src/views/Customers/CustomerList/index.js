@@ -5,7 +5,6 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
-import Table from '@mui/material/Table';
 import Typography from '@mui/material/Typography';
 
 import ActionLink from '../../../components/ActionLink';
@@ -86,7 +85,7 @@ const CustomerList = () => {
                             spacing={2}
                         >
                             <Typography sx={{ pt: 2 }} variant="h2">You currently haven't set up your profile </Typography>
-                            <Typography>    in order to view other customers, please create your profile</Typography>
+                            <Typography>In order to view other customers, please create your profile</Typography>
                             <Button variant='contained' sx={{ mr: 0.5 }} component={ActionLink} to="/onboarding">Create profile</Button>
                         </Stack>
                     }

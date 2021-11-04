@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React  /* useEffect */ from 'react';
+
 import Typography from '@mui/material/Typography';
 
-import { useApi } from '../../Products/context';
+// import { useApi } from '../../Products/context';
 
 const Cart = () => {
     //const [{ addToCart }] = useApi();
