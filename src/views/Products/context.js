@@ -94,9 +94,9 @@ export const useApi = () => {
     //const [count, setCount] = useState(0);
 
     const addToCart = (id, count) => {
-       
+
         console.log("****", id, count)
-        return id, count
+        return id
     };
 
     const searchProducts = useCallback(async (query, category, page = { limit: 10 }) => {

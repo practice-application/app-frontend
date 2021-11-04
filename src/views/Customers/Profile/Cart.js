@@ -15,7 +15,6 @@ const Cart = () => {
         <>
             <Typography>
                 I AM A CART
-
             </Typography>
         </>
 
