@@ -65,9 +65,9 @@ const ProductPage = () => {
         setPage(prev => ({ ...prev, offset: prev.offset + pageSize }))
     };
 
-    const addToBasket = (id, cart) => {
+    const addToBasket = (id) => {
        setCart(o => o + 1)
-       addToCart(id, cart)
+       addToCart(id, )
     };
     const removeBasket = () => {
         setCart(o => o - 1)
