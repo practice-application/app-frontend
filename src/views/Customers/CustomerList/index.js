@@ -10,7 +10,8 @@ import Typography from '@mui/material/Typography';
 
 import ActionLink from '../../../components/ActionLink';
 import { DisplayCard } from '../../../components/DisplayCard';
-import { TablePager } from '../../../components/TablePager';
+import { SearchBar } from '../../../components/SearchBar'
+import { Pager } from '../../../components/TablePager';
 import { useApi } from '../context';
 import { CustomerProvider } from '../context';
 
@@ -30,6 +31,7 @@ const CustomerList = () => {
     const { sub } = user;
     const [{ people }, { deletePerson, fetchPeople }] = useApi();
     const [page, setPage] = useState({ offset: 0, limit: pageSize });
+    const [query, setQuery] = useState('');
 
     useEffect(() => {
         fetchPeople(page);
@@ -54,24 +56,27 @@ const CustomerList = () => {
                     {filtered.length > 0 ?
                         filtered.map((i) =>
                             <Container maxWidth="md" key={i}>
-                                {people.data.map((item, i) =>
-                                    <DisplayCard
-                                        title={item.firstName + item.lastName}
-                                        subtitle={item.email}
-                                        key={i}
-                                        to={`/customers/${item.id}`}
-                                        image={item.avatar}
-                                        dataType="small"
-                                        onDelete={() => handleDelete(item.id)}
-                                        variable="customer"
-                                    />
-                                )}
-                                <Table>
-                                    <TablePager count={people.data.length} total={people.matches}
-                                        colSpan={3} onPage={() => handlePage()}
-                                    />
-                                </Table>
+                                <Typography sx={{ pt: 2 }} variant="h2">Other Users </Typography>
+                                <SearchBar value={query} onChange={setQuery} />
+                                {people.data.filter(item => query ? ((item.firstName) + (item.lastName)).toLowerCase().includes(query.toLowerCase())
+                                    : item).sort((a, b) => a.lastName > b.lastName ? -1 : 1).map((item, i) =>
+                                        <DisplayCard
+                                            title={`${item.firstName} ${item.lastName}`}
+                                            subtitle={item.email}
+                                            key={i}
+                                            to={`/customers/${item.id}`}
+                                            image={item.avatar}
+                                            dataType="small"
+                                            onDelete={() => handleDelete(item.id)}
+                                            variable="customer"
+                                        />
+                                    )}
+
+                                <Pager count={people.data.length} total={people.matches}
+                                    colSpan={3} onPage={() => handlePage()}
+                                />
                             </Container>
+
                         )
                         :
                         <Stack

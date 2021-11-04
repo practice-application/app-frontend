@@ -28,6 +28,8 @@ export const Dropdown = props => {
             return <CategoryDropdown value={value} onChange={onChange} />
         case 'size':
             return <SizeDropdown value={value} onChange={onChange} />
+        case 'user':
+            return <SortDropdown value={value} onChange={onChange} />
         default:
             throw new Error('Invalid dataType prop passed to Dropdown');
     }
@@ -132,6 +134,31 @@ const CategoryDropdown = props => {
     )
 }
 
+const SortDropdown = props => {
+    const { value, onChange } = props
+    const options = useMemo(() => Variable, []);
+
+    return (
+        <FormControl id="sort" fullWidth>
+            <InputLabel sx={{ m: -1 }} >Sort By</InputLabel>
+            <Select
+                size="small"
+                value={value}
+                onChange={onChange}
+            >
+                <MenuItem value="">
+                    Categories
+                </MenuItem>
+                {options.map((item, i) =>
+                    <MenuItem key={i} value={item.value}>
+                        {item.label}
+                    </MenuItem>
+                )}
+            </Select>
+        </FormControl>
+    )
+}
+
 const SizeDropdown = props => {
     const { value, onChange } = props
     const options = useMemo(() => Size, []);
@@ -191,13 +218,11 @@ const Size = [
     { label: 'xxl' },
 
 ]
-const SizePants = [
-    { label: '28' },
-    { label: '30' },
-    { label: '32' },
-    { label: '34' },
-    { label: '36' },
-    { label: '38' },
+
+const Variable = [
+    { label: 'First Name', value: 'firstName' },
+    { label: 'Last Name', value: 'lastName' },
+
 ]
 
 const Empty = []

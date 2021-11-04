@@ -57,8 +57,8 @@ const ProductPage = () => {
         window.location.reload()
     };
 
-    const handleChange = (event) => {
-        setCategory(event.target.value);
+    const handleChange = (e) => {
+        setCategory(e.target.value);
     };
 
     const handlePage = () => {

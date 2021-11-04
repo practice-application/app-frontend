@@ -46,7 +46,7 @@ const User = () => {
         fetchPeople();
     }, [fetchPeople]);
 
-    const filtered = people.data.filter(item => item.auth0id === sub).map((item, i) =>
+    const filtered = people.data.filter(item => item.auth0id === sub).map((item) =>
         item.auth0id.includes(sub)
     );
 
@@ -84,8 +84,8 @@ const User = () => {
                                     )}
                                 </div>
                             )}
-                        </div>)
-                    :
+                        </div>
+                    ) :
                     <MenuItem selected component={ActionLink} to="onboarding">
                         <ListItemIcon>
                             <AddIcon color="primary" fontSize="small" />
