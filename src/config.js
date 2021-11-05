@@ -1,4 +1,5 @@
-import firebase from 'firebase';
+import { initializeApp } from 'firebase/app';
+import { getStorage } from "firebase/storage";
 
 export const config = {
     auth0: {
@@ -19,5 +20,6 @@ export const config = {
 };
 
 
-firebase.initializeApp(config.storage);
-export const imgStorage = firebase.storage();
+const firebaseApp = initializeApp(config.storage);
+export const imgStorage = getStorage(firebaseApp);
+

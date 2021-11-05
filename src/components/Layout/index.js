@@ -2,7 +2,7 @@ import React from 'react';
 
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import { styled } from '@mui/system';
+import { styled } from '@mui/material/styles';
 
 import { Footer } from './Footer';
 import Header from './Header';

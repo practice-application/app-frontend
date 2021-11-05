@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { useAuth0 } from "@auth0/auth0-react";
-import { Typography } from '@mui/material';
+import { useAuth0 } from "@auth0/auth0-react"
 import Button from '@mui/material/Button';
 import CircularProgress from "@mui/material/CircularProgress";
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -9,27 +8,25 @@ import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
-import ImageUploading from 'react-images-uploading';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Dropdown } from '../../../components/Dropdown'
-import { FileUploader } from '../../../components/FileUploader';
+import { FileUpload } from '../../../components/FileUpload';
 import { ImagePager } from '../../../components/ImagePager';
-import { imgStorage } from '../../../config';
 import { useApi } from '../context';
 
 export const Form = ({ onAction }) => {
-
     const [state, { update, create }] = useApi();
     const [product, setProduct] = useState();
     const [errorMsg, setErrorMsg] = useState(false);
     const [submitting, setSubmitting] = useState();
-    const [image, setImages] = useState([]);
+    const [image, setImage] = useState([]);
+    const [Selected, setSelected] = useState(false);
     const [message, setMessage] = useState();
     const [setID] = useState(uuidv4());
     const maxSteps = image.length;
-    const maxNumber = 5
     const { user } = useAuth0();
     const { nickname, picture, sub } = user;
 
@@ -45,17 +42,35 @@ export const Form = ({ onAction }) => {
         }
     }
 
-    const imageUpload = async () => {
-        image[0] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[0].file.name}`).put(image[0].file)
-        image[1] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[1].file.name}`).put(image[1].file)
-        image[2] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[2].file.name}`).put(image[2].file)
-        image[3] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[3].file.name}`).put(image[3].file)
-        image[4] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[4].file.name}`).put(image[4].file)
-    }
+    const handleInput = (e) => {
+        if (e.target.files) {
+            const files = Array.from(e.target.files);
+            Promise.all(files.map(file => {
+                return (new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.addEventListener('load', (ev) => {
+                        resolve(ev.target.result);
+                    });
+                    reader.addEventListener('error', reject);
+                    reader.readAsDataURL(file);
+                }));
+            }))
+                .then(images => {
+                    setImage(images)
+                }, error => {
+                    console.error(error);
+                });
+        }
+        console.log(e.target.files)
+        setSelected(true);
+    };
 
-    const onChange = (imageList) => {
-        setImages(imageList);
-        console.log(imageList.map((item) => item.file.name))
+    const imageUpload = async () => {
+        // image && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image}`).put(image)
+        // image[1] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[1].file.name}`).put(image[1].file)
+        // image[2] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[2].file.name}`).put(image[2].file)
+        // image[3] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[3].file.name}`).put(image[3].file)
+        // image[4] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[4].file.name}`).put(image[4].file)
     }
 
     const handleSave = () => {
@@ -161,39 +176,18 @@ export const Form = ({ onAction }) => {
                                 value={product && product.description}
                                 onChange={handleChange}
                             />
-
                         </Grid>
                         <Grid item xs={12}>
-                            <ImageUploading
-                                accept={'.xlsx,.xls,image/*,.doc,.docx,.txt,.rtf,.pdf'}
-                                multiple
-                                value={image}
-                                onChange={onChange}
-                                maxNumber={maxNumber}
-                                dataURLKey="data_url"
-                            >
-                                {({ imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove, isDragging, dragProps, errors }) => (
-                                    <FileUploader
-                                        maxNumber={maxNumber}
-                                        image={image[0]}
-                                        dragProps={dragProps}
-                                        errors={errors}
-                                        isDragging={isDragging}
-                                        onChange={onChange}
-                                        onImageRemoveAll={onImageRemoveAll}
-                                        onImageUpload={onImageUpload}>
-                                        <ImagePager
-                                            upload
-                                            action
-                                            maxSteps={maxSteps}
-                                            array={imageList}
-                                            image={image[0]}
-                                            onChange={onImageUpdate}
-                                            onDelete={onImageRemove}
-                                        />
-                                    </FileUploader>
-                                )}
-                            </ImageUploading>
+                            <FileUpload onChange={handleInput} title={Selected ? 'Change Files' : "Upload new File"} />
+                            {Selected &&
+                                <ImagePager
+                                    upload
+                                    action
+                                    maxSteps={maxSteps}
+                                    array={image}
+                                    image={image[0]}
+                                />
+                            }
                             {message && <Typography color="error.main">A minimum of 1 image is required before submission</Typography>}
                         </Grid>
                         <Grid item xs={12}>

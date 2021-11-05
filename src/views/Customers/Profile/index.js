@@ -71,7 +71,6 @@ const Customer = () => {
         return [storedValue, setValue];
     }
 
-
     useEffect(() => {
         fetchPerson(id);
     }, [fetchPerson, id]);

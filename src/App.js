@@ -3,7 +3,7 @@ import React, { lazy, Suspense } from 'react';
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { Layout } from './components/Layout';
 import { WaitSkeleton } from './components/WaitSkeleton';
@@ -27,14 +27,14 @@ const App = withAuthenticationRequired(() => {
       <Router>
         <Layout>
           <Suspense fallback={<WaitSkeleton visible={true} />}>
-            <Switch>
-              <Route exact path="/" component={ProductPage} />
-              <Route exact path="/products/:id" component={Listing} />
-              <Route exact path="/add-product" component={CreateProduct} />
-              <Route exact path="/customers/:id" component={Profile} />
-              <Route exact path="/onboarding" component={Create} />
-              <Route exact path="/customers" component={CustomerList} />
-            </Switch>
+            <Routes>
+              <Route exact path="/" element={<ProductPage />} />
+              <Route exact path="/products/:id" element={<Listing />} />
+              <Route exact path="/add-product" element={<CreateProduct />} />
+              <Route exact path="/customers/:id" element={<Profile />} />
+              <Route exact path="/onboarding" element={<Create />} />
+              <Route exact path="/customers" element={<CustomerList />} />
+            </Routes>
           </Suspense>
         </Layout>
       </Router>

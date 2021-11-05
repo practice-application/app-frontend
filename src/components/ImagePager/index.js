@@ -88,21 +88,21 @@ export const ImagePager = props => {
                                         <MoreVertIcon fontSize="small" />
                                     </IconButton>
                                 </>
-                            } disableTypography title={upload ? item.file.name : view && title} />
+                            } disableTypography title={upload ? `${item.substring(0, 25)}...` : view && title} />
                             <CardActionArea onClick={handleClickOpen}>
                                 <CardMedia
                                     component="img"
                                     height={200 | height}
-                                    image={upload ? item.data_url : view && item}
-                                    alt={upload ? item.file.name : view && item}
+                                    image={item}
+                                    alt={item}
                                 />
                             </CardActionArea>
                             <Dialog fullWidth onClose={handleDialogClose} open={dialogOpen}>
                                 <CardMedia
                                     component="img"
                                     height="100%"
-                                    image={upload ? item.data_url : view && item}
-                                    alt={upload ? item.file.name : view && item}
+                                    image={item}
+                                    alt={item}
                                 />
 
                             </Dialog>
