@@ -104,7 +104,6 @@ export const ImagePager = props => {
                                     image={item}
                                     alt={item}
                                 />
-
                             </Dialog>
                         </>
                         : null}

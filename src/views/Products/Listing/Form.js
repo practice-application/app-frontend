@@ -61,9 +61,9 @@ export const Form = ({ onAction }) => {
                     console.error(error);
                 });
         }
-        console.log(e.target.files)
         setSelected(true);
     };
+
 
     const imageUpload = async () => {
         // image && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image}`).put(image)
@@ -72,6 +72,7 @@ export const Form = ({ onAction }) => {
         // image[3] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[3].file.name}`).put(image[3].file)
         // image[4] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[4].file.name}`).put(image[4].file)
     }
+    console.log(image.map(item => item))
 
     const handleSave = () => {
         if (validPrice()) {
@@ -182,7 +183,6 @@ export const Form = ({ onAction }) => {
                             {Selected &&
                                 <ImagePager
                                     upload
-                                    action
                                     maxSteps={maxSteps}
                                     array={image}
                                     image={image[0]}
