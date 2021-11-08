@@ -8,6 +8,7 @@ import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { ref, getDownloadURL, list } from "firebase/storage";
 
 import ActionLink from '../../../components/ActionLink';
 import { DisplayCard } from '../../../components/DisplayCard';
@@ -43,11 +44,12 @@ const ProductPage = () => {
     useEffect(() => {
         const addImages = async () => {
             const promises = products.data.map(async prd => {
-                const res = await imgStorage.ref().child(`/product-images/${prd.imageID}`).list();
-                prd.imgUrl = await res.items[0].getDownloadURL();
+                const path = `/product-images/${prd.imageID}`
+                const image = ref(imgStorage, path);
+                let res = await list(image)
+                prd.imgUrl = await getDownloadURL(res.items[0]);
                 return prd;
             });
-
             setImgProducts(await Promise.all(promises));
         }
         addImages();
