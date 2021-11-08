@@ -16,7 +16,7 @@ import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Paper from '@mui/material/Paper';
-import { ref, getDownloadURL, listAll, deleteObject, list } from "firebase/storage";
+import { ref, getDownloadURL, deleteObject, list } from "firebase/storage";
 import Moment from 'react-moment';
 import { useParams } from "react-router-dom";
 
