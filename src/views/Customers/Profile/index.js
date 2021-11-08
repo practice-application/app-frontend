@@ -18,7 +18,7 @@ import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router";
 
 import ActionLink from '../../../components/ActionLink';
 import { Trail } from '../../../components/Trail';
@@ -44,7 +44,8 @@ const tabArray = [
 ]
 
 const Customer = () => {
-    const location = useLocation()
+    let location = useLocation()
+    console.log(location)
     const [view, setView] = useState(true);
     const [state, { fetchPerson }] = useApi();
     const [person, setPerson] = useState();

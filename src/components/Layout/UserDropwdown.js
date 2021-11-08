@@ -72,10 +72,13 @@ const User = () => {
                             {people.data.filter(item => item.auth0id === sub).map((item, i) =>
                                 <div key={i}>
                                     {profile.map((tab, k) =>
-                                        <MenuItem key={k} id={tab.id} component={ActionLink} onClick={handleClose} to={{
-                                            pathname: `${window.location.pathname.includes(`customers/${item.id}`) ? '' : 'customers/'}${item.id}`,
-                                            state: tab.value,
-                                        }} >
+                                        <MenuItem
+                                            key={k}
+                                            id={tab.id}
+                                            component={ActionLink}
+                                            onClick={handleClose}
+                                            state={tab.value}
+                                            to={`${window.location.pathname.includes(`customers/${item.id}`) ? '' : 'customers/'}${item.id}`} >
                                             <ListItemIcon>
                                                 {tab.icon}
                                             </ListItemIcon>

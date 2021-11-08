@@ -177,7 +177,7 @@ const MiniDispayCard = props => {
                     </IconButton>
                 </>
             }>
-                <ListItemButton component={ActionLink} to={to}>
+                <ListItemButton state="4" component={ActionLink} to={to}>
                     <ListItemAvatar>
                         <Avatar variant="rounded" sx={{ width: 56, height: 56, mr: 1 }} src={image}
                             alt={`${image} text`} />
