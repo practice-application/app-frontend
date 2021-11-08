@@ -150,7 +150,6 @@ const Customer = () => {
                                 }
                                 {!tab &&
                                     <UserInfo
-                                        f
                                         avatar={person.avatar}
                                         date={person.date}
                                         name={`${person.firstName} ${person.lastName}`}
@@ -162,7 +161,6 @@ const Customer = () => {
                                 {tab === '1' &&
                                     <>
                                         <Typography variant="h2" noWrap>My Cart</Typography>
-
                                         <Cart />
                                     </>
                                 }
@@ -175,6 +173,7 @@ const Customer = () => {
                                 {tab === '4' &&
                                     <>
                                         <UserInfo
+                                            emailAddress={person.email}
                                             avatar={person.avatar}
                                             date={person.date}
                                             name={`${person.firstName} ${person.lastName}`}
