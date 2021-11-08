@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import List from '@mui/material/List';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { ref, getDownloadURL, list } from "firebase/storage";
 
 import { DisplayCard } from '../../../components/DisplayCard';
 import { imgStorage } from '../../../config';
@@ -29,15 +30,17 @@ const Products = () => {
     useEffect(() => {
         const addImages = async () => {
             const promises = products.data.map(async prd => {
-                const res = await imgStorage.ref().child(`/product-images/${prd.imageID}`).list();
-                prd.imgUrl = await res.items[0].getDownloadURL();
+                const path = `/product-images/${prd.imageID}`
+                const image = ref(imgStorage, path);
+                let res = await list(image)
+                prd.imgUrl = await getDownloadURL(res.items[0]);
                 return prd;
             });
-
             setImgProducts(await Promise.all(promises));
         }
         addImages();
     }, [products.data]);
+
 
     const handleDelete = (id) => {
         deleteProduct(id);
