@@ -20,6 +20,6 @@ export const config = {
 };
 
 
-initializeApp(config.storage);
-export const imgStorage = getStorage();
+const i = initializeApp(config.storage);
+export const imgStorage = getStorage(i);
 

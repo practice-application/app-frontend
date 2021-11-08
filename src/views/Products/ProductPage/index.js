@@ -107,7 +107,7 @@ const ProductPage = () => {
                                         addToBag={() => addToBasket(p.id)}
                                         image={p.imgUrl}
                                         dataType="large"
-                                        string={p.id}
+                                        to={p.id}
                                         title={p.priority === true ?
                                             <Stack
                                                 direction="row"

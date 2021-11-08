@@ -15,13 +15,13 @@ export const CreateProduct = () => {
 
     return (
         <ProductProvider>
-            <Trail pageName="Products" returningPage="/products" currentPage="New Product" />
+            <Trail pageName="Products" returningPage="/" currentPage="New Product" />
             <Container maxWidth="sm" sx={{ mt: 4 }}>
                 {!submitted
                     ?
                     <Form onAction={handleSubmit} />
                     :
-                    <SuccessMessage to="/products" category="Product" />
+                    <SuccessMessage to="/" category="Product" />
                 }
             </Container>
         </ProductProvider>

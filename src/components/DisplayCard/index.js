@@ -28,7 +28,7 @@ import * as PropTypes from 'prop-types';
 import ActionLink from '../ActionLink';
 
 export const DisplayCard = (props) => {
-    const { elevation, title, subtitle, functions, description, price, string, to, image, dataType, remove, onDelete, variable, addToBag } = props
+    const { elevation, title, subtitle, functions, description, price, to, image, dataType, remove, onDelete, variable, addToBag } = props
 
     switch (dataType) {
         case 'large':
@@ -40,7 +40,7 @@ export const DisplayCard = (props) => {
                 description={description}
                 price={price}
                 functions={functions}
-                remove={remove} string={string}
+                remove={remove}
                 to={to} image={image} />
         case 'small':
             return <MiniDispayCard variable={variable} title={title} subtitle={subtitle} image={image} to={to} onDelete={onDelete} />
@@ -51,7 +51,7 @@ export const DisplayCard = (props) => {
 export default DisplayCard;
 
 const BigDisplayCard = props => {
-    const { elevation, title, functions, subtitle, description, price, string, to, image, addToBag, remove } = props;
+    const { elevation, title, functions, subtitle, description, price, to, image, addToBag, remove } = props;
     const { user } = useAuth0();
     const { sub } = user;
     const [view, setView] = useState(false);
@@ -76,7 +76,7 @@ const BigDisplayCard = props => {
     return (
         <>
             <Card elevation={elevation} sx={{ m: 1 }}>
-                <CardActionArea component={ActionLink} to={`/products/${string}` || to} >
+                <CardActionArea component={ActionLink} to={`/products/${to}`} >
                     <CardMedia
                         component="img"
                         height="200"

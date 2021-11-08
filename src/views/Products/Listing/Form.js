@@ -47,7 +47,6 @@ export const Form = ({ onAction }) => {
     }
 
     useEffect(() => {
-        if (image.length < 1) return;
         const newImageUrls = [];
         image.forEach(i => newImageUrls.push(URL.createObjectURL(i)))
         setImageURLS(newImageUrls)
@@ -60,16 +59,11 @@ export const Form = ({ onAction }) => {
     };
 
     const imageUpload = async () => {
-        const metadata = {
-            contentType: 'image/jpeg',
-        };
+        const metadata = { contentType: 'image/jpeg' };
         const path = `/product-images/${product.imageID}`
         const images = ref(imgStorage, `${path}/${product.name + '-' + image[0]}`);
         uploadBytes(await images, image[0], metadata)
     }
-
-    console.log(image.length)
-    console.log(imageURLS.length)
 
     const handleSave = () => {
         if (validPrice()) {
