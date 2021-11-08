@@ -78,7 +78,7 @@ const User = () => {
                                             component={ActionLink}
                                             onClick={handleClose}
                                             state={tab.value}
-                                            to={`${window.location.pathname.includes(`customers/${item.id}`) ? '' : 'customers/'}${item.id}`} >
+                                            to={`customers/${item.id}`} >
                                             <ListItemIcon>
                                                 {tab.icon}
                                             </ListItemIcon>

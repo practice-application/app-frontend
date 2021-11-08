@@ -45,7 +45,6 @@ const tabArray = [
 
 const Customer = () => {
     let location = useLocation()
-    console.log(location)
     const [view, setView] = useState(true);
     const [state, { fetchPerson }] = useApi();
     const [person, setPerson] = useState();
