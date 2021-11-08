@@ -9,12 +9,14 @@ import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { ref, uploadBytes } from "firebase/storage";
 import * as PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Dropdown } from '../../../components/Dropdown'
 import { FileUpload } from '../../../components/FileUpload';
 import { ImagePager } from '../../../components/ImagePager';
+import { imgStorage } from '../../../config'
 import { useApi } from '../context';
 
 export const Form = ({ onAction }) => {
@@ -23,12 +25,14 @@ export const Form = ({ onAction }) => {
     const [errorMsg, setErrorMsg] = useState(false);
     const [submitting, setSubmitting] = useState();
     const [image, setImage] = useState([]);
+    const [imageURLS, setImageURLS] = useState([]);
     const [Selected, setSelected] = useState(false);
     const [message, setMessage] = useState();
     const [setID] = useState(uuidv4());
     const maxSteps = image.length;
     const { user } = useAuth0();
     const { nickname, picture, sub } = user;
+
 
     const validPrice = () => {
         let isValid = true;
@@ -42,37 +46,30 @@ export const Form = ({ onAction }) => {
         }
     }
 
+    useEffect(() => {
+        if (image.length < 1) return;
+        const newImageUrls = [];
+        image.forEach(i => newImageUrls.push(URL.createObjectURL(i)))
+        setImageURLS(newImageUrls)
+    }, [image])
+
     const handleInput = (e) => {
-        if (e.target.files) {
-            const files = Array.from(e.target.files);
-            Promise.all(files.map(file => {
-                return (new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.addEventListener('load', (ev) => {
-                        resolve(ev.target.result);
-                    });
-                    reader.addEventListener('error', reject);
-                    reader.readAsDataURL(file);
-                }));
-            }))
-                .then(images => {
-                    setImage(images)
-                }, error => {
-                    console.error(error);
-                });
-        }
+        setImage([...e.target.files])
+        image.forEach(i => i.name)
         setSelected(true);
     };
 
-
     const imageUpload = async () => {
-        // image && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image}`).put(image)
-        // image[1] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[1].file.name}`).put(image[1].file)
-        // image[2] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[2].file.name}`).put(image[2].file)
-        // image[3] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[3].file.name}`).put(image[3].file)
-        // image[4] && await imgStorage.ref(`/product-images/${product.imageID}/${product.name + "-" + image[4].file.name}`).put(image[4].file)
+        const metadata = {
+            contentType: 'image/jpeg',
+        };
+        const path = `/product-images/${product.imageID}`
+        const images = ref(imgStorage, `${path}/${product.name + '-' + image[0]}`);
+        uploadBytes(await images, image[0], metadata)
     }
-    console.log(image.map(item => item))
+
+    console.log(image.length)
+    console.log(imageURLS.length)
 
     const handleSave = () => {
         if (validPrice()) {
@@ -180,13 +177,20 @@ export const Form = ({ onAction }) => {
                         </Grid>
                         <Grid item xs={12}>
                             <FileUpload onChange={handleInput} title={Selected ? 'Change Files' : "Upload new File"} />
+                        </Grid>
+                        <Grid item xs={12}>
                             {Selected &&
-                                <ImagePager
-                                    upload
-                                    maxSteps={maxSteps}
-                                    array={image}
-                                    image={image[0]}
-                                />
+                                <>
+                                    <ImagePager
+                                        title={image.map(item => item.name)}
+                                        upload
+                                        maxSteps={maxSteps}
+                                        array={imageURLS}
+                                        image={imageURLS[0]}
+                                    />
+
+                                </>
+
                             }
                             {message && <Typography color="error.main">A minimum of 1 image is required before submission</Typography>}
                         </Grid>

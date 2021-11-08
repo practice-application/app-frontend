@@ -20,6 +20,6 @@ export const config = {
 };
 
 
-const firebaseApp = initializeApp(config.storage);
-export const imgStorage = getStorage(firebaseApp);
+initializeApp(config.storage);
+export const imgStorage = getStorage();
 

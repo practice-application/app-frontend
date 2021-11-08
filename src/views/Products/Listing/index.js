@@ -16,6 +16,7 @@ import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Paper from '@mui/material/Paper';
+import { ref, getDownloadURL, listAll, deleteObject, list } from "firebase/storage";
 import Moment from 'react-moment';
 import { useParams } from "react-router-dom";
 
@@ -46,10 +47,11 @@ const ProductListing = () => {
 
     useEffect(() => {
         const fetchImages = async () => {
-            const fileLocation = `/product-images/${state.product.imageID}/`
-            let result = await imgStorage.ref().child(fileLocation).list();
+            const path = `/product-images/${state.product.imageID}`
+            const image = ref(imgStorage, path);
+            let result = await list(image)
             let urlPromises = result.items.map((imageRef) =>
-                imageRef.getDownloadURL()
+                getDownloadURL(imageRef)
             );
             return Promise.all(urlPromises);
         };
@@ -60,10 +62,12 @@ const ProductListing = () => {
         loadImages();
     }, [state]);
 
+    console.log(images[0])
 
     const onDelete = async (e) => {
-        const resp = await imgStorage.refFromURL(images.splice(e, 1))
-        resp.delete()
+        const path = `/product-images/${state.product.imageID}`
+        const image = ref(imgStorage, path);
+        deleteObject(image.splice(e, 1))
         window.location.reload()
     }
 
@@ -172,6 +176,7 @@ const ProductListing = () => {
                                         </ListItemText> <Avatar sx={{ width: 30, height: 30, mr: 1 }} alt={product.user} src={product.userPic} /> {customName()}
                                     </ListItem>
                                 </Paper>
+
                                 <ImagePager
                                     height={500}
                                     maxSteps={maxSteps}

@@ -18,7 +18,7 @@ import Typography from '@mui/material/Typography';
 import * as PropTypes from 'prop-types';
 
 export const ImagePager = props => {
-    const { maxSteps, array, onDelete, onChange, image, action, upload, view, title, elevation, height } = props;
+    const { maxSteps, array, onDelete, onChange, image, action, title, elevation, height } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const [activeStep, setActiveStep] = useState(0);
@@ -88,22 +88,22 @@ export const ImagePager = props => {
                                         <MoreVertIcon fontSize="small" />
                                     </IconButton>
                                 </>
-                            } disableTypography title={upload ? `${item.substring(0, 25)}...` : view && title} />
+                            } disableTypography title={title} />
                             <CardActionArea onClick={handleClickOpen}>
-                                <CardMedia
-                                    component="img"
+                                <img
+                                    // component="img"
                                     height={200 | height}
-                                    image={item}
+                                    src={item}
                                     alt={item}
                                 />
                             </CardActionArea>
                             <Dialog fullWidth onClose={handleDialogClose} open={dialogOpen}>
-                                <CardMedia
+                                {/* <CardMedia
                                     component="img"
                                     height="100%"
                                     image={item}
                                     alt={item}
-                                />
+                                /> */}
                             </Dialog>
                         </>
                         : null}
