@@ -44,7 +44,6 @@ const ProductListing = () => {
     const { user } = useAuth0();
     const { sub } = user;
 
-
     useEffect(() => {
         const fetchImages = async () => {
             const path = `/product-images/${state.product.imageID}`
@@ -61,8 +60,6 @@ const ProductListing = () => {
         };
         loadImages();
     }, [state]);
-
-    console.log(images[0])
 
     const onDelete = async (e) => {
         const path = `/product-images/${state.product.imageID}`

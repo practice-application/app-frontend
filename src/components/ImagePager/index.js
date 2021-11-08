@@ -90,20 +90,20 @@ export const ImagePager = props => {
                                 </>
                             } disableTypography title={title} />
                             <CardActionArea onClick={handleClickOpen}>
-                                <img
-                                    // component="img"
+                                <CardMedia
+                                    component="img"
                                     height={200 | height}
-                                    src={item}
+                                    image={item}
                                     alt={item}
                                 />
                             </CardActionArea>
                             <Dialog fullWidth onClose={handleDialogClose} open={dialogOpen}>
-                                {/* <CardMedia
+                                <CardMedia
                                     component="img"
                                     height="100%"
                                     image={item}
                                     alt={item}
-                                /> */}
+                                />
                             </Dialog>
                         </>
                         : null}
