@@ -10,9 +10,11 @@ import ListIcon from '@mui/icons-material/List';
 import PersonIcon from '@mui/icons-material/Person';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
+import Hidden from '@mui/material/Hidden';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
@@ -138,12 +140,22 @@ const Customer = () => {
                                     <Card elevation={2} sx={{ mb: 1, py: 2 }}>
                                         <ButtonGroup variant="text">
                                             {tabArray.map((item, i) =>
-                                                <Button sx={tab === item.value ? { color: 'primary.main' } : { color: 'grey.300' }} key={i} onClick={() => (setValue(item.value, location.state = undefined))} startIcon={item.icon} >
-                                                    {item.label}  {item.value.includes('3') ?
-                                                        "test"
-                                                        : ''
-                                                    }
-                                                </Button>
+                                                <>
+                                                    <Hidden smDown>
+                                                        <Button sx={tab === item.value ? { color: 'primary.main' } : { color: 'grey.300' }} key={i} onClick={() => (setValue(item.value, location.state = undefined))} startIcon={item.icon} >
+                                                            {item.label}  {item.value.includes('3') ?
+                                                                "test"
+                                                                : ''
+                                                            }
+                                                        </Button>
+                                                    </Hidden>
+                                                    <Hidden smUp>
+                                                        <IconButton sx={tab === item.value ? { color: 'primary.main' } : { color: 'grey.300' }} key={i} onClick={() => (setValue(item.value, location.state = undefined))}  >
+                                                            {item.icon}
+
+                                                        </IconButton>
+                                                    </Hidden>
+                                                </>
                                             )}
                                         </ButtonGroup>
                                     </Card>
