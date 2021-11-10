@@ -88,10 +88,11 @@ const ProductPage = () => {
                 <Grid item xs={8} md={6}>
                     <SearchBar value={query} onChange={setQuery} />
                 </Grid>
-                <Grid item xs={2} md={2}>
+                <Grid item xs={4} md={2}>
                     <Dropdown dataType="productDropdown" value={category} onChange={handleChange} />
+                    {cart > 0 && <Chip color="error" label={cart} />}
                 </Grid>
-                <Grid item xs={2} md={2}> {cart > 0 && <Chip color="error" label={cart} />}</Grid>
+
             </Grid>
             {imgProducts ?
                 <>
@@ -99,7 +100,7 @@ const ProductPage = () => {
                         {products.data.filter(item => query + category
                             ? ((item.name) + (item.category) + (item.user) + (item.tags.map((tag) => tag))).toLowerCase().includes(query + category.toLowerCase())
                             : item).sort((a, b) => a.priority > b.priority ? -1 : 1).map((p, index) =>
-                                <Grid key={index} item xs={6} sm={4} md={3}>
+                                <Grid key={index} item xs={12} sm={4} md={3}>
                                     <DisplayCard
                                         functions={p.auth0id}
                                         elevation={p.priority === true ? 1 : 2}
