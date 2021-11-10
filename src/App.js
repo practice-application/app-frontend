@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, {/* lazy, */ Suspense } from 'react';
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import CssBaseline from '@mui/material/CssBaseline';
@@ -8,14 +8,20 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { WaitSkeleton } from './components/WaitSkeleton';
 import { custom } from './theme';
+import Profile from './views/Customers/Profile';
+import Create from './views/Customers/Profile/Create';
+import CustomerList from './views/Customers/CustomerList';
+import Listing from './views/Products/Listing';
+import ProductPage from './views/Products/ProductPage';
+import CreateProduct from './views/Products/Listing/CreateProduct';
 
-const Profile = lazy(() => import('./views/Customers/Profile'));
-const Create = lazy(() => import('./views/Customers/Profile/Create'));
-const CustomerList = lazy(() => import('./views/Customers/CustomerList'));
+// const Profile = lazy(() => import('./views/Customers/Profile'));
+// const Create = lazy(() => import('./views/Customers/Profile/Create'));
+// const CustomerList = lazy(() => import('./views/Customers/CustomerList'));
 
-const Listing = lazy(() => import('./views/Products/Listing'));
-const ProductPage = lazy(() => import('./views/Products/ProductPage'));
-const CreateProduct = lazy(() => import('./views/Products/Listing/CreateProduct'));
+// const Listing = lazy(() => import('./views/Products/Listing'));
+// const ProductPage = lazy(() => import('./views/Products/ProductPage'));
+// const CreateProduct = lazy(() => import('./views/Products/Listing/CreateProduct'));
 
 let theme = createTheme(custom);
 theme = responsiveFontSizes(theme)
