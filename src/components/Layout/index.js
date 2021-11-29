@@ -17,7 +17,7 @@ const CustomBox = styled(Box)(({ theme }) => ({
 export const Layout = props => {
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', }}>
             <Header />
             <CustomBox data-cy="main-layout">
                 <Container maxWidth="lg">

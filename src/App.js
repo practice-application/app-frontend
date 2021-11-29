@@ -15,14 +15,6 @@ import Listing from './views/Products/Listing';
 import ProductPage from './views/Products/ProductPage';
 import CreateProduct from './views/Products/Listing/CreateProduct';
 
-// const Profile = lazy(() => import('./views/Customers/Profile'));
-// const Create = lazy(() => import('./views/Customers/Profile/Create'));
-// const CustomerList = lazy(() => import('./views/Customers/CustomerList'));
-
-// const Listing = lazy(() => import('./views/Products/Listing'));
-// const ProductPage = lazy(() => import('./views/Products/ProductPage'));
-// const CreateProduct = lazy(() => import('./views/Products/Listing/CreateProduct'));
-
 let theme = createTheme(custom);
 theme = responsiveFontSizes(theme)
 
