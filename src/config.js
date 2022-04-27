@@ -3,9 +3,9 @@ import { getStorage } from "firebase/storage";
 
 export const config = {
     auth0: {
-        domain: "dev-k6bx05vf.us.auth0.com",
-        clientId: "SWXFgDlcVJRto1h2mrdqVRvePcokucgQ",
-        audience: "shared-app.com"
+        domain: "practice-tenant.au.auth0.com",
+        clientId: "JKv5m5C6LYyIaObQMvgJ8tn4fBnvHDFR",
+        // audience: "shared-app.com"
     },
     storage: {
         apiKey: "AIzaSyDgUq9Yu72T4N4P4Po7qkuzuHIId5H9ks8",
